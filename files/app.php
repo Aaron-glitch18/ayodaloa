@@ -27,7 +27,7 @@ if(isset($_POST['envoyer'])) {
 
 $ch = curl_init();//initialisation de la requête
 $url="https://api.groq.com/openai/v1/chat/completions";
-$apiKey="API_Key"
+$apiKey="GROQ_API_KEY";
 
 //création du tableau de conversation contenant les discussions
 $systeme_prompt="Tu es un agent intelligent chargé de recueillir les demandes des utilisateurs afin de fournir de les analysés, rechercher les mot clé et trouver leurs besoins
