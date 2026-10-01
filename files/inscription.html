@@ -9,22 +9,41 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <style>
-.sign__left{
-    border: 1 solid red;
+#regis_left{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 160px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius:160px;
+    text-align: left;
+    padding: 0 60px 0 60px;
+}
+#regis_left li{
+    font-size: large;
+}
+ul{
+    list-style:circle;
+    padding-left: 10px;
+    margin: 30px;
+    
 }
 
 </style>
 <body>
     <section class="account">
                     <!-- <section id="registre"> -->
-            <div class="sign__right" style="border-top-left-radius: 0px;border-top-right-radius: 160px;border-bottom-left-radius: 0px;border-bottom-right-radius:160px ;">
-                <h1 style="margin-top: -80px;">Bienvenue sur Ayodaloa!</h1>
+            <div class="sign__right" id="regis_left">
+                <h1 style="margin-top:-80px;margin-bottom: 30px;line-height: 50px;">Rejoignez la communauté Ayo Daloa dès aujourd’hui ! </h1>
+                <h2>Créez votre compte en quelques secondes et profitez de tous les avantages :</h2>
                 <!-- <p>Connecter-vous, apprenez, découvrez, et rapprocher vous de votre localité avec une plateforme faite pour vous.</p> -->
-                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis natus ipsa optio fugiat, accusantium dolores rerum temporibus error sunt voluptas deserunt accusamus quisquam, ipsum ad suscipit eum, debitis incidunt nam.</p>
+                 <ul>
+                    <li>Accès exclusif aux fonctionnalités réservées aux membres</li>
+                    <li> Connexion avec une communauté dynamique et engagée</li>
+                    <li>Mise en avant de vos projets et opportunités locales</li>
+                 </ul>
                 <!-- </h1> -->
-                    <div><button submit="submit" name="change" id="env2">s'inscrire</button></div>
-                    <div class="circlebt"></div>
-                    <div class="circletp"style="left:20%;"></div>
+                    <div><a href="account.html"><button submit="submit" name="change" id="env2">se connecter</button></a></div>
+                    <div class="circlebt" style="left:-10%;"></div>
+                    <div class="circletp" style="left:49%;top:-5%"></div>
             </div>
         <!-- <div class="sign"> -->
             <div class="sign__left">
@@ -36,11 +55,12 @@
                 </div>
                 <p>ou entrez vos identifiant de connexion</p>
                 <div>
-                    <form >
+                    <form action="">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
-                        <input type="password" name="password" id="mdp" placeholder="password">
+                        <input type="password" name="password" id="mdp" placeholder="Veuillez saisir crée un mot de passe">
+                        <input type="password" name="conf_password" id="mdp" placeholder="Veuillez saisir le mot de passe crée">
                         <p>j'ai oublié mon mot de passe</p>
-                        <button submit="submit" name="envoyer" id="env1">se connecter</button>
+                        <button submit="submit" name="envoyer" id="env1">se s'inscrire</button>
                     </form>
                 </div>
             </div>
