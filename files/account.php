@@ -13,7 +13,6 @@
     border: 1 solid red;
 }
 
-
 </style>
 <body>
     <section class="account">
@@ -42,7 +41,7 @@
                 <!-- <p>Connecter-vous, apprenez, découvrez, et rapprocher vous de votre localité avec une plateforme faite pour vous.</p> -->
                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis natus ipsa optio fugiat, accusantium dolores rerum temporibus error sunt voluptas deserunt accusamus quisquam, ipsum ad suscipit eum, debitis incidunt nam.</p>
                 <!-- </h1> -->
-                    <div><a href="inscription.html"><button submit="submit" name="change" id="env2" >s'inscrire</button></a></div>
+                    <div><a href="inscription.php"><button submit="submit" name="change" id="env2" >s'inscrire</button></a></div>
                     <div class="circlebt"></div>
                     <div class="circletp"></div>
             </div>
