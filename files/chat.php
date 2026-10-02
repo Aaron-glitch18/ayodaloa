@@ -93,11 +93,8 @@ session_start();
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
         <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
-<<<<<<< HEAD
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
-=======
         <button aria-label="Compte" onclick="window.location.href='account.html'"><span class="material-symbols-outlined">account_circle</span></button>
->>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
       </div>
     </div>
   </header>
