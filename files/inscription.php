@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- <?php
 $erreur="";
 $succes="";
@@ -33,6 +34,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 //  strlen($password)<=8
 
 ?> -->
+=======
+<?php
+if(isset($_POST['inscris'])){
+    $mail=htmlspecialchars(trim($_POST['mail']));
+    $password=htmlspecialchars(trim($_POST['password']));
+    $conf_password=htmlspecialchars(trim($_POST['conf_password']));
+        if(empty($mail) || empty($password) || empty($conf_password)){
+        // echo '<script>alert("Veuillez remplir les champs avec les informations demandées")</script>';
+        $erreur="Veuillez remplir les champs avec les informations demandées";
+        // return ;
+        }
+        else if($password != $conf_password){
+            // echo"la chaine de caractère saisis à la création du mot de passe et à la confirmation sont différents";
+
+        }
+
+
+}
+
+
+?>
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +84,7 @@ ul{
     padding-left: 40px;
     margin-top: 20px;
 }
+<<<<<<< HEAD
 #err{
     color:red;
     position: absolute;
@@ -71,13 +95,19 @@ ul{
     position: absolute;
     top:67%;
 }
+=======
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
 
 </style>
 <body>
     <section class="account">
                     <!-- <section id="registre"> -->
             <div class="sign__right" id="regis_left">
+<<<<<<< HEAD
                 <h1 style="margin-top:-80px;margin-bottom: 30px;line-height: 50px;">Rejoignez la communauté <!--Ayo Daloa dès aujourd’hui--> ! </h1>
+=======
+                <h1 style="margin-top:-80px;margin-bottom: 30px;line-height: 50px;">Rejoignez la communauté Ayo Daloa dès aujourd’hui ! </h1>
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
                 <h2 style="padding-left:10px;">Créez votre compte en quelques secondes et profitez de tous les avantages :</h2>
                 <!-- <p>Connecter-vous, apprenez, découvrez, et rapprocher vous de votre localité avec une plateforme faite pour vous.</p> -->
                  <ul>
@@ -86,7 +116,11 @@ ul{
                     <li>Mise en avant de vos projets et opportunités locales</li>
                  </ul>
                 <!-- </h1> -->
+<<<<<<< HEAD
                     <div><a href="account.php"><button type="submit" name="connect" id="env2">se connecter</button></a></div>
+=======
+                    <div><a href="account.php"><button submit="submit" name="connecter" id="env2">se connecter</button></a></div>
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
                     <div class="circlebt" style="left:-10%;"></div>
                     <div class="circletp" style="left:49%;top:-5%"></div>
             </div>
@@ -102,6 +136,7 @@ ul{
                 <div>
                     <form action="#" method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com" >
+<<<<<<< HEAD
                         <input type="password" name="password" id="mdp" placeholder="Saisissez 8 et 15 caractères" >
                         <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus" >
                         <?php if($erreur):?>
@@ -114,6 +149,12 @@ ul{
                         <?php endif;?>
 
                         <button type="submit" name="inscris" id="env1" style="margin-top:35px;">s'inscrire</button>
+=======
+                        <input type="password" name="password" id="mdp" placeholder="Veuillez saisir crée un mot de passe" >
+                        <input type="password" name="conf_password" id="mdp" placeholder="Veuillez saisir le mot de passe crée" >
+                        <p>j'ai oublié mon mot de passe</p>
+                        <button submit="submit" name="inscris" id="env1">s'inscrire</button>
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
                     </form>
 
                 </div>
@@ -124,5 +165,8 @@ ul{
     </section>
 
 </body>
+<<<<<<< HEAD
 
+=======
+>>>>>>> e3e623757e6293727e06b1a2c96f022493b343aa
 </html>
