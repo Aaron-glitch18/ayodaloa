@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__."/connect.php");
 $erreur="";
 $succes="";
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -26,7 +27,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }else{
                     
             $password=password_hash($password,PASSWORD_DEFAULT);
-            $succes="Compte crée avec succes";
+
+            //érifions si le mail saisie pour l'inscription n'existe pas déjà
+            $check=$pdo->prepare("SELECT `id` FROM user_data WHERE mail=?");
+            $check->execute([$mail]);
+                if($check->fetch()){
+                    $erreur="Adresse déjà utilisé";
+
+                }else{
+                    
+                    $sql= "INSERT INTO user_data (`mail`,`password`) VALUES (?,?)";
+                    $req=$pdo->prepare($sql);
+                    $req->execute([$mail,$password]);
+                    $succes="Compte crée avec succes";
+
+                }
+
+
         }
     }
  }
