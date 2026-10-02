@@ -5,11 +5,13 @@ $succes="";
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['inscris'])){
 
+        $nom=htmlspecialchars($_POST['nom']);
+        $prenom=htmlspecialchars($_POST['prenom']);
         $mail=htmlspecialchars(trim($_POST['mail']))?? "";
         $password=trim($_POST['password'])?? "";
         $conf_password=trim($_POST['conf_password'])?? "";
 
-        if(empty($mail) || empty($password) || empty($conf_password)){
+        if(empty($mail) || empty($password) || empty($conf_password) || empty($nom) || empty($prenom)){
         $erreur="Veuillez remplir les champs avec les informations demandées";
 
         }elseif(!filter_var($mail,FILTER_VALIDATE_EMAIL)){
@@ -35,11 +37,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $erreur="Adresse déjà utilisé";
 
                 }else{
-                    
-                    $sql= "INSERT INTO user_data (`mail`,`password`) VALUES (?,?)";
+
+                    $sql= "INSERT INTO user_data (`nom`,`prenom`,`mail`,`password`) VALUES (?,?,?,?)";
                     $req=$pdo->prepare($sql);
-                    $req->execute([$mail,$password]);
+                    $req->execute([$nom,$prenom,$mail,$password]);
                     $succes="Compte crée avec succes";
+                    header('location:account.php');
+                    
 
                 }
 
@@ -81,7 +85,7 @@ ul{
 #err{
     color:red;
     position: absolute;
-    top:67%;
+    top:68%;
 }
 #suc{
     color:green;
@@ -109,16 +113,18 @@ ul{
             </div>
         <!-- <div class="sign"> -->
             <div class="sign__left">
-                <h1>Connecter-vous maintenant</h1>
-                <div class="btns">
+                <h1 style="margin-bottom:7%;">Connecter-vous maintenant</h1>
+                <!-- <div class="btns">
                     <button class="other">A</button>
                     <button class="other">B</button>
                     <button class="other">C</button>
                 </div>
-                <p>ou entrez vos identifiant de connexion</p>
+                <p>ou entrez vos identifiant de connexion</p> -->
                 <div>
                     <form action="#" method="POST">
-                        <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com" >
+                        <input type="text" name="nom" id="nom" placeholder="Kouassi">
+                        <input type="text" name="prenom" id="prenom" placeholder="Jean">
+                        <input type="email" name="mail" id="mail" placeholder="kouassijean@gmail.com" >
                         <input type="password" name="password" id="mdp" placeholder="Saisissez 8 et 15 caractères" >
                         <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus" >
                         <?php if($erreur):?>
