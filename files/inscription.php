@@ -1,7 +1,12 @@
 <?php
+session_start();
 require_once(__DIR__."/connect.php");
 $erreur="";
 $succes="";
+
+$_SESSION['erreur']=$erreur;
+$_SESSION['succes']=$succes;
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['inscris'])){
 
@@ -47,10 +52,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 }
 
-
         }
     }
- }
+    $_SESSION['erreur']=$erreur;
+    $_SESSION['succes']=$succes;
+
+}
 //  strlen($password)<=8
 
 ?>
@@ -92,6 +99,62 @@ ul{
     position: absolute;
     top:67%;
 }
+@media (max-width:800px){
+.account{
+    position:relative;
+    overflow:hidden;
+    min-height:100vh;
+}
+@keyframes slidein {
+  from {
+    transform: translateY(10%);
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+}
+@keyframes slideout {
+  from {
+    transform: translateY(-10%);
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+}
+.tel_circlebt{
+    width: 60%;
+    height:45%;
+    /* border: 1px solid red; */
+    border-radius: 50%;
+    position: absolute;
+    bottom:-15%;
+    background: #5f2c00;
+    opacity: 0.2;
+    /* overflow: hidden; */
+    z-index: 1;
+    animation: slidein 3s linear infinite alternate ;
+}
+.tel_circletp{
+    width: 60%;
+    height:45%;
+
+    border-radius: 50%;
+    position: absolute;
+    top:-15%;
+    background: #5f2c00;
+    opacity: 0.2;
+    /* z-index: 1; */
+    animation: slideout 3s linear infinite alternate ;
+}
+    .sign__right{
+        display:none;
+    }
+    .sign_left{
+        z-index:2;
+    }
+}
 
 </style>
 <body>
@@ -111,6 +174,9 @@ ul{
                     <div class="circlebt" style="left:-10%;"></div>
                     <div class="circletp" style="left:49%;top:-5%"></div>
             </div>
+            <div class="tel_circlebt"></div>
+            <div class="tel_circletp"></div>
+
         <!-- <div class="sign"> -->
             <div class="sign__left">
                 <h1 style="margin-bottom:7%;">Connecter-vous maintenant</h1>
@@ -118,8 +184,7 @@ ul{
                     <button class="other">A</button>
                     <button class="other">B</button>
                     <button class="other">C</button>
-                </div>
-                <p>ou entrez vos identifiant de connexion</p> -->
+                </div> -->
                 <div>
                     <form action="#" method="POST">
                         <input type="text" name="nom" id="nom" placeholder="Kouassi">
@@ -127,19 +192,22 @@ ul{
                         <input type="email" name="mail" id="mail" placeholder="kouassijean@gmail.com" >
                         <input type="password" name="password" id="mdp" placeholder="Saisissez 8 et 15 caractères" >
                         <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus" >
-                        <?php if($erreur):?>
-                            <p id="err"><?php echo $erreur;?></p>
+                        <?php if($_SESSION['erreur']):?>
+                            <p id="err"><?php echo $_SESSION['erreur'];?></p>
                         <?php else:;?>
                             <p id="suc">
-                                <?php echo $succes;
+                                <?php echo $_SESSION['succes'];
                                     // header('location:account.php');
                                 ?></p>
                         <?php endif;?>
 
                         <button type="submit" name="inscris" id="env1" style="margin-top:35px;">s'inscrire</button>
+                        <p style="position:absolute;top:80%;">Je souhaite me connecter à <a href="account.php" style="text-decoration:underline;"><em>mon compte</em></a></p></span>
+
                     </form>
 
                 </div>
+
             </div>
         <!--================================================================================= -->
 

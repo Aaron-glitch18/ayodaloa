@@ -595,6 +595,7 @@
       }
     }
 /*==================ACCOUNT PAGE==============================*/
+
 .account{
   display: flex;
   flex-direction: row;
@@ -604,6 +605,7 @@
   /* margin: auto; */
   /* gap: 60px; */
   overflow: hidden;
+  
 }
 /* ================design left=================== */
 .sign__left{
@@ -675,20 +677,12 @@ p{
   background: #8b7263;
   color: var(--color-background);
   min-height: 100vh;
-  /* margin: auto; */
   gap: 20px;
   width: 100%;
-  /* height: 100%; */
-  /* padding-top: 22.1%;*/
-  /*padding-bottom: 22.2%;*/;
   border-top-left-radius: 160px;
   border-bottom-left-radius: 160px;
   position: relative;
   overflow:hidden;
-  /* z-index:1; */
-
-  /* margin-top: 50px; */
-  /* margin-top:-10px; */
 }
 .sign__right p{
   margin: 20px;
@@ -702,6 +696,26 @@ p{
   border-radius: 10px;
   border: 1px solid black;
 }
+/* ========move bubble=============== */
+
+@keyframes flou {
+  from {
+    /* transform: translate(-10%,-10%); */
+    transform: scale(0.9);
+    filter: blur(10px);
+
+  }
+
+  to {
+    /* transform: translate(10%,10%); */
+        transform: scale(1);
+        /* box-shadow: 3px 3px 3px white; */
+        filter: blur(15px);
+
+
+  }
+}
+/* =================================== */
 .circlebt{
   width: 60%;
   height:58%;
@@ -714,6 +728,7 @@ p{
   background: #5f2c00;
   opacity: 0.2;
   /* overflow: hidden; */
+  animation: flou 2s linear infinite alternate;
 }
 .circletp{
   width: 55%;
@@ -725,6 +740,7 @@ p{
   left: -5%;
   background: #5f2c00;
   opacity: 0.2;
+  animation: flou 2s linear infinite alternate;
 }
 /*=================================Création de compte==========================================*/
 .sign__right ul{
@@ -733,6 +749,22 @@ p{
 
   /* margin-left:50px; */
 }
+/* @media (max-width:900px) {
+  .tel_circlebt,.tel_circletp{
+    display: block;
+    width: 100%;
+    height: 50%;
+  }
+  .tel_circlebt{
+    top:-25%;
+    right: 0;
+  }
+  .tel_circletp{
+    bottom:-25%;
+    left: 0;
+  }
+  
+} */
 
 
     /* ---------- RESPONSIVE ADDITIONNEL ---------- */
