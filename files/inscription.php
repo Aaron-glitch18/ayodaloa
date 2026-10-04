@@ -108,19 +108,23 @@ ul{
 @keyframes slidein {
   from {
     transform: translateY(10%);
+    filter:blur(10px);
   }
 
   to {
     transform: translateY(0%);
+    filter:blur(15px);
   }
 }
 @keyframes slideout {
   from {
     transform: translateY(-10%);
+    filter:blur(10px);
   }
 
   to {
     transform: translateY(0%);
+    filter:blur(15px);
   }
 }
 .tel_circlebt{
@@ -133,7 +137,7 @@ ul{
     background: #5f2c00;
     opacity: 0.2;
     /* overflow: hidden; */
-    z-index: 1;
+    z-index: -1;
     animation: slidein 3s linear infinite alternate ;
 }
 .tel_circletp{
@@ -145,15 +149,16 @@ ul{
     top:-15%;
     background: #5f2c00;
     opacity: 0.2;
-    /* z-index: 1; */
+    z-index: -1;
     animation: slideout 3s linear infinite alternate ;
 }
     .sign__right{
         display:none;
     }
-    .sign_left{
+    /* .sign_left{
+        position: relative;
         z-index:2;
-    }
+    } */
 }
 
 </style>
@@ -186,7 +191,7 @@ ul{
                     <button class="other">C</button>
                 </div> -->
                 <div>
-                    <form action="#" method="POST">
+                    <form action="#" method="POST" style="z-index: index;">
                         <input type="text" name="nom" id="nom" placeholder="Kouassi">
                         <input type="text" name="prenom" id="prenom" placeholder="Jean">
                         <input type="email" name="mail" id="mail" placeholder="kouassijean@gmail.com" >
@@ -202,7 +207,7 @@ ul{
                         <?php endif;?>
 
                         <button type="submit" name="inscris" id="env1" style="margin-top:35px;">s'inscrire</button>
-                        <p style="position:absolute;top:80%;">Je souhaite me connecter à <a href="account.php" style="text-decoration:underline;"><em>mon compte</em></a></p></span>
+                        <p style="position:absolute;top:80%;">Je souhaite me connecter à <a href="account.php" style="text-decoration:underline;"><em>mon compte</em></a></p>
 
                     </form>
 

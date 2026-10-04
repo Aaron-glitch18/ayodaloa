@@ -4,38 +4,49 @@ require_once(__DIR__."/connect.php");
 
 $erreur="";
 $succes="";
+$nofound="";
 
 $_SESSION['erreur']=$erreur;
 $_SESSION['succes']=$succes;
+$_SESSION['nofound']=$nofound;
 
 if(isset($_POST['envoyer'])){
-    // echo("bouton cliqué");
-    $mail=htmlspecialchars(trim($_POST['mail']));
-    $password=trim($_POST['password']);
-    $sql="SELECT `id`,`mail`,`password` FROM user_data WHERE mail=?";
-    $req=$pdo->prepare($sql);
-    $req->execute([$mail]);
-    $user=$req->fetch();
-    // print_r($user);
-    // echo $mail;
-    // $trueMail=$user['mail'];
 
-    if($user){
+    if(!empty($_POST['mail']) && !empty($_POST['password']) ){
+        $mail=htmlspecialchars(trim($_POST['mail']));
+        $password=trim($_POST['password']);
+        $sql="SELECT `id`,`mail`,`password` FROM user_data WHERE mail=?";
+        $req=$pdo->prepare($sql);
+        $req->execute([$mail]);
+        $user=$req->fetch();
+        // print_r($user);
+        // echo $mail;
+        // $trueMail=$user['mail'];
 
-        if(password_verify($user['password'],$password)){
-            header('location:index.php');
-            
-            $succes= "ok";
-            // echo "mot de passe valide : ".$password;
+        if($user){
+
+            if(password_verify($password,$user['password'])){
+                // header('location:index.php');
+                header('location:account.php');
+                // echo "mot de passe valide : ".$password;
+
+            }else{
+                $erreur= "Mot de passe incorrecte, veuillez réessayer.";
+                // echo $user['password'];
+                // echo password_hash($password,PASSWORD_DEFAULT);
+            }
 
         }else{
-            $erreur= "Mot de passe incorrecte, veuillez réessayer.";
+            $nofound="Il semblerait qu'aucune addresse mail ne correspond, voulez vous créee ";
         }
 
+
     }else{
-        $lien="<a href='inscription>'ok</a>";
-        $erreur="Aucune addresse mail trouvé, créee un compte".$lien;
+        $erreur="Il semblerait que les champs soient vide.";
     }
+            $_SESSION['erreur']=$erreur;
+        $_SESSION['succes']=$succes;
+        $_SESSION['nofound']=$nofound;
 }
 
 ?>
@@ -50,6 +61,12 @@ if(isset($_POST['envoyer'])){
   <link rel="stylesheet" href="style.css">
 </head>
 <style>
+    #err{
+    color:red;
+    position: absolute;
+    top:58%;
+    left:15%;
+}
 @media (max-width:800px){
 .account{
     position:relative;
@@ -59,19 +76,23 @@ if(isset($_POST['envoyer'])){
 @keyframes slidein {
   from {
     transform: translateY(10%);
+    filter:blur(10px);
   }
 
   to {
     transform: translateY(0%);
+    filter:blur(15px);
   }
 }
 @keyframes slideout {
   from {
     transform: translateY(-10%);
+    filter:blur(10px);
   }
 
   to {
     transform: translateY(0%);
+    filter:blur(15px);
   }
 }
 .tel_circlebt{
@@ -84,8 +105,8 @@ if(isset($_POST['envoyer'])){
     background: #5f2c00;
     opacity: 0.2;
     /* overflow: hidden; */
-    z-index: 1;
-    animation: slidein 3s linear infinite alternate ;
+    z-index: -1;
+    animation: slidein 2s linear infinite alternate ;
 }
 .tel_circletp{
     width: 60%;
@@ -96,15 +117,16 @@ if(isset($_POST['envoyer'])){
     top:-15%;
     background: #5f2c00;
     opacity: 0.2;
-    /* z-index: 1; */
-    animation: slideout 3s linear infinite alternate ;
+    z-index: -1;
+    animation: slideout 2s linear infinite alternate ;
 }
     .sign__right{
         display:none;
     }
-    .sign_left{
-        z-index:2;
-    }
+    /* .sign_left{
+        position: relative;
+        z-index:1;
+    } */
 }
 
 </style>
@@ -123,14 +145,16 @@ if(isset($_POST['envoyer'])){
                     <form action="#" method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
                         <input type="password" name="password" id="mdp" placeholder="password">
+                        <button type="submit" name="envoyer" id="env1"style="margin-top:40px;" >se connecter</button>
                         <p style="margin-bottom:-25px;margin-top:5px;">je souhaite créer <a href="inscription.php" style="text-decoration:underline;"><em>un compte</em></a></p></p>
-                        <button type="submit" name="envoyer" id="env1">se connecter</button>
                     </form>
+
                 </div>
-            <?php if(isset($erreur)):?>
-            <p><?php echo $erreur ?></p>
-            <?php else:;?>
-            <p><?php echo $succes; ?></p>
+            <?php if(($_SESSION['erreur'])):?>
+                <p id="err"><?php echo $_SESSION['erreur'] ?></p>
+            <?php endif?>
+            <?php if(($_SESSION['nofound'])):?>
+            <p id="err"><?php echo $_SESSION['nofound'] ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
             <?php endif;?>
             </div>
 
@@ -141,7 +165,7 @@ if(isset($_POST['envoyer'])){
                 <!-- <p>Connecter-vous, apprenez, découvrez, et rapprocher vous de votre localité avec une plateforme faite pour vous.</p> -->
                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis natus ipsa optio fugiat, accusantium dolores rerum temporibus error sunt voluptas deserunt accusamus quisquam, ipsum ad suscipit eum, debitis incidunt nam.</p>
                 <!-- </h1> -->
-                    <div><a href="inscription.php"><button submit="submit" name="change" id="env2" >s'inscrire</button></a></div>
+                    <div><a href="inscription.php"><button type="submit" name="change" id="env2" >s'inscrire</button></a></div>
                     <div class="circlebt" style="left:49%;"></div>
                     <div class="circletp" style="right:49%;top:-5%"></div>
             </div>
