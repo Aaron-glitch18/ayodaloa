@@ -18,7 +18,7 @@
   <!-- TOP HEADER -->
   <header class="top-header">
     <div class="container">
-      <div class="logo"><img class="logo" src="../image/logo.png" /></div>
+      <div id="logo"><img class="logo" src="../image/logo.png" style="width:150px;"/></div>
       <nav class="nav-links">
         <a href="index.php">Home</a>
         <a href="actualite.php">Actualités</a>

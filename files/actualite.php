@@ -46,8 +46,8 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- TOP HEADER -->
   <header class="top-header">
-    <div class="container">
-      <div class="logo"><img class="logo" src="../image/logo.png" /></div>
+    <div class="container" >
+      <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/><//></div>
       <nav class="nav-links">
         <a href="index.php" >Home</a>
         <a href="actualite.php" class="active" >Actualités</a>
@@ -67,68 +67,67 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
   <main>
     <div class="container">
 
-      <!-- En-tête et filtres -->
-    <!-- <form method="POST"> -->
-      <div class="researchAI">
-            <textarea name="saisie" id="search" placeholder="Posez vos question et laisser Ayo AI vous répondre..." rows="3" cols="5"></textarea>
-            <div id="btnImg">
-                <button id="btn"><img src="../image/send1.png"/></button>
-            </div>
-      </div>
-    <!-- </form> -->
-      <div class="page-header">
-        <div>
-          <h1>L'Actualité</h1>
-          <p>Restez informé de la vie municipale et des événements à Daloa.</p>
+        <!-- En-tête et filtres -->
+      <!-- <form method="POST"> -->
+        <div class="researchAI">
+              <textarea name="saisie" id="search" placeholder="Posez vos question et laisser Ayo AI vous répondre..." rows="3" cols="5"></textarea>
+              <div id="btnImg">
+                  <button id="btn"><img src="../image/send1.png"/></button>
+              </div>
         </div>
-        <div class="filter-group">
-          <button class="filter-btn active">Commune</button>
-          <button class="filter-btn">National</button>
-          <button class="filter-btn">International</button>
-        </div>
-      </div>
-
-      <!-- Annonces de la Mairie (Hero) -->
-      <section class="hero-section">
-        <h2>
-          <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">campaign</span>
-          Annonces de la Mairie
-        </h2>
-        <div class="hero-card">
-          <div class="hero-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCW4GzVLDHBg1IdLvRZPfGhuhKWqbcMhg3_I1_LX2-NcRLZ4oaoADAWmd11CDkredkEax9E-MpTC0WVQ2hyoo82OzEZ0cYJjbY11rmdCFYkK0ftkNcU-LK0SLXDruDje1qoFaDxYpL-Hh1Gf9NrUSOhJIjM1_C4q0zhMvF4vyYT84U-K4FIHRMRS8jurdL6Kwa-gMFcR-w4Zc4iJ2z_NvT1GT2prHN3qQMZ2rWDVc7YuXJGawQM7dVzg')"></div>
-          <div class="hero-content">
-            <span class="hero-badge">Communiqué Officiel</span>
-            <h3>Lancement des Travaux d'Aménagement Numérique du Centre-Ville</h3>
-            <p>Dans le cadre du projet Daloa Smart City, le conseil municipal annonce le début de l'installation des bornes Wi-Fi publiques et de l'éclairage intelligent à partir de ce lundi.</p>
-            <div class="hero-meta">
-              <span class="material-symbols-outlined">calendar_today</span>
-              24 Octobre 2024
-            </div>
+        <div class="page-header">
+          <div>
+            <h1>L'Actualité</h1>
+            <p>Restez informé de la vie municipale et des événements à Daloa.</p>
+          </div>
+          <div class="filter-group">
+            <button class="filter-btn active">Local</button>
+            <button class="filter-btn">National</button>
+            <button class="filter-btn">International</button>
           </div>
         </div>
-      </section>
+
+      <!-- Annonces de la Mairie (Hero) -->
+        <section class="hero-section">
+          <h2>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">campaign</span>
+            Annonces de la Mairie
+          </h2>
+          <div class="hero-card">
+            <div class="hero-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCW4GzVLDHBg1IdLvRZPfGhuhKWqbcMhg3_I1_LX2-NcRLZ4oaoADAWmd11CDkredkEax9E-MpTC0WVQ2hyoo82OzEZ0cYJjbY11rmdCFYkK0ftkNcU-LK0SLXDruDje1qoFaDxYpL-Hh1Gf9NrUSOhJIjM1_C4q0zhMvF4vyYT84U-K4FIHRMRS8jurdL6Kwa-gMFcR-w4Zc4iJ2z_NvT1GT2prHN3qQMZ2rWDVc7YuXJGawQM7dVzg')"></div>
+            <div class="hero-content">
+              <span class="hero-badge">Communiqué Officiel</span>
+              <h3>Lancement des Travaux d'Aménagement Numérique du Centre-Ville</h3>
+              <p>Dans le cadre du projet Daloa Smart City, le conseil municipal annonce le début de l'installation des bornes Wi-Fi publiques et de l'éclairage intelligent à partir de ce lundi.</p>
+              <div class="hero-meta">
+                <span class="material-symbols-outlined">calendar_today</span>
+                24 Octobre 2024
+              </div>
+            </div>
+          </div>
+        </section>
 
       <!-- Grille d'actualités -->
       <section>
         <div class="news-grid">
           <!-- Carte 1 -->
            <?php
- foreach ($reponses as $reponse){
-//   print_r($reponse['image']);
-  echo "          <article class='news-card'>
-            <div class='card-image' style=\"background-image: url('".$reponse['image']."')\"></div>
-            <div class='card-body'>
-              <div class='card-category primary'>Économie</div>
-              <h4 class='card-title'>".$reponse['titreActu']."</h4>
-              <p class='card-excerpt'>De nouvelles subventions ont été débloquées pour moderniser les étals et améliorer la sécurité incendie dans le secteur commercial principal.</p>
-              <div class='card-footer'>
-                <span>".$reponse['date']."</span>
-                <button class='btn-arrow' aria-label='Lire la suite'><span class='material-symbols-outlined'>arrow_forward</span></button>
-              </div>
-            </div>
-          </article>";
-}
-?>
+            foreach ($reponses as $reponse){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card'>
+                        <div class='card-image' style=\"background-image: url('".$reponse['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$reponse['secteur']."</div>
+                          <h4 class='card-title'>".$reponse['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($reponse['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$reponse['date']."</span>
+                            <button class='btn-arrow' aria-label='Lire la suite'><span class='material-symbols-outlined'>arrow_forward</span></button>
+                          </div>
+                        </div>
+                      </article>";
+            }
+          ?>
 
     
           <!-- Carte 2

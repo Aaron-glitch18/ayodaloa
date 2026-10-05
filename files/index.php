@@ -565,7 +565,7 @@
   <!-- TOP HEADER (repris à l'identique d'index.php) -->
   <header class="top-header">
     <div class="container">
-      <div class="logo"><img class="logo" src="../image/logo.png" /></div>
+      <div id="logo"><img class="logo" src="../image/logo.png"/></div>
       <nav class="nav-links">
         <a href="index.php"class="active">Home</a>
         <a href="actualite.php">Actualités</a>
