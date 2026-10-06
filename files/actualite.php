@@ -7,7 +7,7 @@ $sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC";
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
-
+// print_r($reponses);
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Actualités - Ville de Daloa</title>
+  <title>Actualités - ayodaloa!</title>
   <link rel="icon" href="../image/logoicon.png">
 
   <!-- Polices Google et icônes Material Symbols -->
@@ -23,6 +23,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" />
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=image" /> -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -40,7 +41,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">add</span></button>
+        <button aria-label="Notifications" onclick="window.location.href='ajout.html'"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>

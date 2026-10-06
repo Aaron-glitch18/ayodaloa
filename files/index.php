@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accueil - Ville de Daloa</title>
+  <title>Accueil - ayodaloa!</title>
   <link rel="icon" href="../image/logoicon.png">
   <!-- Polices Google et icônes Material Symbols (repris d'index.php pour la navbar) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -575,11 +575,12 @@
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
+        <button aria-label="Notifications"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>
   </header>
+
 
   <div class="app-container">
 

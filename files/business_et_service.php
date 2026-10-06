@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business et Service - Ville de Daloa</title>
+  <title>Business et Service - ayodaloa</title>
   <link rel="icon" href="../image/logoicon.png">
 
   <!-- Polices Google et icônes Material Symbols -->

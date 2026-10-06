@@ -21,7 +21,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Etablissement - Ville de Daloa</title>
+  <title>Etablissement - ayodaloa!</title>
   <link rel="icon" href="../image/logoicon.png">
 
   <!-- Polices Google et icônes Material Symbols -->
@@ -46,7 +46,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
+        <button aria-label="Notifications"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>
