@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once(__DIR__.'/connect.php');
 
 $sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC";
@@ -6,26 +7,8 @@ $sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC";
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
-// $image=$re
-// foreach ($reponses as $reponse){
-// //   print_r($reponse['image']);
-//   echo "          <article class='news-card'>
-//             <div class='card-image' style=\"background-image: url('".$reponse['image']."')\"></div>
-//             <div class='card-body'>
-//               <div class='card-category primary'>Économie</div>
-//               <h4 class='card-title'>".$reponse['titreActu']."</h4>
-//               <p class='card-excerpt'>De nouvelles subventions ont été débloquées pour moderniser les étals et améliorer la sécurité incendie dans le secteur commercial principal.</p>
-//               <div class='card-footer'>
-//                 <span>22 Octobre 2024</span>
-//                 <button class='btn-arrow' aria-label='Lire la suite'><span class='material-symbols-outlined'>arrow_forward</span></button>
-//               </div>
-//             </div>
-//           </article>";
-// }
-// print_r($reponses);
 
-// var_dump($reponses[0]['image']);
-// echo '<image src="'.$reponses[0]['image'].'">';
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -57,7 +40,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
+        <button aria-label="Notifications"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>
@@ -112,22 +95,31 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="news-grid">
           <!-- Carte 1 -->
            <?php
-            foreach ($reponses as $reponse){
+            foreach ($reponses as $actualite){
             //   print_r($reponse['image']);
               echo "          <article class='news-card'>
-                        <div class='card-image' style=\"background-image: url('".$reponse['image']."')\"></div>
+                        <div class='card-image' style=\"background-image: url('".$actualite['image']."')\"></div>
                         <div class='card-body'>
-                          <div class='card-category primary'>".$reponse['secteur']."</div>
-                          <h4 class='card-title'>".$reponse['titreActu']."</h4>
-                          <p class='card-excerpt' style='text-align: left;'>".substr($reponse['descripActu'],0,150)."...</p>
+                          <div class='card-category primary'>".$actualite['secteur']."</div>
+                          <h4 class='card-title'>".$actualite['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($actualite['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
-                            <span>".$reponse['date']."</span>
-                            <button class='btn-arrow' aria-label='Lire la suite'><span class='material-symbols-outlined'>arrow_forward</span></button>
-                          </div>
-                        </div>
-                      </article>";
-            }
-          ?>
+                            <span>".$actualite['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$actualite['id'] ?>&type=actualite">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
 
     
           <!-- Carte 2

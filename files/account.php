@@ -27,8 +27,8 @@ if(isset($_POST['envoyer'])){
 
             if(password_verify($password,$user['password'])){
                 // header('location:index.php');
-                header('location:account.php');
-                // echo "mot de passe valide : ".$password;
+                echo "mot de passe valide : ".$password;
+                header('location:actualite.php');
 
             }else{
                 $erreur= "Mot de passe incorrecte, veuillez réessayer.";
@@ -37,14 +37,14 @@ if(isset($_POST['envoyer'])){
             }
 
         }else{
-            $nofound="Il semblerait qu'aucune addresse mail ne correspond, voulez vous créee ";
+            $nofound="aucune addresse mail ne correspond, voulez vous créee ";
         }
 
 
     }else{
         $erreur="Il semblerait que les champs soient vide.";
     }
-            $_SESSION['erreur']=$erreur;
+        $_SESSION['erreur']=$erreur;
         $_SESSION['succes']=$succes;
         $_SESSION['nofound']=$nofound;
 }
@@ -66,6 +66,7 @@ if(isset($_POST['envoyer'])){
     position: absolute;
     top:58%;
     left:15%;
+    text-align:center;
 }
 @media (max-width:800px){
 .account{
@@ -145,17 +146,17 @@ if(isset($_POST['envoyer'])){
                     <form action="#" method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
                         <input type="password" name="password" id="mdp" placeholder="password">
-                        <button type="submit" name="envoyer" id="env1"style="margin-top:40px;" >se connecter</button>
+                        <?php if(($_SESSION['erreur'])):?>
+                            <p id="err"><?php echo $_SESSION['erreur'] ?></p>
+                        <?php endif?>
+                        <?php if(($_SESSION['nofound'])):?>
+                        <p id="err" ><?php echo $_SESSION['nofound'] ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
+                        <?php endif;?>
+                        <button type="submit" name="envoyer" id="env1" style="margin-top:40px;">se connecter</button>
                         <p style="margin-bottom:-25px;margin-top:5px;">je souhaite créer <a href="inscription.php" style="text-decoration:underline;"><em>un compte</em></a></p></p>
                     </form>
 
                 </div>
-            <?php if(($_SESSION['erreur'])):?>
-                <p id="err"><?php echo $_SESSION['erreur'] ?></p>
-            <?php endif?>
-            <?php if(($_SESSION['nofound'])):?>
-            <p id="err"><?php echo $_SESSION['nofound'] ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
-            <?php endif;?>
             </div>
 
                     <!-- ================================================================================= -->

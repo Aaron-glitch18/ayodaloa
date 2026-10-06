@@ -1,5 +1,57 @@
 <?php
+require_once(__DIR__."/connect.php");
+
+// id
+// date
+// image
+// titreActu
+// descripActu
+// secteur
+// localite
+// print_r($_SERVER['HTTP_REFERER']);
 require_once(__DIR__.'/connect.php');
+// echo substr(($_SERVER['HTTP_REFERER']),32,strlen($_SERVER['HTTP_REFERER']));
+$id=$_GET['id']?? "";
+$type=$_GET['type']??"" ;
+// print_r($type);
+
+// ===============Call actu==============//
+
+if($type =="actualite"){
+$sql="SELECT * FROM `actualitedata` WHERE id=?";
+$req=$pdo->prepare($sql);
+$req->execute([$id]);
+$actus=$req->fetchAll(PDO::FETCH_ASSOC);
+// ==============second call pour suggestion actu==================//
+$sql2="SELECT * FROM `actualitedata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
+$req2=$pdo->prepare($sql2);
+$req2->execute([$id]);
+$adds=$req2->fetchALL(PDO::FETCH_ASSOC);
+
+
+}elseif($type=="etablissement"){
+// ==============Call education====================//
+$sql="SELECT * FROM `educationdata` WHERE id=?";
+$req=$pdo->prepare($sql);
+$req->execute([$id]);
+$actus=$req->fetchAll(PDO::FETCH_ASSOC);
+
+// ==============second call pour suggestion education==================//
+$sql2="SELECT * FROM `educationdata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
+$req2=$pdo->prepare($sql2);
+$req2->execute([$id]);
+$adds=$req2->fetchALL(PDO::FETCH_ASSOC);
+// print_r($adds);
+}else{
+  echo"une erreur s'est produite";
+}
+
+
+// ==============second call==================//
+// $sql2="SELECT * FROM `actualitedata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
+// $req2=$pdo->prepare($sql2);
+// $req2->execute([$id]);
+// $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -18,10 +70,12 @@ require_once(__DIR__.'/connect.php');
   <link rel="stylesheet" href="style.css">
 </head>
 <style>
-    .container h1{
+    .card-image{
+      background-repeat:no-repeat;
+    }
+    .container h1,h2{
         text-align: center;
-        margin-bottom: 40px;
-        
+        margin-bottom: 40px;  
     }
     .sub__text{
         width: 50%;
@@ -43,8 +97,7 @@ require_once(__DIR__.'/connect.php');
         width: 100%;
         height: 400px;
         margin-bottom: 40px;
-        background:url('../image/actualite1.png');
-        background-repeat: no-repeat;
+        background-repeat:no-repeat;
         background-size: cover;
         border-radius: 20px;
         
@@ -99,72 +152,52 @@ require_once(__DIR__.'/connect.php');
   <body>
     <main>
         <div class="container">
-            <h1>Titre de l'article</h1>
-            <p class="sub__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto perspiciatis quasi ipsam aperiam eum obcaecati </p>
-            <div id="img__art">
-                <!-- <img src="../image/actualite1.png"/> -->
-                <div class="hover"></div>
-                <span>Daloa - Environnement</span>
-            </div>
-            <p class="descrip">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi perferendis explicabo aperiam veritatis at, voluptatum iste rem iure deleniti.
-                 Debitis illum nihil voluptatum dicta obcaecati quam tenetur ducimus deserunt ipsa!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis doloribus expedita recusandae dolor id iure. Dolorum est fuga aperiam 
-                voluptatibus nam enim sint, laboriosam nisi quisquam corporis accusantium nesciunt saepe perferendis officiis commodi fugit 
-                distinctio eum mollitia quos rerum, exercitationem doloribus. Distinctio a molestiae tempora doloremque doloribus labore, rerum quo culpa nesciunt 
-                tenetur deserunt nobis quisquam quia corporis? Harum, quibusdam recusandae. Minima perspiciatis facere, nam obcaecati cupiditate aliquid excepturi suscipit cumque 
-                magnam quo! Aut molestias cupiditate, soluta eum in quia earum pariatur excepturi mollitia, blanditiis dignissimos distinctio nobis quod sed corporis fugiat molestiae obcaecati,
-                 numquam aliquam eos iure atque! Ullam quidem eveniet rem minus rerum sint eius molestias, dolore ad blanditiis corporis a delectus quaerat aliquam! Possimus culpa dolores deleniti animi. Pariatur minus
-                  deleniti sint dicta, harum in vitae officia illo ipsum sequi nisi quae rem obcaecati a reiciendis cum nostrum impedit voluptatem quam laudantium odit. Temporibus porro iure ipsa aliquam, excepturi omnis
-                   vitae praesentium quae ad natus accusantium amet tenetur. Repellat in similique molestiae fugit ab dolores unde architecto at nemo blanditiis magnam cumque alias aperiam consequuntur modi aliquam, illum
-                    tempora inventore totam, officiis aliquid! Sit fugiat numquam exercitationem dignissimos, accusantium sunt mollitia! Voluptas voluptate ratione laudantium harum earum!</p>
-
+          <?php 
+            foreach ($actus as $actu){
+            echo   "<h1>".$actu['titreActu']."</h1>
+              <p class='sub__text'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto perspiciatis quasi ipsam aperiam eum obcaecati </p>
+              <div id='img__art' style=\"background:url('".$actu['image']."');background-repeat:no-repeat;background-size:cover;background-position:center;\">
+                  <!-- <img src='../image/detail1.png'/> -->
+                  <div class='hover'></div>
+                  <span>Daloa - Environnement</span>
+              </div>
+              <p class='descrip'>".$actu['descripActu']."</p>";
+              }
+          ?>
         <section>
-        <div class="news-grid">
+          <h2 style="margin-top:40px;">Autre suggestion</p>
+          <div class="news-grid">
+            
+            <!-- Carte 2-->
+            <?php
+            foreach ($adds as $add){
+              // if($add['id'] !== $id){
+                //   print_r($reponse['image']);
+                echo "          <article class='news-card'>
+                <div class='card-image' style=\"background-image: url('".$add['image']."');\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary' style='text-align:left;'>".$add['secteur']."</div>
+                          <h4 class='card-title'style='text-align:left;'>".$add['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($add['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$add['date']."</span>"
+                  ?>
 
-    
-          <!-- Carte 2-->
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBngyiZgNjxJg6GYhMUbyRogxnAflL3VA9syNDVFx-48z0C-wt-IPONdKE8JavXziOnmHVfKymdMHP3NfvyYWPfkkRvW4cRZ0igdjPDNb2Zmaa_QgzX3F2O0NI7rCLRbY5QN67kXA3zFB_tYlVG6cMIVfn43DKRRhF-a5c3EvhWmxLb8_SO0sIyeh0f7CVAvnOyMkWvkvglE_0f8b9SKnCylmtJkuUsEaa1i7l_l7rRjbW-vEwm1f9QBg')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Éducation</div>
-              <h4 class="card-title">Distribution de Tablettes Numériques aux Écoles</h4>
-              <p class="card-excerpt">Plus de 500 tablettes ont été remises aux élèves des écoles primaires publiques pour soutenir l'intégration technologique.</p>
-              <div class="card-footer">
-                <span>20 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBngyiZgNjxJg6GYhMUbyRogxnAflL3VA9syNDVFx-48z0C-wt-IPONdKE8JavXziOnmHVfKymdMHP3NfvyYWPfkkRvW4cRZ0igdjPDNb2Zmaa_QgzX3F2O0NI7rCLRbY5QN67kXA3zFB_tYlVG6cMIVfn43DKRRhF-a5c3EvhWmxLb8_SO0sIyeh0f7CVAvnOyMkWvkvglE_0f8b9SKnCylmtJkuUsEaa1i7l_l7rRjbW-vEwm1f9QBg')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Éducation</div>
-              <h4 class="card-title">Distribution de Tablettes Numériques aux Écoles</h4>
-              <p class="card-excerpt">Plus de 500 tablettes ont été remises aux élèves des écoles primaires publiques pour soutenir l'intégration technologique.</p>
-              <div class="card-footer">
-                <span>20 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Carte 3 -->
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCi28wk_z_lDoXDb6IPldAHMwUUW9hoto0l_JOpJXgikbgLjAxpFqjU2herUzcNmi9kmGYlkffFcemZqqYS9urvZG0XnSD44j3qxutScLHW1VAxut-ubLWsiq4ATpkFtVb8_27wXrSxQyxNCl-zFpnbA5TKkjaoDfkOZh40t9XyEFb8GuloyUx813Bf2pOhRCnc12x8ZIhBtGY0en0Dl0uHLtfCxgbONfC8Sf9pZW5Dr9kAsUkIEIupA')"></div>
-            <div class="card-body">
-              <div class="card-category secondary">Environnement</div>
-              <h4 class="card-title secondary-hover">Inauguration du Nouveau Parc Écologique</h4>
-              <p class="card-excerpt">Un espace vert de 2 hectares aménagé avec des plantes endémiques et des aires de repos, visant à améliorer la qualité de vie urbaine.</p>
-              <div class="card-footer">
-                <span>18 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-        
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$add['id'] ?>&type=<?=$type ?>">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+              // }else{break;}
+                }
+              ?>
+ 
         </div>
     </main>
   </body>
