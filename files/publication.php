@@ -144,7 +144,7 @@ $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
+        <button aria-label="Notifications" onclick="window.location.href='ajout.php'"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>
@@ -158,11 +158,14 @@ $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
               <p class='sub__text'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto perspiciatis quasi ipsam aperiam eum obcaecati </p>
               <div id='img__art' style=\"background:url('".$actu['image']."');background-repeat:no-repeat;background-size:cover;background-position:center;\">
                   <!-- <img src='../image/detail1.png'/> -->
-                  <div class='hover'></div>
-                  <span>Daloa - Environnement</span>
+                  <div class='hover'></div>";
+
+
+            echo" <span>".$actu['localite']." - ".$actu['secteur']."</span>
               </div>
               <p class='descrip'>".$actu['descripActu']."</p>";
-              }
+              };
+
           ?>
         <section>
           <h2 style="margin-top:40px;">Autre suggestion</p>
