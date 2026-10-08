@@ -21,7 +21,9 @@ if(isset($_POST['soumettre'])){
 
         $add=$_POST['addresse'];
         $longitude=$_POST['longitude'];
+        $telephone=$_POST['telephone'];
         $latitude=$_POST['latitude'];
+        $tel=$_POST['telephone'];
         $image=trim($_FILES['image']['name']);
 
         $image_url=trim($_POST['image_url']);
@@ -57,9 +59,9 @@ if(isset($_POST['soumettre'])){
                     if(move_uploaded_file($filename,$cheminfinal)){
                         $path='../image/'.$newname;
                         // exit;
-                        $sql="INSERT INTO `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`,`addresse`,`longitude`,`latitude`) VALUES (?,?,?,?,?,?,?,?,?)";
+                        $sql="INSERT INTO `buservicedata` (`image`,`telephone`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`,`addresse`,`longitude`,`latitude`) VALUES (?,?,?,?,?,?,?,?,?,?)";
                         $req=$pdo->prepare($sql);
-                        $req->execute([$path,$titre,$subtitre,$desc,$secteur,$localite,$add,$longitude,$latitude]);
+                        $req->execute([$path,$telephone,$titre,$subtitre,$desc,$secteur,$localite,$add,$longitude,$latitude]);
                         $data=$req->fetchALL(PDO::FETCH_ASSOC);
                         header('location:business_et_service.php');
                     }else{
@@ -198,6 +200,7 @@ if(isset($_POST['soumettre'])){
                             <!-- <small class="field__hint">Votre Adresse.</small> -->
                         </div>
 
+
                         <div class="field">
                             <label for="latitude" class="field__label">
                                 Latitude<span class="required">*</span>
@@ -208,6 +211,22 @@ if(isset($_POST['soumettre'])){
                                 name="latitude" 
                                 class="field__input" 
                                 placeholder="-5,234455"
+                                required
+                            >
+                            <!-- <small class="field__hint">Votre Adresse.</small> -->
+                        </div>
+
+                        <!-- telephone -->
+                        <div class="field">
+                            <label for="telephone" class="field__label">
+                                Numéro de téléphone<span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="date" 
+                                name="telephone" 
+                                class="field__input" 
+                                placeholder="0700000000"
                                 required
                             >
                             <!-- <small class="field__hint">Votre Adresse.</small> -->
