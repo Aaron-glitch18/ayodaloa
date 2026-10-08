@@ -19,6 +19,7 @@ $type=$_GET['type']??"" ;
 // ===============Call actu==============//
 
 if($type =="actualite"){
+
 $sql="SELECT * FROM `actualitedata` WHERE id=?";
 $req=$pdo->prepare($sql);
 $req->execute([$id]);
@@ -29,8 +30,8 @@ $req2=$pdo->prepare($sql2);
 $req2->execute([$id]);
 $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
 
-
 }elseif($type=="etablissement"){
+
 // ==============Call education====================//
 $sql="SELECT * FROM `educationdata` WHERE id=?";
 $req=$pdo->prepare($sql);
@@ -42,8 +43,10 @@ $sql2="SELECT * FROM `educationdata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
 $req2=$pdo->prepare($sql2);
 $req2->execute([$id]);
 $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
+
 // print_r($adds);
-}elseif($type=="busineservice"){
+}elseif($type=="business"){
+
 // ==============Call education====================//
 $sql="SELECT * FROM `buservicedata` WHERE id=?";
 $req=$pdo->prepare($sql);
@@ -54,9 +57,12 @@ $sql2="SELECT * FROM `buservicedata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
 $req2=$pdo->prepare($sql2);
 $req2->execute([$id]);
 $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
+// print_r($actus);
+
 }else{
 echo"une erreur s'est produite";
 }
+
 
 
 // ==============second call==================//
@@ -167,7 +173,7 @@ echo"une erreur s'est produite";
           <?php 
             foreach ($actus as $actu){
             echo   "<h1>".$actu['titreActu']."</h1>
-              <p class='sub__text'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto perspiciatis quasi ipsam aperiam eum obcaecati </p>
+              <p class='sub__text'>".$actu['titreActu1']."</p>
               <div id='img__art' style=\"background:url('".$actu['image']."');background-repeat:no-repeat;background-size:cover;background-position:center;\">
                   <!-- <img src='../image/detail1.png'/> -->
                   <div class='hover'></div>";
