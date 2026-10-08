@@ -109,7 +109,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
                   ?>
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
-                          <a href="publication.php?id=<?=$act['id'] ?>&type=busineservice">
+                          <a href="publication.php?id=<?=$act['id'] ?>&type=business">
                             <span class='material-symbols-outlined'>
                                 arrow_forward
                               </span>
