@@ -2,13 +2,21 @@
 session_start();
 require_once(__DIR__."/connect.php");
 
-$erreur="";
-$succes="";
+$err="";
+$suc="";
 $nofound="";
 
-$_SESSION['erreur']=$erreur;
-$_SESSION['succes']=$succes;
-$_SESSION['nofound']=$nofound;
+// $_SESSION['erreur']=$erreur;
+// $_SESSION['succes']=$succes;
+// $_SESSION['nofound']=$nofound;
+if(!isset($_SESSION['erreur'])){
+        $succes=$_SESSION['succes'];
+        unset($_SESSION['succes']);
+}
+if(!isset($_SESSION['erreur'])){
+        header('location:index.php');
+        exit();
+}
 
 if(isset($_POST['envoyer'])){
 
@@ -27,11 +35,15 @@ if(isset($_POST['envoyer'])){
 
             if(password_verify($password,$user['password'])){
                 // header('location:index.php');
-                echo "mot de passe valide : ".$password;
+                // echo "mot de passe valide : ".$password;
+                $_SESSION['id']=$user['id'];
+                $_SESSION['mail']=$mail;
+
                 header('location:actualite.php');
+                exit();
 
             }else{
-                $erreur= "Mot de passe incorrecte, veuillez réessayer.";
+                $err= "Mot de passe incorrecte, veuillez réessayer.";
                 // echo $user['password'];
                 // echo password_hash($password,PASSWORD_DEFAULT);
             }
@@ -42,11 +54,11 @@ if(isset($_POST['envoyer'])){
 
 
     }else{
-        $erreur="Il semblerait que les champs soient vide.";
+        $err="Il semblerait que les champs soient vide.";
     }
-        $_SESSION['erreur']=$erreur;
-        $_SESSION['succes']=$succes;
-        $_SESSION['nofound']=$nofound;
+        // $_SESSION['erreur']=$erreur;
+        // $_SESSION['succes']=$succes;
+        // $_SESSION['nofound']=$nofound;
 }
 
 ?>
@@ -146,11 +158,11 @@ if(isset($_POST['envoyer'])){
                     <form action="#" method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
                         <input type="password" name="password" id="mdp" placeholder="password">
-                        <?php if(($_SESSION['erreur'])):?>
-                            <p id="err"><?php echo $_SESSION['erreur'] ?></p>
+                        <?php if($err):?>
+                            <p id="err"><?php echo $err ?></p>
                         <?php endif?>
-                        <?php if(($_SESSION['nofound'])):?>
-                        <p id="err" ><?php echo $_SESSION['nofound'] ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
+                        <?php if(($nofound)):?>
+                        <p id="err" ><?php echo $nofound ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
                         <?php endif;?>
                         <button type="submit" name="envoyer" id="env1" style="margin-top:40px;">se connecter</button>
                         <p style="margin-bottom:-25px;margin-top:5px;">je souhaite créer <a href="inscription.php" style="text-decoration:underline;"><em>un compte</em></a></p></p>

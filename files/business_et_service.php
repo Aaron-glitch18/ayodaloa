@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once(__DIR__.'/connect.php');
+// `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`,`localite` FROM `buservicedata` WHERE 1 ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,7 +34,7 @@
         <a href="actualite.php">Actualités</a>
         <a href="etablissement.php" >Établissements</a>
         <a href="business_et_service.php" class="active">Business et Service</a>
-        <a href="#">Map</a>
+        <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
@@ -85,47 +95,32 @@
       <section>
         <div class="news-grid">
           <!-- Carte 1 -->
-          <article class="news-card">
-            <!-- <?php echo '<image src="'.$reponses[0]['image'].'">';?> -->
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwhrTtAlDT810scFoRUjH13MEYHqkFPyE3siNQHmfHUaRqtfNWwSIV-bJA176B7IC5ALTgO53jA8KfPUtwbRn1lmFySCq6YeDA8JjAwkiTMCQERhCPRFopCmtsST2KlmeR8gKxLMS5cAFva57mDI3HD2DonjjA6zTzEJ7Qbziaz2sbVjGVc-j23NYQu9sesjlL5PeQ0Hb_41rOZCn8zaeTeQReUXYuXLFWkX3EqvQ5CUK1EKU2n51RiA')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Économie</div>
-              <h4 class="card-title">Soutien aux Commerçants du Grand Marché</h4>
-              <p class="card-excerpt">De nouvelles subventions ont été débloquées pour moderniser les étals et améliorer la sécurité incendie dans le secteur commercial principal.</p>
-              <div class="card-footer">
-                <span>22 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
+           <?php
+            foreach ($reponses as $act){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card'>
+                        <div class='card-image' style=\"background-image: url('".$act['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$act['secteur']."</div>
+                          <h4 class='card-title'>".$act['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($act['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$act['date']."</span>"
+                  ?>
 
-          <!-- Carte 2 -->
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBngyiZgNjxJg6GYhMUbyRogxnAflL3VA9syNDVFx-48z0C-wt-IPONdKE8JavXziOnmHVfKymdMHP3NfvyYWPfkkRvW4cRZ0igdjPDNb2Zmaa_QgzX3F2O0NI7rCLRbY5QN67kXA3zFB_tYlVG6cMIVfn43DKRRhF-a5c3EvhWmxLb8_SO0sIyeh0f7CVAvnOyMkWvkvglE_0f8b9SKnCylmtJkuUsEaa1i7l_l7rRjbW-vEwm1f9QBg')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Éducation</div>
-              <h4 class="card-title">Distribution de Tablettes Numériques aux Écoles</h4>
-              <p class="card-excerpt">Plus de 500 tablettes ont été remises aux élèves des écoles primaires publiques pour soutenir l'intégration technologique.</p>
-              <div class="card-footer">
-                <span>20 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Carte 3 -->
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCi28wk_z_lDoXDb6IPldAHMwUUW9hoto0l_JOpJXgikbgLjAxpFqjU2herUzcNmi9kmGYlkffFcemZqqYS9urvZG0XnSD44j3qxutScLHW1VAxut-ubLWsiq4ATpkFtVb8_27wXrSxQyxNCl-zFpnbA5TKkjaoDfkOZh40t9XyEFb8GuloyUx813Bf2pOhRCnc12x8ZIhBtGY0en0Dl0uHLtfCxgbONfC8Sf9pZW5Dr9kAsUkIEIupA')"></div>
-            <div class="card-body">
-              <div class="card-category secondary">Environnement</div>
-              <h4 class="card-title secondary-hover">Inauguration du Nouveau Parc Écologique</h4>
-              <p class="card-excerpt">Un espace vert de 2 hectares aménagé avec des plantes endémiques et des aires de repos, visant à améliorer la qualité de vie urbaine.</p>
-              <div class="card-footer">
-                <span>18 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$act['id'] ?>&type=busineservice">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
         </div>
       </section>
 

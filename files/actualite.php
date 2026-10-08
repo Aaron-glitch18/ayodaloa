@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once(__DIR__.'/connect.php');
-
 $sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
@@ -37,7 +36,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="actualite.php" class="active" >Actualités</a>
         <a href="etablissement.php">Établissements</a>
         <a href="business_et_service.php">Business et Service</a>
-        <a href="service.php">Map</a>
+        <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>

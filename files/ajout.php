@@ -1,12 +1,27 @@
 <?php
+session_start();
+
+
 require_once(__DIR__.'/connect.php');
 
+// print_r($_SESSION);
+// if($_SESSION['succes']){
+//     $succes=$_SESSION['erreur'];
+//     header('location:home.php');
+//     // session_destroy();
+//     print_r($_SESSION);
+
+//     unset($succes);
+// }
+
 if(isset($_POST['soumettre'])){
-    echo('bouton cliqué');
+    // echo('bouton cliqué');
     // print_r($_POST);
     // print_r($_FILES);
 
-        $date=$_POST['date'];
+        $add=$_POST['addresse'];
+        $longitude=$_POST['longitude'];
+        $latitude=$_POST['latitude'];
         $image=trim($_FILES['image']['name']);
 
         $image_url=trim($_POST['image_url']);
@@ -16,7 +31,7 @@ if(isset($_POST['soumettre'])){
         $secteur=htmlspecialchars($_POST['secteur']);
         $localite=htmlspecialchars($_POST['localite']);
 
-        if(!empty($date) || !empty($image) 
+        if(!empty($add) || !empty($image) 
             || !empty($titre) || !empty($subtitre) || !empty($desc) 
             || !empty($secteur )|| !empty($localite)){
 
@@ -42,9 +57,9 @@ if(isset($_POST['soumettre'])){
                     if(move_uploaded_file($filename,$cheminfinal)){
                         $path='../image/'.$newname;
                         // exit;
-                        $sql="INSERT INTO `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`) VALUES (?,?,?,?,?,?)";
+                        $sql="INSERT INTO `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`,`addresse`,`longitude`,`latitude`) VALUES (?,?,?,?,?,?,?,?,?)";
                         $req=$pdo->prepare($sql);
-                        $req->execute([$path,$titre,$subtitre,$desc,$secteur,$localite]);
+                        $req->execute([$path,$titre,$subtitre,$desc,$secteur,$localite,$add,$longitude,$latitude]);
                         $data=$req->fetchALL(PDO::FETCH_ASSOC);
                         header('location:business_et_service.php');
                     }else{
@@ -97,14 +112,16 @@ if(isset($_POST['soumettre'])){
     <!-- ================= HEADER ================= -->
     <header class="app-header">
         <div class="app-header__inner">
-            <a href="#" class="app-header__logo">
-                <div id="logo"><img src="../image/logo.png"class="logo"></div>
-            </a>
             <nav class="app-header__nav">
-                <a href="#" class="app-header__link">Tableau de bord</a>
+                <a href="actualite.php" class="app-header__link">
+                    <span class="material-symbols-outlined">home</span>
+                </a>
                 <a href="#" class="app-header__link app-header__link--active">Ajouter</a>
                 <a href="#" class="app-header__link">Liste</a>
             </nav>
+            <a href="#" class="app-header__logo">
+                <div id="logo"><img src="../image/logo.png"class="logo"></div>
+            </a>
         </div>
     </header>
 
@@ -136,16 +153,17 @@ if(isset($_POST['soumettre'])){
                         <!-- Date -->
                         <div class="field">
                             <label for="date" class="field__label">
-                                Date de l'actualité <span class="required">*</span>
+                                Où vous trouvez <span class="required">*</span>
                             </label>
                             <input 
-                                type="date" 
+                                type="text" 
                                 id="date" 
-                                name="date" 
+                                name="addresse" 
                                 class="field__input" 
+                                placeholder="Quartier lago BP 220"
                                 required
                             >
-                            <small class="field__hint">Date de publication ou de l'événement.</small>
+                            <small class="field__hint">Votre Adresse.</small>
                         </div>
 
                         <!-- Secteur -->
@@ -161,6 +179,38 @@ if(isset($_POST['soumettre'])){
                                 <option value="Education">Education</option>
                                 <option value="Autre">Autre</option>
                             </select>
+                        </div>
+
+                        <!-- longitude et latitude -->
+
+                        <div class="field">
+                            <label for="longitude" class="field__label">
+                                Longitude<span class="required">*</span>
+                            </label>
+                            <input 
+                                type="number" 
+                                id="date" 
+                                name="longitude" 
+                                class="field__input" 
+                                placeholder="7,234455"
+                                required
+                            >
+                            <!-- <small class="field__hint">Votre Adresse.</small> -->
+                        </div>
+
+                        <div class="field">
+                            <label for="latitude" class="field__label">
+                                Latitude<span class="required">*</span>
+                            </label>
+                            <input 
+                                type="number" 
+                                id="date" 
+                                name="latitude" 
+                                class="field__input" 
+                                placeholder="-5,234455"
+                                required
+                            >
+                            <!-- <small class="field__hint">Votre Adresse.</small> -->
                         </div>
 
                         <!-- Localité -->

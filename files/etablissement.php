@@ -8,13 +8,6 @@ $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// $image=$re
-  // foreach ($reponses as $education){
-  //   var_dump($education);
-
-    
-  //   }
-// echo '<image src="'.$reponses[0]['image'].'">';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,7 +35,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="actualite.php">Actualités</a>
         <a href="etablissement.php" class="active">Établissements</a>
         <a href="business_et_service.php" >Business et Service</a>
-        <a href="#">Map</a>
+        <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
@@ -128,34 +121,6 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
                           </article>";
                 }
               ?>
-
-          <!-- Carte 2 -->
-          <!-- <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBngyiZgNjxJg6GYhMUbyRogxnAflL3VA9syNDVFx-48z0C-wt-IPONdKE8JavXziOnmHVfKymdMHP3NfvyYWPfkkRvW4cRZ0igdjPDNb2Zmaa_QgzX3F2O0NI7rCLRbY5QN67kXA3zFB_tYlVG6cMIVfn43DKRRhF-a5c3EvhWmxLb8_SO0sIyeh0f7CVAvnOyMkWvkvglE_0f8b9SKnCylmtJkuUsEaa1i7l_l7rRjbW-vEwm1f9QBg')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Éducation</div>
-              <h4 class="card-title">Distribution de Tablettes Numériques aux Écoles</h4>
-              <p class="card-excerpt">Plus de 500 tablettes ont été remises aux élèves des écoles primaires publiques pour soutenir l'intégration technologique.</p>
-              <div class="card-footer">
-                <span>20 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article> -->
-
-          <!-- Carte 3 -->
-          <!-- <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCi28wk_z_lDoXDb6IPldAHMwUUW9hoto0l_JOpJXgikbgLjAxpFqjU2herUzcNmi9kmGYlkffFcemZqqYS9urvZG0XnSD44j3qxutScLHW1VAxut-ubLWsiq4ATpkFtVb8_27wXrSxQyxNCl-zFpnbA5TKkjaoDfkOZh40t9XyEFb8GuloyUx813Bf2pOhRCnc12x8ZIhBtGY0en0Dl0uHLtfCxgbONfC8Sf9pZW5Dr9kAsUkIEIupA')"></div>
-            <div class="card-body">
-              <div class="card-category secondary">Environnement</div>
-              <h4 class="card-title secondary-hover">Inauguration du Nouveau Parc Écologique</h4>
-              <p class="card-excerpt">Un espace vert de 2 hectares aménagé avec des plantes endémiques et des aires de repos, visant à améliorer la qualité de vie urbaine.</p>
-              <div class="card-footer">
-                <span>18 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article> -->
         </div>
       </section>
 

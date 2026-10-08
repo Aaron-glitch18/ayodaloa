@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once(__DIR__."/connect.php");
 
 // id
@@ -42,8 +43,19 @@ $req2=$pdo->prepare($sql2);
 $req2->execute([$id]);
 $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
 // print_r($adds);
+}elseif($type=="busineservice"){
+// ==============Call education====================//
+$sql="SELECT * FROM `buservicedata` WHERE id=?";
+$req=$pdo->prepare($sql);
+$req->execute([$id]);
+$actus=$req->fetchAll(PDO::FETCH_ASSOC);
+// ==============second call pour suggestion education==================//
+$sql2="SELECT * FROM `buservicedata` WHERE id<>? ORDER BY `date` DESC LIMIT 3";
+$req2=$pdo->prepare($sql2);
+$req2->execute([$id]);
+$adds=$req2->fetchALL(PDO::FETCH_ASSOC);
 }else{
-  echo"une erreur s'est produite";
+echo"une erreur s'est produite";
 }
 
 
@@ -140,7 +152,7 @@ $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
         <a href="actualite.php" class="active" >Actualités</a>
         <a href="etablissement.php">Établissements</a>
         <a href="business_et_service.php">Business et Service</a>
-        <a href="service.php">Map</a>
+        <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
@@ -183,7 +195,7 @@ $adds=$req2->fetchALL(PDO::FETCH_ASSOC);
                           <h4 class='card-title'style='text-align:left;'>".$add['titreActu']."</h4>
                           <p class='card-excerpt' style='text-align: left;'>".substr($add['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
-                            <span>".$add['date']."</span>"
+                            <span>".$add['localite']."</span>"
                   ?>
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>

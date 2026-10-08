@@ -571,7 +571,7 @@
         <a href="actualite.php">Actualités</a>
         <a href="etablissement.php" >Établissements</a>
         <a href="business_et_service.php" >Business et Service</a>
-        <a href="service.php" >Map</a>
+        <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
