@@ -40,33 +40,36 @@ session_start();
     .researchAI{
         margin-top: 1.5%;
     }
-    .bot{
+    .user{
         margin-top:25px;
         position: relative;
-        margin-left: 50%;
-        margin-right: 10px;
+        margin-left: 70%;
+        /* margin-right: 10px; */
         background: white;
         width:fit-content;
-        max-width: 50%;
+        max-width: 400px;
+        text-align:left;
+
         /* display: none; */
         padding: 10px;
         border-radius: 10px;
         /*min-width: 500px;*/
         word-break: break-word;
     }
-    .user{
+    .bot{
         width: fit-content;     /* s’adapte au contenu */
         /*max-width: 300px;*/       /* mais ne dépasse pas 300px */
         margin-top:25px;
         position: relative;
-        margin-left: 10px;
+        margin-left: 5%;
         background: white;
         /*width:300px;*/
         /* display: none; */
         border-radius: 10px;
         padding: 10px;
-        max-width: 400px;
+        max-width: 45%;
         word-break: break-word;
+        text-align:left;
         
         /*padding: 10px;*/
     }
@@ -92,9 +95,8 @@ session_start();
       <!--</nav>-->
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications"><span class="material-symbols-outlined">notifications</span></button>
+        <button aria-label="Notifications" onclick="window.location.href='ajout.php'"><span class="material-symbols-outlined">add</span></button>
         <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
-        <button aria-label="Compte" onclick="window.location.href='account.html'"><span class="material-symbols-outlined">account_circle</span></button>
       </div>
     </div>
   </header>
