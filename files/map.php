@@ -39,11 +39,17 @@ $services = $req->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
 
-    <meta charset="UTF-8">
+   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business et Service - ayodaloa</title>
+  <link rel="icon" href="../image/logoicon.png">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Services à Daloa — Carte</title>
+  <!-- Polices Google et icônes Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" />
+  <link rel="stylesheet" href="style.css">
 
     <!-- Leaflet CSS -->
     <link
@@ -90,6 +96,7 @@ $services = $req->fetchAll(PDO::FETCH_ASSOC);
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            position:sticky;
         }
 
         /*
@@ -174,6 +181,23 @@ $services = $req->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+      <header class="top-header">
+    <div class="container" >
+      <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/></div>
+      <nav class="nav-links">
+        <a href="index.php" >Home</a>
+        <a href="actualite.php">Actualités</a>
+        <a href="etablissement.php">Établissements</a>
+        <a href="business_et_service.php">Business et Service</a>
+        <a href="map.php" class="active" >Map</a>
+      </nav>
+      <div class="header-actions">
+        <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
+        <button aria-label="Notifications" onclick="window.location.href='ajout.php'"><span class="material-symbols-outlined">add</span></button>
+        <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
+      </div>
+    </div>
+  </header>
 
 <div class="map-container">
 
@@ -384,6 +408,84 @@ if (positions.length > 0) {
 }
 
 </script>
+   <script>
+      (function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Fonction pour activer un bouton et désactiver les autres
+        function setActive(activeButton) {
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+          });
+          activeButton.classList.add('active');
+        }
+    
+        // Ajout d'un écouteur sur chaque bouton
+        filterButtons.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            setActive(this);
+          });
+        });
+    
+        // Optionnel : activer le premier bouton par défaut (si aucun n'a la classe 'active')
+        const hasActive = Array.from(filterButtons).some(btn => btn.classList.contains('active'));
+        if (!hasActive && filterButtons.length > 0) {
+          filterButtons[0].classList.add('active');
+        }
+})();
+
+const searchArea=document.getElementById('search');
+const btn =document.getElementById('btn');
+
+
+btn.addEventListener('click',()=>{
+  const saisie=searchArea.value;
+
+  if(saisie.trim()!==""){
+      const formData = new FormData();
+      formData.append('saisie', saisie);
+      formData.append('envoyer', 'true');
+      fetchData(formData);
+      window.location.href='chat.php';
+  }else{
+    console.log("variable saisie vide");
+  }
+});
+
+
+searchArea.addEventListener('keyup',function(event){
+  if(event.code === "Enter"){
+    const saisie=searchArea.value;
+    if(saisie.trim()!==""){
+      const formData = new FormData();
+      formData.append('saisie', saisie);
+      formData.append('envoyer', 'true');
+      fetchData(formData);
+      window.location.href='chat.php';
+    }
+  }else{
+
+  }
+})
+
+async function fetchData(formData) {
+    try {
+        const response = await fetch('app.php', {
+            method: 'POST',
+            body: formData,
+            });
+        const data = await response.text();
+        console.log(data);
+
+        // bot.style.display='block';
+      }catch (error) {
+        console.error('Error:', error);
+      }
+    }
+        
+        // index envoie l'info à add qui les traites et les envoie à nouveau à une autre page
+    </script>
+
 
 </body>
 </html>
