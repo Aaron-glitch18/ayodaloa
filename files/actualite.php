@@ -15,7 +15,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Actualités - ayodaloa!</title>
-  <link rel="icon" href="../image/logoicon.png">
+  <link rel="icon" href="../image/logo.png">
 
   <!-- Polices Google et icônes Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -251,34 +251,3 @@ async function fetchData(formData) {
     </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
