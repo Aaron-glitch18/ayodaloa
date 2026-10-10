@@ -64,10 +64,10 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
           <p>Restez informé de la vie municipale et des événements à Daloa.</p>
         </div>
         <div class="filter-group">
-          <button class="filter-btn active">Public</button>
-          <button class="filter-btn">Sous traitant</button>
-          <button class="filter-btn">Agriculture</button>
-          <button class="filter-btn">Education</button>
+          <button id=pub class="filter-btn active">Public</button>
+          <button id=stait class="filter-btn">Sous traitant</button>
+          <button id=agri class="filter-btn">Agriculture</button>
+          <button id=edu class="filter-btn">Education</button>
         </div>
       </div>
 
@@ -169,6 +169,55 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
           filterButtons[0].classList.add('active');
         }
 })();
+
+// filtre des informations afficher
+const pub=document.getElementById('pub');
+const agri= document.getElementById('agri');
+const stai= document.getElementById('stai');
+const edu= document.getElementById('edu');
+
+// Fonction qui affiche uniquement la catégorie choisie
+function afficherCategorie(categorie) {
+    // Récupérer toutes les cartes d'actualités
+    const cartes = document.querySelectorAll('.news-card');
+
+    // Parcourir toutes les cartes
+    cartes.forEach(carte => {
+        // Afficher uniquement celles qui correspondent
+        carte.style.display = carte.classList.contains(categorie)
+            ? ''
+            : 'none';
+    });
+}
+
+// Bouton public
+pub.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__loc');
+});
+
+// Bouton agriculture
+agri.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__nat');
+});
+
+// Bouton sous traitant
+stai.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__int');
+});
+
+// Bouton education
+edu.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__int');
+});
+
+
+
+
+// modification de l'inface chat
 
 const searchArea=document.getElementById('search');
 const btn =document.getElementById('btn');
