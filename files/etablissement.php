@@ -72,7 +72,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
 
       <!-- Annonces de la Mairie (Hero) -->
-      <section class="hero-section">
+      <!-- <section class="hero-section">
         <h2>
           <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">campaign</span>
           Annonces de la Mairie
@@ -89,7 +89,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- Grille d'actualités -->
       <section>

@@ -1,13 +1,39 @@
 <?php
 session_start();
 require_once(__DIR__.'/connect.php');
-$sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC";
+// ==============================requête pour la ville de Daloa
+
+$sql="SELECT * FROM `actualitedata` WHERE 1  AND `localite`='Daloa' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
-$reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
-// print_r($reponses);
+$locs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// ============================requête pour la ville de National
+
+$sql="SELECT * FROM `actualitedata` WHERE 1  AND `localite`<>'Daloa' AND `localite`<>'International' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$nats=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ===========================================requête pour la ville de international
+
+$sql="SELECT * FROM `actualitedata` WHERE 1  AND `localite`='International' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$ints=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// foreach($reponses as $key=>$rep){
+//   print_r($rep['localite']);
+// }
+// print_r($reponses);
+// ==========Appel Annonce==============
+$sql="SELECT * FROM `annonce` WHERE 1 ORDER BY `date` DESC";
+$req=$pdo->prepare($sql);
+$req->execute();
+$annonce=$req->fetchALL(PDO::FETCH_ASSOC);
+// echo($annonce[0][0]['image']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -64,94 +90,141 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
             <p>Restez informé de la vie municipale et des événements à Daloa.</p>
           </div>
           <div class="filter-group">
-            <button class="filter-btn active">Local</button>
-            <button class="filter-btn">National</button>
-            <button class="filter-btn">International</button>
+          <!-- <form action="#" method="POST"> -->
+            <button id=loc class="filter-btn ">Local</button>
+            <button id=nat class="filter-btn">National</button>
+            <button id=int class="filter-btn">International</button>
+            <button id=otre class="filter-btn active">autre</button>
+          <!-- </form> -->
           </div>
         </div>
 
       <!-- Annonces de la Mairie (Hero) -->
-        <section class="hero-section">
+      <?php
+        echo'<section class="hero-section">
           <h2>
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">campaign</span>
-            Annonces de la Mairie
+            <span class="material-symbols-outlined" style="font-variation-settings:\'FILL\'1;">campaign</span>
+            Les Annonces ivoiriennes
           </h2>
           <div class="hero-card">
-            <div class="hero-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCW4GzVLDHBg1IdLvRZPfGhuhKWqbcMhg3_I1_LX2-NcRLZ4oaoADAWmd11CDkredkEax9E-MpTC0WVQ2hyoo82OzEZ0cYJjbY11rmdCFYkK0ftkNcU-LK0SLXDruDje1qoFaDxYpL-Hh1Gf9NrUSOhJIjM1_C4q0zhMvF4vyYT84U-K4FIHRMRS8jurdL6Kwa-gMFcR-w4Zc4iJ2z_NvT1GT2prHN3qQMZ2rWDVc7YuXJGawQM7dVzg')"></div>
+            <div class="hero-image" style="background-image: url(\''.$annonce[0]['image'].'.\')"></div>
             <div class="hero-content">
               <span class="hero-badge">Communiqué Officiel</span>
-              <h3>Lancement des Travaux d'Aménagement Numérique du Centre-Ville</h3>
-              <p>Dans le cadre du projet Daloa Smart City, le conseil municipal annonce le début de l'installation des bornes Wi-Fi publiques et de l'éclairage intelligent à partir de ce lundi.</p>
+              <h3>'.$annonce[0]['titreActu'].'</h3>
+              <p style="text-align:left;">'.substr($annonce[0]['descripActu'],0,150).'...</p>
               <div class="hero-meta">
                 <span class="material-symbols-outlined">calendar_today</span>
-                24 Octobre 2024
+                '.$annonce[0]['date'].'
               </div>
             </div>
           </div>
-        </section>
+        </section>';
+      ?>
 
       <!-- Grille d'actualités -->
       <section>
         <div class="news-grid">
           <!-- Carte 1 -->
-           <?php
-            foreach ($reponses as $actualite){
+          <?php
+            foreach ($locs as $loc){
+              // if($actualite['localite'] =='Daloa'){
+
             //   print_r($reponse['image']);
-              echo "          <article class='news-card'>
-                        <div class='card-image' style=\"background-image: url('".$actualite['image']."')\"></div>
+              echo "          <article class='news-card art__loc'>
+                        <div class='card-image' style=\"background-image: url('".$loc['image']."')\"></div>
                         <div class='card-body'>
-                          <div class='card-category primary'>".$actualite['secteur']."</div>
-                          <h4 class='card-title'>".$actualite['titreActu']."</h4>
-                          <p class='card-excerpt' style='text-align: left;'>".substr($actualite['descripActu'],0,150)."...</p>
+                          <div class='card-category primary'>".$loc['secteur']."</div>
+                          <h4 class='card-title'>".$loc['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($loc['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
-                            <span>".$actualite['date']."</span>"
-                  ?>
+                            <span>".$loc['date']."</span>"
+          ?>
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
-                          <a href="publication.php?id=<?=$actualite['id'] ?>&type=actualite">
+                          <a href="publication.php?id=<?=$loc['id'] ?>&type=actualite">
                             <span class='material-symbols-outlined'>
                                 arrow_forward
                               </span>
                             </a>
                         </button>
-            <?php echo "
+        <?php echo "
                               </div>
                             </div>
                           </article>";
                 }
-              ?>
+          //  }
+                
+        ?>
+        <!-- AFFICHONS LES DONNEES NATIONALS -->
+                   <?php
+            foreach ($nats as $nat){
+              // if($nat['localite'] =='Daloa'){
+
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card art__nat'>
+                        <div class='card-image' style=\"background-image: url('".$nat['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$nat['secteur']."</div>
+                          <h4 class='card-title'>".$nat['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($nat['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$nat['date']."</span>"
+          ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$nat['id'] ?>&type=actualite">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+        <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+          //  }
+                
+        ?>
+        <!-- AFFICHONS LES DONNEES INTERNATIONALS -->
+                   <?php
+            if(empty($ints)){
+                echo
+                // '<div class="news-grid">
+                        '<h4 style="text-align:center;">Aucune donnée enregistrer</h4>';
+                    // </div>';
+            }
+            foreach ($ints as $int){
+              // if($actualite['localite'] =='Daloa'){
+
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card art__int'>
+                        <div class='card-image' style=\"background-image: url('".$int['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$int['secteur']."</div>
+                          <h4 class='card-title'>".$int['titreActu']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($int['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$int['date']."</span>"
+          ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$int['id'] ?>&type=actualite">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+        <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+          //  }
+                
+        ?>
 
     
-          <!-- Carte 2
-          <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBngyiZgNjxJg6GYhMUbyRogxnAflL3VA9syNDVFx-48z0C-wt-IPONdKE8JavXziOnmHVfKymdMHP3NfvyYWPfkkRvW4cRZ0igdjPDNb2Zmaa_QgzX3F2O0NI7rCLRbY5QN67kXA3zFB_tYlVG6cMIVfn43DKRRhF-a5c3EvhWmxLb8_SO0sIyeh0f7CVAvnOyMkWvkvglE_0f8b9SKnCylmtJkuUsEaa1i7l_l7rRjbW-vEwm1f9QBg')"></div>
-            <div class="card-body">
-              <div class="card-category primary">Éducation</div>
-              <h4 class="card-title">Distribution de Tablettes Numériques aux Écoles</h4>
-              <p class="card-excerpt">Plus de 500 tablettes ont été remises aux élèves des écoles primaires publiques pour soutenir l'intégration technologique.</p>
-              <div class="card-footer">
-                <span>20 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article> -->
-
-          <!-- Carte 3 -->
-          <!-- <article class="news-card">
-            <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCi28wk_z_lDoXDb6IPldAHMwUUW9hoto0l_JOpJXgikbgLjAxpFqjU2herUzcNmi9kmGYlkffFcemZqqYS9urvZG0XnSD44j3qxutScLHW1VAxut-ubLWsiq4ATpkFtVb8_27wXrSxQyxNCl-zFpnbA5TKkjaoDfkOZh40t9XyEFb8GuloyUx813Bf2pOhRCnc12x8ZIhBtGY0en0Dl0uHLtfCxgbONfC8Sf9pZW5Dr9kAsUkIEIupA')"></div>
-            <div class="card-body">
-              <div class="card-category secondary">Environnement</div>
-              <h4 class="card-title secondary-hover">Inauguration du Nouveau Parc Écologique</h4>
-              <p class="card-excerpt">Un espace vert de 2 hectares aménagé avec des plantes endémiques et des aires de repos, visant à améliorer la qualité de vie urbaine.</p>
-              <div class="card-footer">
-                <span>18 Octobre 2024</span>
-                <button class="btn-arrow" aria-label="Lire la suite"><span class="material-symbols-outlined">arrow_forward</span></button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section> -->
-
     </div>
   </main>
 
@@ -188,6 +261,7 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         filterButtons.forEach(btn => {
           btn.addEventListener('click', function(e) {
             setActive(this);
+
           });
         });
     
@@ -200,6 +274,45 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 const searchArea=document.getElementById('search');
 const btn =document.getElementById('btn');
+// filtre des informations afficher
+
+const local = document.getElementById('loc');
+const nation = document.getElementById('nat');
+const international = document.getElementById('int');
+
+// Fonction qui affiche uniquement la catégorie choisie
+function afficherCategorie(categorie) {
+    // Récupérer toutes les cartes d'actualités
+    const cartes = document.querySelectorAll('.news-card');
+
+    // Parcourir toutes les cartes
+    cartes.forEach(carte => {
+        // Afficher uniquement celles qui correspondent
+        carte.style.display = carte.classList.contains(categorie)
+            ? ''
+            : 'none';
+    });
+}
+
+// Bouton Local
+local.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__loc');
+});
+
+// Bouton National
+nation.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__nat');
+});
+
+// Bouton International
+international.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('art__int');
+});
+
+
 
 
 btn.addEventListener('click',()=>{
@@ -245,7 +358,9 @@ async function fetchData(formData) {
       }catch (error) {
         console.error('Error:', error);
       }
-    }
+}
+
+// 
         
         // index envoie l'info à add qui les traites et les envoie à nouveau à une autre page
     </script>

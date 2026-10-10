@@ -1,3 +1,11 @@
+<?php
+session_start();
+require_once(__DIR__.'/connect.php');
+$sql="SELECT * FROM `annonce` WHERE 1 ORDER BY `date` DESC";
+$req=$pdo->prepare($sql);
+$req->execute();
+$resultat=$req->fetchALL(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -646,7 +654,7 @@
       <section>
         <div class="section-header">
           <h2 class="section-title">Actualités à la une (Commune)</h2>
-          <a href="#" class="link-all">Voir tout →</a>
+          <a href="actualite.php" class="link-all">Voir tout →</a>
         </div>
         <div class="news-grid">
           
