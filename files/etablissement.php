@@ -86,10 +86,10 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
           <p>Restez informé de la vie municipale et des événements à Daloa.</p>
         </div>
         <div class="filter-group">
-          <button id=pub class="filter-btn active">Public</button>
-          <button id=stait class="filter-btn">Sous traitant</button>
-          <button id=agri class="filter-btn">Agriculture</button>
-          <button id=edu class="filter-btn">Education</button>
+          <button id=publ class="filter-btn active">Public</button>
+          <button id=strait class="filter-btn">Sous traitant</button>
+          <button id=agric class="filter-btn">Agriculture</button>
+          <button id=educ class="filter-btn">Education</button>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- Grille d'actualités -->
       <section>
         <div class="news-grid">
-          <!--=============================PUBLIC-=========================->
+          <!-- ==================================PUBLICATION=======================-->
            <?php
             foreach ($pubs as $pub){
             //   print_r($reponse['image']);
@@ -145,7 +145,7 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
               ?>
         </div>
         <div class="news-grid">
-          <!--========================== SOUS -TRAITANT==================== -->
+          <!-- =============================SOUS -TRAITANT==================== -->
            <?php
             foreach ($strais as $strai){
             //   print_r($reponse['image']);
@@ -172,11 +172,11 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
                           </article>";
                 }
               ?>
+          <!-- //  ===============EDUCATION================================= -->
            <?php
-          //  ===============EDUCATION=================================
             foreach ($edus as $edu){
             //   print_r($reponse['image']);
-              echo "          <article class='news-card strai'>
+              echo "          <article class='news-card edu'>
                         <div class='card-image' style=\"background-image: url('".$edu['image']."')\"></div>
                         <div class='card-body'>
                           <div class='card-category primary'>".$edu['secteur']."</div>
@@ -199,11 +199,11 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
                           </article>";
                 }
               ?>
+          <!-- //  ===============AGRICULTURE================================= -->
            <?php
-          //  ===============AGRICULTURE=================================
             foreach ($agris as $agri){
             //   print_r($reponse['image']);
-              echo "          <article class='news-card strai'>
+              echo "          <article class='news-card agri'>
                         <div class='card-image' style=\"background-image: url('".$agri['image']."')\"></div>
                         <div class='card-body'>
                           <div class='card-category primary'>".$agri['secteur']."</div>
@@ -276,10 +276,10 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
 })();
 
 // filtre des informations afficher
-const pub=document.getElementById('pub');
-const agri= document.getElementById('agri');
-const stai= document.getElementById('stai');
+const pub=document.getElementById('publ');
+const strai= document.getElementById('strai');
 const edu= document.getElementById('edu');
+const agri= document.getElementById('agric');
 
 // Fonction qui affiche uniquement la catégorie choisie
 function afficherCategorie(categorie) {
@@ -296,27 +296,28 @@ function afficherCategorie(categorie) {
 }
 
 // Bouton public
-pub.addEventListener('click', (event) => {
+publ.addEventListener('click', (event) => {
     event.preventDefault();
-    afficherCategorie('art__loc');
-});
-
-// Bouton agriculture
-agri.addEventListener('click', (event) => {
-    event.preventDefault();
-    afficherCategorie('art__nat');
+    afficherCategorie('pub');
 });
 
 // Bouton sous traitant
-stai.addEventListener('click', (event) => {
+strait.addEventListener('click', (event) => {
     event.preventDefault();
-    afficherCategorie('art__int');
+    afficherCategorie('edu');
 });
 
-// Bouton education
-edu.addEventListener('click', (event) => {
+// Bouton agriculture
+educ.addEventListener('click', (event) => {
     event.preventDefault();
-    afficherCategorie('art__int');
+    afficherCategorie('edu');
+});
+
+
+// Bouton education
+agric.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('agri');
 });
 
 
