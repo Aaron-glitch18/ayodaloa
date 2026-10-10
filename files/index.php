@@ -7,15 +7,20 @@ $req=$pdo->prepare($sql);
 $req->execute();
 $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
 // Alimentons la page d'accuieil
-session_start();
 require_once(__DIR__.'/connect.php');
 // ==============================requête pour la ville de Daloa
-
-$sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC LIMIT 1";
+$sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC LIMIT 3";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ======================tourisme
+$sql="SELECT * FROM `actualitedata` WHERE 1 AND `secteur`='Tourisme'ORDER BY date DESC LIMIT 3";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -674,7 +679,7 @@ $actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
           echo"<article class=\"news-card\">
             <div class=\"news-img-container\">
               <img src=".$actu['image']." alt=\"Centre multimédia\" />
-              <span class=\"news-badge\">".$actu['localite']."</span>
+              <span class=\"news-badge\">".$actu['secteur']."</span>
             </div>
             <div class=\"news-content\">
               <div>
@@ -683,9 +688,7 @@ $actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
               </div>
               <div class=\"news-footer\">
                   <span>".$actu['date']."</span>
-              <a href='publication.php?id=<?=".$actu['id']."?>&type=actualite'>
                 <span class='material-symbols-outlined'>link_2</span>
-              </a>
                   </div>
             </div>
           </article>";
@@ -732,23 +735,30 @@ $actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- TOURISME & CULTURE -->
       <section style="margin-top: 40px;">
         <div class="tourism-header-box">
-          <h2>Tourisme & Culture</h2>
-          <p>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</p>
-        </div>
-        <div class="tourism-grid">
-          <div class="tourism-card" style="background-image: url('../image/antilopes.jpg');">
-            <div class="tourism-card-content">
-              <h3>Réserve des Antilopes de Daloa</h3>
-              <p>Une immersion totale dans la nature préservée du Haut-Sassandra...</p>
-            </div>
+            <h2>Tourisme & Culture</h2>
+            <p>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</p>
           </div>
-          <div class="tourism-card" style="background-image: url('../image/cacao.jpg');">
-            <div class="tourism-card-content">
-              <h3>Le Circuit du Cacao</h3>
-              <p>De la cabosse à la fève, découvrez le savoir-faire de notre région.</p>
-            </div>
-          </div>
-        </div>
+          <?php
+          foreach ($tourisme as $touris){
+
+        echo"<div class=\"tourism-grid\">
+              <div class=\"tourism-card\" style=\"background-image: url('".$touris['image']."');\">
+                 <div class=\"tourism-card-content\">
+                 <a href='actualite.php>'
+                  <h3>".$touris['titreActu']."</h3>
+                <a>
+                  <p>".substr($touris['descripActu'],0,100)."...</p>
+                </div>
+              </div>
+              <div class=\"tourism-card\" style=\"background-image: url('../image/cacao.jpg');\">
+                <div class=\"tourism-card-content\">
+                  <h3>Le Circuit du Cacao</h3>
+                  <p>De la cabosse à la fève, découvrez le savoir-faire de notre région.</p>
+                </div>
+              </div>
+
+        </div>";}
+        ?>
       </section>
 
     </main>
