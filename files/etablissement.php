@@ -3,28 +3,28 @@ session_start();
 require_once(__DIR__.'/connect.php');
 
 //=====Catégorie public
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Public' ORDER BY date DESC";
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `secteur`='Public' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $pubs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //=====Catégorie sous-traitant
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Sous-traitant' ORDER BY date DESC";
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `secteur`='Sous-traitant' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $strais=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //=====Catégorie informatique
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Agriculture' ORDER BY date DESC";
-// `id`,`date`,`image`,`titreActu`,`descripActu`
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `secteur`='Agriculture' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`secteur
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //=====Catégorie education
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Education' ORDER BY date DESC";
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `secteur`='Éducation' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
@@ -304,7 +304,7 @@ publ.addEventListener('click', (event) => {
 // Bouton sous traitant
 strait.addEventListener('click', (event) => {
     event.preventDefault();
-    afficherCategorie('edu');
+    afficherCategorie('strai');
 });
 
 // Bouton agriculture

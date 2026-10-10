@@ -134,9 +134,9 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
       100% { opacity: 0; transform: scale(1); }
     }
 
-    .slide-1 { background-image: url('image/Hero_Section.png'); animation-delay: 0s; }
-    .slide-2 { background-image: url('image/Hero_Section.png'); animation-delay: 6s; }
-    .slide-3 { background-image: url('image/Hero_Section.png'); animation-delay: 12s; }
+    .slide-1 { background-image: url('../image/index1.webp'); animation-delay: 0s; }
+    .slide-2 { background-image: url('../image/index1.webp'); animation-delay: 6s; }
+    .slide-3 { background-image: url('../image/index1.wzbp'); animation-delay: 12s; }
 
     .hero-overlay {
       position: absolute;
@@ -572,13 +572,13 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
 
   <!-- TOP HEADER (repris à l'identique d'index.php) -->
   <header class="top-header">
-    <div class="container">
-      <div id="logo"><img class="logo" src="../image/logo.png"/></div>
+    <div class="container" >
+      <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/><//></div>
       <nav class="nav-links">
-        <a href="index.php"class="active">Home</a>
-        <a href="actualite.php">Actualités</a>
-        <a href="etablissement.php" >Établissements</a>
-        <a href="business_et_service.php" >Business et Service</a>
+        <a href="index.php" class="active" >Home</a>
+        <a href="actualite.php" >Actualités</a>
+        <a href="etablissement.php">Établissements</a>
+        <a href="business_et_service.php">Business et Service</a>
         <a href="map.php">Map</a>
       </nav>
       <div class="header-actions">
@@ -614,8 +614,8 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
             <h1>Daloa, L'Émergence du Haut-Sassandra</h1>
             <p>Bienvenue sur le portail officiel de la commune. Découvrez une métropole vibrante où la richesse de notre terroir agricole rencontre l'innovation urbaine de demain.</p>
             <div class="hero-actions">
-              <a href="#" class="btn-primary btn-large">Explorer les services</a>
-              <a href="#" class="btn-secondary btn-large">Découvrir la ville</a>
+              <a href="business_et_service.php" class="btn-primary btn-large">Explorer les services</a>
+              <a href="map.php" class="btn-secondary btn-large">Découvrir la ville</a>
             </div>
           </div>
         </div>
@@ -677,7 +677,7 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
 
           <article class="news-card">
             <div class="news-img-container">
-              <img src="image/Hero_Section.png" alt="Campagne agricole" />
+              <img src="../image/Hero_Section.png" alt="Campagne agricole" />
               <span class="news-badge eco">Économie</span>
             </div>
             <div class="news-content">
@@ -719,13 +719,13 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
           <p>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</p>
         </div>
         <div class="tourism-grid">
-          <div class="tourism-card" style="background-image: url('image/antilopes.jpg');">
+          <div class="tourism-card" style="background-image: url('../image/antilopes.jpg');">
             <div class="tourism-card-content">
               <h3>Réserve des Antilopes de Daloa</h3>
               <p>Une immersion totale dans la nature préservée du Haut-Sassandra...</p>
             </div>
           </div>
-          <div class="tourism-card" style="background-image: url('image/cacao.jpg');">
+          <div class="tourism-card" style="background-image: url('../image/cacao.jpg');">
             <div class="tourism-card-content">
               <h3>Le Circuit du Cacao</h3>
               <p>De la cabosse à la fève, découvrez le savoir-faire de notre région.</p>
