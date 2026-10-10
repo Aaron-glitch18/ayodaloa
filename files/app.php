@@ -35,8 +35,6 @@ $ch = curl_init();//initialisation de la requête
 $url="https://api.groq.com/openai/v1/chat/completions";
 $apiKey="GROQ_API_KEY";
 
-// Analyse de la demande
-
 $analyse_prompt="Tu es un agent intelligent charger d'analysé les demandes de l'utilisateur afin de déterminer la table à utiliser
 Voici les table et la description de leur continu:
 1.actualitedata
