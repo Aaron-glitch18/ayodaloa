@@ -2,11 +2,33 @@
 session_start();
 require_once(__DIR__.'/connect.php');
 
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `localite`='Daloa' ORDER BY date DESC";
+//=====Catégorie public
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Public' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
-$reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
+$pubs=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//=====Catégorie sous-traitant
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Sous-traitant' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$strais=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//=====Catégorie informatique
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='informatique' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$infos=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//=====Catégorie education
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Education' ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -96,20 +118,75 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="news-grid">
           <!-- Carte 1 -->
            <?php
-            foreach ($reponses as $education){
+            foreach ($pubs as $pub){
             //   print_r($reponse['image']);
-              echo "          <article class='news-card'>
-                        <div class='card-image' style=\"background-image: url('".$education['image']."')\"></div>
+              echo "          <article class='news-card pub'>
+                        <div class='card-image' style=\"background-image: url('".$pub['image']."')\"></div>
                         <div class='card-body'>
-                          <div class='card-category primary'>".$education['secteur']."</div>
-                          <h4 class='card-title'>".$education['titreActu1']."</h4>
-                          <p class='card-excerpt' style='text-align: left;'>".substr($education['descripActu'],0,150)."...</p>
+                          <div class='card-category primary'>".$pub['secteur']."</div>
+                          <h4 class='card-title'>".$pub['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($pub['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
-                            <span>".$education['date']."</span>"
+                            <span>".$pub['date']."</span>"
                   ?>
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
-                          <a href="publication.php?id=<?=$education['id'] ?>&type=etablissement">
+                          <a href="publication.php?id=<?=$pub['id'] ?>&type=etablissement">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+        </div>
+        <div class="news-grid">
+          <!-- Carte 2 -->
+           <?php
+            foreach ($strais as $strai){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card strai'>
+                        <div class='card-image' style=\"background-image: url('".$strai['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$strai['secteur']."</div>
+                          <h4 class='card-title'>".$strai['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($strai['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$strai['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$strai['id'] ?>&type=etablissement">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+           <?php
+            foreach ($edus as $edu){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card strai'>
+                        <div class='card-image' style=\"background-image: url('".$edu['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$edu['secteur']."</div>
+                          <h4 class='card-title'>".$edu['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($edu['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$edu['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$edu['id'] ?>&type=etablissement">
                             <span class='material-symbols-outlined'>
                                 arrow_forward
                               </span>
