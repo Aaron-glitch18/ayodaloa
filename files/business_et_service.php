@@ -1,12 +1,34 @@
 <?php
 session_start();
 require_once(__DIR__.'/connect.php');
+// ==================GASTRONOMIE==========================
 // `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`,`localite` FROM `buservicedata` WHERE 1 ORDER BY date DESC";
+$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Gastronomie'  ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
-$reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
+$gastros=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// ==================DIVERTISSEMENT==========================
+// `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
+$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Divertissement'  ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$divs=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// ==================INFORMATIQUE==========================
+// `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
+$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Information'  ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$infos=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// ==================EDUCATION==========================
+// `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
+$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Education'  ORDER BY date DESC";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -63,11 +85,11 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
           <p>Restez informé de la vie municipale et des événements à Daloa.</p>
         </div>
         <div class="filter-group">
-          <button class="filter-btn active">Gastronomie</button>
-          <button class="filter-btn">Divertissement</button>
-          <button class="filter-btn">Informatique</button>
-          <button class="filter-btn">Education</button>
-          <button class="filter-btn">Autre</button>
+          <button id="gastro" class="filter-btn active">Gastronomie</button>
+          <button id="diver"class="filter-btn">Divertissement</button>
+          <button id="info"class="filter-btn">Informatique</button>
+          <button id="edu"class="filter-btn">Education</button>
+          <button id="autre"class="filter-btn">Autre</button>
         </div>
       </div>
 
@@ -91,25 +113,106 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </section>
 
-      <!-- Grille d'actualités -->
+          <!-- ========================GASTRONOMIE================== -->
       <section>
         <div class="news-grid">
           <!-- Carte 1 -->
            <?php
-            foreach ($reponses as $act){
+            foreach ($gastros as $gastro){
             //   print_r($reponse['image']);
-              echo "          <article class='news-card'>
-                        <div class='card-image' style=\"background-image: url('".$act['image']."')\"></div>
+              echo "          <article class='news-card gastros'>
+                        <div class='card-image' style=\"background-image: url('".$gastro['image']."')\"></div>
                         <div class='card-body'>
-                          <div class='card-category primary'>".$act['secteur']."</div>
-                          <h4 class='card-title'>".$act['titreActu1']."</h4>
-                          <p class='card-excerpt' style='text-align: left;'>".substr($act['descripActu'],0,150)."...</p>
+                          <div class='card-category primary'>".$gastro['secteur']."</div>
+                          <h4 class='card-title'>".$gastro['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($gastro['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
-                            <span>".$act['date']."</span>"
+                            <span>".$gastro['date']."</span>"
                   ?>
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
-                          <a href="publication.php?id=<?=$act['id'] ?>&type=business">
+                          <a href="publication.php?id=<?=$gastro['id'] ?>&type=business">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+          <!-- ========================DIVERTISSEMENT================== -->
+           <?php
+            foreach ($divs as $div){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card divs'>
+                        <div class='card-image' style=\"background-image: url('".$div['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$div['secteur']."</div>
+                          <h4 class='card-title'>".$div['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($div['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$div['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$div['id'] ?>&type=business">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+          <!--===========================INFORMATIQUE======================== -->
+           <?php
+            foreach ($infos as $info){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card infos'>
+                        <div class='card-image' style=\"background-image: url('".$info['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$info['secteur']."</div>
+                          <h4 class='card-title'>".$act['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($info['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$info['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$info['id'] ?>&type=business">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+          <!-- =====================EDUCATION========================= -->
+           <?php
+            foreach ($educs as $edu){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card edus'>
+                        <div class='card-image' style=\"background-image: url('".$edu['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$edu['secteur']."</div>
+                          <h4 class='card-title'>".$edu['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($edu['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$edu['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$edu['id'] ?>&type=business">
                             <span class='material-symbols-outlined'>
                                 arrow_forward
                               </span>
@@ -169,6 +272,55 @@ $reponses=$stmt->fetchAll(PDO::FETCH_ASSOC);
           filterButtons[0].classList.add('active');
         }
 })();
+
+
+// filtre des informations afficher
+const gastro=document.getElementById('gastro');
+const diver= document.getElementById('diver');
+const info= document.getElementById('info');
+const edu= document.getElementById('edu');
+const autre= document.getElementById('autre');
+
+// Fonction qui affiche uniquement la catégorie choisie
+
+function afficherCategorie(categorie) {
+    // Récupérer toutes les cartes d'actualités
+    const cartes = document.querySelectorAll('.news-card');
+
+    // Parcourir toutes les cartes
+    cartes.forEach(carte => {
+        // Afficher uniquement celles qui correspondent
+        carte.style.display = carte.classList.contains(categorie)
+            ? ''
+            : 'none';
+    });
+}
+
+// Bouton public
+gastro.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('gastros');
+});
+
+// Bouton sous traitant
+diver.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('divs');
+});
+
+// Bouton agriculture
+edu.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('edus');
+});
+
+
+// Bouton education
+info.addEventListener('click', (event) => {
+    event.preventDefault();
+    afficherCategorie('infos');
+});
+// =========================================================
 
 const searchArea=document.getElementById('search');
 const btn =document.getElementById('btn');

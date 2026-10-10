@@ -323,7 +323,7 @@ agric.addEventListener('click', (event) => {
 
 
 
-// modification de l'inface chat
+// modification de l'interface chat
 
 const searchArea=document.getElementById('search');
 const btn =document.getElementById('btn');
