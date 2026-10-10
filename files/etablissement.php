@@ -17,11 +17,11 @@ $stmt->execute();
 $strais=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //=====Catégorie informatique
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='informatique' ORDER BY date DESC";
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Agriculture' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
-$infos=$stmt->fetchAll(PDO::FETCH_ASSOC);
+$agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //=====Catégorie education
 $sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `type`='Education' ORDER BY date DESC";
@@ -116,7 +116,7 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- Grille d'actualités -->
       <section>
         <div class="news-grid">
-          <!-- Carte 1 -->
+          <!--=============================PUBLIC-=========================->
            <?php
             foreach ($pubs as $pub){
             //   print_r($reponse['image']);
@@ -145,7 +145,7 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
               ?>
         </div>
         <div class="news-grid">
-          <!-- Carte 2 -->
+          <!--========================== SOUS -TRAITANT==================== -->
            <?php
             foreach ($strais as $strai){
             //   print_r($reponse['image']);
@@ -173,6 +173,7 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
               ?>
            <?php
+          //  ===============EDUCATION=================================
             foreach ($edus as $edu){
             //   print_r($reponse['image']);
               echo "          <article class='news-card strai'>
@@ -187,6 +188,33 @@ $edus=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
                           <a href="publication.php?id=<?=$edu['id'] ?>&type=etablissement">
+                            <span class='material-symbols-outlined'>
+                                arrow_forward
+                              </span>
+                            </a>
+                        </button>
+            <?php echo "
+                              </div>
+                            </div>
+                          </article>";
+                }
+              ?>
+           <?php
+          //  ===============AGRICULTURE=================================
+            foreach ($agris as $agri){
+            //   print_r($reponse['image']);
+              echo "          <article class='news-card strai'>
+                        <div class='card-image' style=\"background-image: url('".$agri['image']."')\"></div>
+                        <div class='card-body'>
+                          <div class='card-category primary'>".$agri['secteur']."</div>
+                          <h4 class='card-title'>".$agri['titreActu1']."</h4>
+                          <p class='card-excerpt' style='text-align: left;'>".substr($agri['descripActu'],0,150)."...</p>
+                          <div class='card-footer'>
+                            <span>".$agri['date']."</span>"
+                  ?>
+
+                        <button class='btn-arrow' aria-label='Lire la suite' name='detail'>
+                          <a href="publication.php?id=<?=$agri['id'] ?>&type=etablissement">
                             <span class='material-symbols-outlined'>
                                 arrow_forward
                               </span>
