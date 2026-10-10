@@ -91,10 +91,10 @@ $annonce=$req->fetchALL(PDO::FETCH_ASSOC);
           </div>
           <div class="filter-group">
           <!-- <form action="#" method="POST"> -->
-            <button id=loc class="filter-btn ">Local</button>
+            <button id=loc class="filter-btn activ">Local</button>
             <button id=nat class="filter-btn">National</button>
             <button id=int class="filter-btn">International</button>
-            <button id=otre class="filter-btn active">autre</button>
+            <!-- <button id=otre class="filter-btn active">autre</button> -->
           <!-- </form> -->
           </div>
         </div>
@@ -123,6 +123,7 @@ $annonce=$req->fetchALL(PDO::FETCH_ASSOC);
 
       <!-- Grille d'actualités -->
       <section>
+
         <div class="news-grid">
           <!-- Carte 1 -->
           <?php
@@ -188,13 +189,7 @@ $annonce=$req->fetchALL(PDO::FETCH_ASSOC);
         ?>
         <!-- AFFICHONS LES DONNEES INTERNATIONALS -->
                    <?php
-            if(empty($ints)){
-                echo
-                // '<div class="news-grid">
-                        '<h4 style="text-align:center;">Aucune donnée enregistrer</h4>';
-                    // </div>';
-            }
-            foreach ($ints as $int){
+          foreach ($ints as $int){
               // if($actualite['localite'] =='Daloa'){
 
             //   print_r($reponse['image']);
@@ -274,8 +269,8 @@ $annonce=$req->fetchALL(PDO::FETCH_ASSOC);
 
 const searchArea=document.getElementById('search');
 const btn =document.getElementById('btn');
-// filtre des informations afficher
 
+// filtre des informations afficher
 const local = document.getElementById('loc');
 const nation = document.getElementById('nat');
 const international = document.getElementById('int');
