@@ -1,10 +1,21 @@
 <?php
 session_start();
 require_once(__DIR__.'/connect.php');
+// =============ANNONCE======================
 $sql="SELECT * FROM `annonce` WHERE 1 ORDER BY `date` DESC";
 $req=$pdo->prepare($sql);
 $req->execute();
 $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
+// Alimentons la page d'accuieil
+session_start();
+require_once(__DIR__.'/connect.php');
+// ==============================requête pour la ville de Daloa
+
+$sql="SELECT * FROM `actualitedata` WHERE 1 ORDER BY date DESC LIMIT 1";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -653,27 +664,33 @@ $resultat=$req->fetchALL(PDO::FETCH_ASSOC);
       <!-- ACTUALITÉS À LA UNE -->
       <section>
         <div class="section-header">
-          <h2 class="section-title">Actualités à la une (Commune)</h2>
+          <h2 class="section-title">Actualités à la une</h2>
           <a href="actualite.php" class="link-all">Voir tout →</a>
         </div>
         <div class="news-grid">
-          
-          <article class="news-card">
-            <div class="news-img-container">
-              <img src="image/Hero_Section.png" alt="Centre multimédia" />
-              <span class="news-badge">Commune</span>
+        
+        <?php
+        foreach ($actus as $actu){
+          echo"<article class=\"news-card\">
+            <div class=\"news-img-container\">
+              <img src=".$actu['image']." alt=\"Centre multimédia\" />
+              <span class=\"news-badge\">".$actu['localite']."</span>
             </div>
-            <div class="news-content">
+            <div class=\"news-content\">
               <div>
-                <h3>Inauguration du nouveau centre multimédia de Daloa</h3>
+                <h3>".$actu['titreActu']."</h3>
                 <p>Le maire a procédé hier à l'ouverture officielle du centre, visant à démocratiser l'accès au numérique...</p>
               </div>
-              <div class="news-footer">
-                <span>12 Octobre 2024</span>
-                <span>🔗</span>
-              </div>
+              <div class=\"news-footer\">
+                  <span>".$actu['date']."</span>
+              <a href='publication.php?id=<?=".$actu['id']."?>&type=actualite'>
+                <span class='material-symbols-outlined'>link_2</span>
+              </a>
+                  </div>
             </div>
-          </article>
+          </article>";
+        }
+          ?>
 
           <article class="news-card">
             <div class="news-img-container">
