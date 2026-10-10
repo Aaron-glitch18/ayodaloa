@@ -2,7 +2,7 @@
 session_start();
 require_once(__DIR__.'/connect.php');
 
-$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`,`localite` FROM `educationdata` WHERE 1 ORDER BY date DESC";
+$sql="SELECT `id`,`date`,`image`,`titreActu1`,`descripActu`,`secteur`FROM `educationdata` WHERE 1 AND `localite`='Daloa' ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
