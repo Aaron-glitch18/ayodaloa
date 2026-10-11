@@ -3,20 +3,18 @@ session_start();
 require_once(__DIR__."/connect.php");
 
 $err="";
-$suc="";
+$succes="";
 $nofound="";
 
-// $_SESSION['erreur']=$erreur;
-// $_SESSION['succes']=$succes;
-// $_SESSION['nofound']=$nofound;
-if(!isset($_SESSION['erreur'])){
-        $succes=$_SESSION['succes'];
-        unset($_SESSION['succes']);
-}
-if(!isset($_SESSION['erreur'])){
-        header('location:index.php');
-        exit();
-}
+
+// if(!isset($_SESSION['erreur'])){
+//         $succes=$_SESSION['succes'];
+//         unset($_SESSION['succes']);
+// }
+// if(!isset($_SESSION['erreur'])){
+//         header('location:index.php');
+//         exit();
+// }
 
 if(isset($_POST['envoyer'])){
 
@@ -38,6 +36,7 @@ if(isset($_POST['envoyer'])){
                 // echo "mot de passe valide : ".$password;
                 $_SESSION['id']=$user['id'];
                 $_SESSION['mail']=$mail;
+                $succes="connection réussite";
 
                 header('location:actualite.php');
                 exit();
@@ -57,7 +56,7 @@ if(isset($_POST['envoyer'])){
         $err="Il semblerait que les champs soient vide.";
     }
         // $_SESSION['erreur']=$erreur;
-        // $_SESSION['succes']=$succes;
+        $_SESSION['succes']=$succes;
         // $_SESSION['nofound']=$nofound;
 }
 

@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once(__DIR__.'/connect.php');
+
+
 // ==============================requête pour la ville de Daloa
 
 $sql="SELECT * FROM `actualitedata` WHERE 1  AND `localite`='Daloa' ORDER BY date DESC";
@@ -55,7 +57,7 @@ $annonce=$req->fetchALL(PDO::FETCH_ASSOC);
 
   <!-- TOP HEADER -->
   <header class="top-header">
-    <div class="container" >
+    <div class="container" style="padding-top:20px;padding-bottom:20px;">
       <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/><//></div>
       <nav class="nav-links">
         <a href="index.php" >Home</a>

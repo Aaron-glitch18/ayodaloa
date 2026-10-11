@@ -5,19 +5,11 @@ session_start();
 require_once(__DIR__.'/connect.php');
 
 // print_r($_SESSION);
-// if($_SESSION['succes']){
-//     $succes=$_SESSION['erreur'];
-//     header('location:home.php');
-//     // session_destroy();
-//     print_r($_SESSION);
 
-//     unset($succes);
-// }
+
 
 if(isset($_POST['soumettre'])){
-    // echo('bouton cliqué');
-    // print_r($_POST);
-    // print_r($_FILES);
+
 
         $add=$_POST['addresse'];
         $longitude=$_POST['longitude'];
@@ -108,12 +100,112 @@ if(isset($_POST['soumettre'])){
         .logo{
       width: 100px;
     }
+    #boite{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: beige;
+        width:300px;
+        height: min-content;
+        margin: auto;
+        position: fixed;
+        top: 35%;
+        /* bottom: 20px; */
+        left: 30%;
+        right: 30%;
+    }
+
 </style>
 <body>
+            <?php
+                if(isset($_SESSION['succes']) && !empty($_SESSION['succes'])){
+            echo("Vous pouvez effectuer cette action");
+            session_destroy();
+        }else{
+            echo "<script>
+            const container=document.createElement('div');
+            const div=document.createElement('div');
+            const overlay=document.createElement('div');
+            
+            const creer=document.createElement('button');
+            creer.innerHTML='créer';
+            creer.onclick =() =>window.location.href='inscription.php';
+
+            const retour=document.createElement('button');
+            retour.innerHTML='retour';
+            retour.onclick=()=>window.location.href='actualite.php';
+
+            container.setAttribute('id','boite');
+            overlay.setAttribute('id','overlay');
+            div.setAttribute('id','div');
+            
+            let p=document.createElement('p');
+            p.innerHTML=\"Vous avez tentez d'ajouter vos information. Cette opération nécessite la création d'un compte\";
+
+            div.appendChild(creer);
+            div.appendChild(retour);
+            container.appendChild(p);
+            container.appendChild(div)
+
+            document.body.appendChild(container);
+            document.body.appendChild(overlay);
+
+            // Overlay (fond semi-transparent + flou)
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            overlay.style.backdropFilter = 'blur(5px)';
+            overlay.style.zIndex = '1';
+
+            // Boîte (contenu centré)
+            container.style.position = 'fixed';
+            container.style.top = '50%';
+            container.style.left = '50%';
+            container.style.transform = 'translate(-50%, -50%)';
+            container.style.backgroundColor = 'white';
+            container.style.padding = '20px';
+            container.style.borderRadius = '10px';
+            container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            container.style.zIndex = '2';
+            container.style.maxWidth = '400px';
+            container.style.textAlign = 'center';
+
+            // Texte
+            p.style.marginBottom = '20px';
+            p.style.fontSize = '16px';
+            p.style.color = '#333';
+
+            // Boutons
+            creer.style.borderRadius = '5px';
+            creer.style.padding = '8px 15px';
+            creer.style.marginRight = '10px';
+            creer.style.backgroundColor = '#954a00';
+            creer.style.color = 'white';
+            creer.style.border = 'none';
+            creer.style.cursor = 'pointer';
+
+            retour.style.borderRadius = '5px';
+            retour.style.padding = '8px 15px';
+            retour.style.backgroundColor = '#f44336';
+            retour.style.color = 'white';
+            retour.style.border = 'none';
+            retour.style.cursor = 'pointer';
+
+
+
+                </script>";
+
+                // header('location:inscription.php');
+            }
+            ?>
 
     <!-- ================= HEADER ================= -->
     <header class="app-header">
-        <div class="app-header__inner">
+        <div class="app-header__inner" >
             <nav class="app-header__nav">
                 <a href="actualite.php" class="app-header__link">
                     <span class="material-symbols-outlined">home</span>
@@ -436,6 +528,8 @@ if(isset($_POST['soumettre'])){
         };
         bindCounter('titreActu', 'count-titreActu');
         bindCounter('descripActu', 'count-descripActu');
+
+
     </script>
 </body>
 </html>

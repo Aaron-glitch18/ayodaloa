@@ -15,12 +15,19 @@ $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $actus=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ======================tourisme
-$sql="SELECT * FROM `actualitedata` WHERE 1 AND `secteur`='Tourisme'ORDER BY date DESC LIMIT 3";
+// ======================Tourisme=======================
+$sql="SELECT * FROM `actualitedata` WHERE 1 AND `secteur`='Tourisme'ORDER BY `date` DESC LIMIT 3";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
 $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// ======================Agriculture===============================
+$sql="SELECT * FROM `educationdata` WHERE 1 AND `secteur`='Agriculture'ORDER BY `date` DESC LIMIT 1";
+// `id`,`date`,`image`,`titreActu`,`descripActu`
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
+// print_r($agris);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -151,8 +158,8 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .slide-1 { background-image: url('../image/index1.webp'); animation-delay: 0s; }
-    .slide-2 { background-image: url('../image/index1.webp'); animation-delay: 6s; }
-    .slide-3 { background-image: url('../image/index1.wzbp'); animation-delay: 12s; }
+    .slide-2 { background-image: url('../image/index2.jpg'); animation-delay: 6s; }
+    .slide-3 { background-image: url('../image/index3.jpeg'); animation-delay: 12s; }
 
     .hero-overlay {
       position: absolute;
@@ -589,7 +596,7 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
   <!-- TOP HEADER (repris à l'identique d'index.php) -->
   <header class="top-header">
     <div class="container" >
-      <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/><//></div>
+      <div id="logo"><img class="logo" src="../image/logo.png"  /></div>
       <nav class="nav-links">
         <a href="index.php" class="active" >Home</a>
         <a href="actualite.php" >Actualités</a>
@@ -623,9 +630,9 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <!-- Le contenu textuel -->
         <div class="hero-content">
-          <div class="hero-top-badge">
+          <!-- <div class="hero-top-badge">
             <span>Ville de Daloa</span> • <strong>Accueil</strong> • 28°C ☀️
-          </div>
+          </div> -->
           <div class="hero-body">
             <h1>Daloa, L'Émergence du Haut-Sassandra</h1>
             <p>Bienvenue sur le portail officiel de la commune. Découvrez une métropole vibrante où la richesse de notre terroir agricole rencontre l'innovation urbaine de demain.</p>
@@ -638,7 +645,7 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </section>
 
       <!-- SERVICES PUBLICS RAPIDES -->
-      <section>
+      <!-- <section>
         <div class="section-header">
           <h2 class="section-title">Services Publics Rapides</h2>
         </div>
@@ -664,7 +671,7 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
             <p>Signaler un problème</p>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- ACTUALITÉS À LA UNE -->
       <section>
@@ -695,7 +702,7 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
         }
           ?>
 
-          <article class="news-card">
+          <!-- <article class="news-card">
             <div class="news-img-container">
               <img src="../image/Hero_Section.png" alt="Campagne agricole" />
               <span class="news-badge eco">Économie</span>
@@ -710,24 +717,7 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
                 <span>🔗</span>
               </div>
             </div>
-          </article>
-
-          <article class="news-card">
-            <div class="news-img-container">
-              <img src="image/Hero_Section.png" alt="Étudiants" />
-              <span class="news-badge edu">Éducation</span>
-            </div>
-            <div class="news-content">
-              <div>
-                <h3>Bourses d'excellence pour les étudiants de la commune</h3>
-                <p>La mairie annonce la distribution de 500 bourses d'études pour soutenir les meilleurs bacheliers...</p>
-              </div>
-              <div class="news-footer">
-                <span>08 Octobre 2024</span>
-                <span>🔗</span>
-              </div>
-            </div>
-          </article>
+          </article> -->
 
         </div>
       </section>
@@ -744,20 +734,24 @@ $tourisme=$stmt->fetchAll(PDO::FETCH_ASSOC);
         echo"<div class=\"tourism-grid\">
               <div class=\"tourism-card\" style=\"background-image: url('".$touris['image']."');\">
                  <div class=\"tourism-card-content\">
-                 <a href='actualite.php>'
                   <h3>".$touris['titreActu']."</h3>
-                <a>
+
                   <p>".substr($touris['descripActu'],0,100)."...</p>
                 </div>
-              </div>
-              <div class=\"tourism-card\" style=\"background-image: url('../image/cacao.jpg');\">
+              </div>";
+              }
+              ?>
+              <?php
+              foreach($agris as $agri){
+              echo "<div class=\"tourism-card\" style=\"background-image: url('".$agri['image']."');>
                 <div class=\"tourism-card-content\">
-                  <h3>Le Circuit du Cacao</h3>
-                  <p>De la cabosse à la fève, découvrez le savoir-faire de notre région.</p>
+                  <h3>".$agri['titreActu']."...</h3>
+                  <p>".substr($agri['descripActu'],0,10)."...</p>
                 </div>
               </div>
 
-        </div>";}
+        </div>";
+        }
         ?>
       </section>
 

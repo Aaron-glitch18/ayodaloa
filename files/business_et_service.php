@@ -49,8 +49,8 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- TOP HEADER -->
   <header class="top-header">
-    <div class="container">
-      <div id="logo"><img class="logo" src="../image/logo.png" style="width:150px;"/></div>
+    <div class="container" style="padding-top:35px;padding-bottom:35px";>
+      <div id="logo"><img class="logo" src="../image/logo.png"/></div>
       <nav class="nav-links">
         <a href="index.php">Home</a>
         <a href="actualite.php">Actualités</a>

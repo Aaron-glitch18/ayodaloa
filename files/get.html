@@ -1,20 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Document</title>
 </head>
 <style>
+#boite{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: beige;
+    width:300px;
+    height: min-content;
+    margin: auto;
+    position: fixed;
+    top: 30%;
+    /* bottom: 20px; */
+    left: 30%;
+    right: 30%;
+}
 
 </style>
 <body>
-    <div style="background-image:url('../image/edu4.jpg');width: 1120px;height: 500px;background-repeat: no-repeat;background-size: cover;"></div>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur beatae culpa, repudiandae distinctio dolorum dolore, earum iure voluptatem modi, omnis repellat? Ipsam quasi sequi illo tenetur sed at accusamus, earum rem facere nisi expedita officiis nostrum inventore in distinctio tempora officia et ad! Suscipit eos consequatur et molestias doloribus quae est possimus, repellendus, consequuntur quaerat dolores nostrum mollitia eum iste at dolor nam dolorem maiores. Molestias voluptates exercitationem quasi! Obcaecati debitis dignissimos mollitia libero accusamus, saepe culpa! Consequuntur voluptatibus dicta, nam inventore ad esse eum dolores animi accusantium delectus tempora hic eveniet neque dolorum laudantium voluptates minus error. Ratione delectus perferendis blanditiis harum aut. Veritatis optio rem ad id commodi labore amet odit cumque doloribus ut fugit nobis eum odio recusandae, repellat maiores, temporibus natus? Dignissimos blanditiis nesciunt autem, quam repellendus asperiores? Reprehenderit et odio animi, neque vero nobis enim eum provident facere? Commodi nisi saepe corrupti numquam fuga quod, quaerat veritatis enim. Autem, facere distinctio harum commodi porro voluptate quisquam laboriosam, eius sequi necessitatibus voluptas ipsam, modi explicabo omnis provident unde sunt odio molestias dicta pariatur! Eos consectetur quas dolor eveniet fugit pariatur possimus? Est fugiat magni eaque ipsa at assumenda totam! Totam officiis reprehenderit doloribus vitae non? Maxime eum voluptatibus ratione officiis, perspiciatis accusantium harum modi perferendis maiores illum, temporibus numquam obcaecati laboriosam in sequi repellat possimus velit deserunt id quas debitis iusto culpa non? Magni nulla aspernatur illo quasi autem quas voluptas consequuntur velit repellat pariatur ad vitae, sint, sunt officiis quod, enim maxime deserunt asperiores ipsa dolorem in? Impedit suscipit dignissimos aut dolorem quasi odio nihil ex blanditiis omnis maiores. Obcaecati neque laudantium veritatis aut blanditiis sint, impedit, aspernatur cum vitae vero accusamus labore quae ratione maiores molestiae deleniti tenetur quaerat quia ipsa rem, eos minus? Praesentium cum, iure inventore voluptates non blanditiis atque quidem dolor!</p>
+        </div>
+    </div>
+
 
 </body>
-<script>
-    array.forEach(element => {
-        
-    });
-</script>
+    <script>
+            const container=document.createElement('div');
+            const div=document.createElement('div');
+            const overlay=document.createElement('div');
+            
+            const creer=document.createElement('button');
+            creer.innerHTML='créer';
+            creer.onclick =() =>window.location.href='inscription.php';
+
+            const retour=document.createElement('button');
+            retour.innerHTML='retour';
+            retour.onclick=()=>window.location.href='actualite.php';
+
+            container.setAttribute('id','boite');
+            overlay.setAttribute('id','overlay');
+            div.setAttribute('id','div');
+            
+            let p=document.createElement('p');
+            p.innerHTML="Vous avez tentez d'ajouter vos information. Cette opération nécessite la création d'un compte";
+
+            div.appendChild(creer);
+            div.appendChild(retour);
+            container.appendChild(p);
+            container.appendChild(div)
+
+            document.body.appendChild(container);
+            document.body.appendChild(overlay);
+
+// Overlay (fond semi-transparent + flou)
+overlay.style.position = "fixed";
+overlay.style.top = "0";
+overlay.style.left = "0";
+overlay.style.width = "100%";
+overlay.style.height = "100%";
+overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+overlay.style.backdropFilter = "blur(5px)";
+overlay.style.zIndex = "1";
+
+// Boîte (contenu centré)
+container.style.position = "fixed";
+container.style.top = "50%";
+container.style.left = "50%";
+container.style.transform = "translate(-50%, -50%)";
+container.style.backgroundColor = "white";
+container.style.padding = "20px";
+container.style.borderRadius = "10px";
+container.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+container.style.zIndex = "2";
+container.style.maxWidth = "400px";
+container.style.textAlign = "center";
+
+// Texte
+p.style.marginBottom = "20px";
+p.style.fontSize = "16px";
+p.style.color = "#333";
+
+// Boutons
+creer.style.borderRadius = "5px";
+creer.style.padding = "8px 15px";
+creer.style.marginRight = "10px";
+creer.style.backgroundColor = "#4CAF50";
+creer.style.color = "white";
+creer.style.border = "none";
+creer.style.cursor = "pointer";
+
+retour.style.borderRadius = "5px";
+retour.style.padding = "8px 15px";
+retour.style.backgroundColor = "#f44336";
+retour.style.color = "white";
+retour.style.border = "none";
+retour.style.cursor = "pointer";
+
+
+            console.log(document.getElementById('alert'));
+
+
+    </script>
 </html>
