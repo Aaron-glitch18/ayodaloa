@@ -48,23 +48,7 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
   <!-- TOP HEADER -->
-  <header class="top-header">
-    <div class="container" style="padding-top:35px;padding-bottom:35px";>
-      <div id="logo"><img class="logo" src="../image/logo.png"/></div>
-      <nav class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="actualite.php">Actualités</a>
-        <a href="etablissement.php" >Établissements</a>
-        <a href="business_et_service.php" class="active">Business et Service</a>
-        <a href="map.php">Map</a>
-      </nav>
-      <div class="header-actions">
-        <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
-        <button aria-label="Notifications" onclick="window.location.href='ajout.php'"><span class="material-symbols-outlined">add</span></button>
-        <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
-      </div>
-    </div>
-  </header>
+
 
   <!-- MAIN -->
   <main>

@@ -119,9 +119,10 @@ if(isset($_POST['soumettre'])){
 </style>
 <body>
             <?php
-                if(isset($_SESSION['succes']) && !empty($_SESSION['succes'])){
-            echo("Vous pouvez effectuer cette action");
-            session_destroy();
+            if(!empty($_SESSION['succes']) && !empty($_SESSION['id'])){
+            $succes="utilisateur connecté";
+            // exit();
+            // session_destroy();
         }else{
             echo "<script>
             const container=document.createElement('div');
@@ -168,7 +169,7 @@ if(isset($_POST['soumettre'])){
             container.style.transform = 'translate(-50%, -50%)';
             container.style.backgroundColor = 'white';
             container.style.padding = '20px';
-            container.style.borderRadius = '10px';
+            container.style.borderRadius = '5px';
             container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
             container.style.zIndex = '2';
             container.style.maxWidth = '400px';
