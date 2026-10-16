@@ -1,5 +1,6 @@
 <?php
 session_start();
+// require_once(__DIR__.'/app.php');
 // echo '<script>console.log("'.$_SESSION['conversation'][0]['content'].'")</script>';
 
 ?>
@@ -85,7 +86,9 @@ session_start();
   <!-- TOP HEADER -->
   <header class="top-header" style="  margin-bottom:1.5%;">
     <div class="container">
-      <p class="logo"><a href="index.php"><</a></p>
+      <a href="actualite.php" class="app-header__link">
+          <span class="material-symbols-outlined">home</span>
+      </a>
       <!--<nav class="nav-links">-->
       <!--  <a href="home.php">Home</a>-->
       <!--  <a href="#" class="active">Actualités</a>-->

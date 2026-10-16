@@ -206,13 +206,13 @@ if(isset($_POST['soumettre'])){
 
     <!-- ================= HEADER ================= -->
     <header class="app-header">
-        <div class="app-header__inner" >
+        <div class="app-header__inner">
             <nav class="app-header__nav">
                 <a href="actualite.php" class="app-header__link">
                     <span class="material-symbols-outlined">home</span>
                 </a>
-                <a href="#" class="app-header__link app-header__link--active">Ajouter</a>
-                <a href="#" class="app-header__link">Liste</a>
+                <!-- <a href="#" class="app-header__link app-header__link--active">Ajouter</a>
+                <a href="#" class="app-header__link">Liste</a> -->
             </nav>
             <a href="#" class="app-header__logo">
                 <div id="logo"><img src="../image/logo.png"class="logo"></div>

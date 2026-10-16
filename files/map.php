@@ -186,10 +186,10 @@ $services = $req->fetchAll(PDO::FETCH_ASSOC);
       <div id="logo"><img class="logo" src="../image/logo.png"  style="width:150px;"/><//></div>
       <nav class="nav-links">
         <a href="index.php" >Home</a>
-        <a href="actualite.php" class="active" >Actualités</a>
+        <a href="actualite.php"  >Actualités</a>
         <a href="etablissement.php">Établissements</a>
         <a href="business_et_service.php">Business et Service</a>
-        <a href="map.php">Map</a>
+        <a href="map.php" class="active">Map</a>
       </nav>
       <div class="header-actions">
         <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
@@ -353,7 +353,7 @@ services.forEach(service => {
             </h3>
 
             <p>
-                📍 ${service.adresse ?? service.localite ?? 'Daloa'}
+             ${service.adresse ?? service.localite ?? 'Daloa'}
             </p>
 
             <a

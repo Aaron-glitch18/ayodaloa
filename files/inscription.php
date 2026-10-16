@@ -73,6 +73,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <link rel="stylesheet" href="style.css">
 </head>
 <style>
+/* .account{
+    margin-top:-50px;
+} */
 #regis_left{
     border-top-left-radius: 0px;
     border-top-right-radius: 160px;
@@ -80,6 +83,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     border-bottom-right-radius:160px;
     text-align: left;
     padding: 0 30px 0 40px;
+    /* margin-top:-100px; */
 }
 #regis_left li{
     font-size: large;
@@ -196,7 +200,16 @@ ul{
                         <input type="text" name="prenom" id="prenom" placeholder="Jean">
                         <input type="email" name="mail" id="mail" placeholder="kouassijean@gmail.com" >
                         <input type="password" name="password" id="mdp" placeholder="Saisissez 8 et 15 caractères" >
-                        <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus" >
+                        <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus">
+                        <!-- <select id="select">
+                            <option value="">Choisissez une question</option>
+                            <option value="Quel est votre pays de rêve">Quel est votre pays de rêve</option>
+                            <option value="Quel est votre pays votre marque préféré">Quel est votre pays votre marque préféré</option>
+                            <option>Quel est votre plat préféré</option>
+                        </select> -->
+                        <!-- <input type="text" name="reponse" id="reponse" placeholder="Réponder à la question sélectionner ci-haut"> -->
+                        <!-- <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, et.</small> -->
+                        
                         <?php if($_SESSION['erreur']):?>
                             <p id="err"><?php echo $_SESSION['erreur'];?></p>
                         <?php else:;?>

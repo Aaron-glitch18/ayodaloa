@@ -17,7 +17,7 @@ $stmt->execute();
 $divs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 // ==================INFORMATIQUE==========================
 // `buservicedata` (`image`,`titreActu`,`titreActu1`,`descripActu`,`secteur`,`localite`
-$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Information'  ORDER BY date DESC";
+$sql="SELECT * FROM `buservicedata` WHERE 1 AND `secteur`='Informatique'  ORDER BY date DESC";
 // `id`,`date`,`image`,`titreActu`,`descripActu`
 $stmt=$pdo->prepare($sql);
 $stmt->execute();
@@ -48,7 +48,23 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
   <!-- TOP HEADER -->
-
+  <header class="top-header">
+    <div class="container" style="padding-top:35px;padding-bottom:35px";>
+      <div id="logo"><img class="logo" src="../image/logo.png"/></div>
+      <nav class="nav-links">
+        <a href="index.php">Home</a>
+        <a href="actualite.php">Actualités</a>
+        <a href="etablissement.php" >Établissements</a>
+        <a href="business_et_service.php" class="active">Business et Service</a>
+        <a href="map.php">Map</a>
+      </nav>
+      <div class="header-actions">
+        <button aria-label="Rechercher"><span class="material-symbols-outlined">search</span></button>
+        <button aria-label="Notifications" onclick="window.location.href='ajout.php'"><span class="material-symbols-outlined">add</span></button>
+        <button aria-label="Compte" onclick="window.location.href='account.php'"><span class="material-symbols-outlined">account_circle</span></button>
+      </div>
+    </div>
+  </header>
 
   <!-- MAIN -->
   <main>
@@ -65,7 +81,7 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- </form> -->
       <div class="page-header">
         <div>
-          <h1>Les Etablissements</h1>
+          <h1>Business et service</h1>
           <p>Restez informé de la vie municipale et des événements à Daloa.</p>
         </div>
         <div class="filter-group">
@@ -78,7 +94,7 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
 
       <!-- Annonces de la Mairie (Hero) -->
-      <section class="hero-section">
+      <!-- <section class="hero-section">
         <h2>
           <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1;">campaign</span>
           Annonces de la Mairie
@@ -95,7 +111,7 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
           <!-- ========================GASTRONOMIE================== -->
       <section>
@@ -162,7 +178,7 @@ $educs=$stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class='card-image' style=\"background-image: url('".$info['image']."')\"></div>
                         <div class='card-body'>
                           <div class='card-category primary'>".$info['secteur']."</div>
-                          <h4 class='card-title'>".$act['titreActu1']."</h4>
+                          <h4 class='card-title'>".$info['titreActu1']."</h4>
                           <p class='card-excerpt' style='text-align: left;'>".substr($info['descripActu'],0,150)."...</p>
                           <div class='card-footer'>
                             <span>".$info['date']."</span>"
