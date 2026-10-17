@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__.'/connect.php');
 session_start();
+// echo session_id();
 if(isset($_POST['envoyer'])){
     $tableau=[
         'actualite'=>'actualitedata',
@@ -10,14 +11,7 @@ if(isset($_POST['envoyer'])){
     
         if (!empty($_POST['saisie'])){
             $saisie = htmlspecialchars($_POST['saisie']);
-            // $message=[
-            //     [
-            //         'role'=>'user',
-            //         'content'=>$saisie
-            //     ]
-            // ];
-            // $output="";
-            // echo "La donnée saisie : ' . $saisie . '";
+
 
             // =======================TEST de débugage======================
             $ch = curl_init();//initialisation de la requête
@@ -92,7 +86,7 @@ if(isset($_POST['envoyer'])){
 
                 // ==============================================================
 
-                $reponse_ia1 =[
+                $reponse_ia =[
                     "model" => "openai/gpt-oss-120b",
                     "messages" => [
                         [
@@ -108,8 +102,7 @@ if(isset($_POST['envoyer'])){
                     "temperature" => 0.5
                     ];
 
-                curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($reponse_ia1));
-
+                curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($reponse_ia));
                 $reponse = curl_exec($ch);
 
                     $newdata = json_decode($reponse,true);
