@@ -1,6 +1,12 @@
 <?php
 require_once(__DIR__.'/connect.php');
 session_start();
+            // print_r($_SESSION['conversation']);
+
+// if(isset($_SESSION['conversation'])){
+//     $_SESSION['conversation']=[];
+//     $hist=json_encode($_SESSION['conversation'], JSON_UNESCAPED_UNICODE);
+// }
 // echo session_id();
 if(isset($_POST['envoyer'])){
     $tableau=[
@@ -11,7 +17,9 @@ if(isset($_POST['envoyer'])){
     
         if (!empty($_POST['saisie'])){
             $saisie = htmlspecialchars($_POST['saisie']);
-
+            // print_r($_SESSION['conversation']);
+            $hist=json_encode($_SESSION['conversation'], JSON_UNESCAPED_UNICODE);
+            // echo $hist;
 
             // =======================TEST de débugage======================
             $ch = curl_init();//initialisation de la requête
@@ -71,7 +79,8 @@ if(isset($_POST['envoyer'])){
             $analyse = curl_exec($ch);
             $data = json_decode($analyse,true);
             $output=$data["choices"][0]["message"]["content"];
-            // echo "première sortie : ".$output;
+
+            // echo "première sortie : ".$output."-----------------";
                 if($output=='autre'){
                 // $hist=json_encode($_SESSION['conversation'],JSON_UNESCAPED_UNICODE);
                 // =========Ce qui ce passe quand les données ne sont pas en base de donnée===============
@@ -81,7 +90,9 @@ if(isset($_POST['envoyer'])){
                         en suivant ces règle:
                         1.Répond dans la même langue que la question de l'utilisateur
                         2.Ne crée aucune information nouvelle elle doivent tous provénir du web et concernant la Côte d'ivoire, la ville de Daloa en priorité
-                        3.Sois précis, concis et courtois
+                        3.Sois précis, concis et courtois,
+                        et en suivant le contexte de la discussion $hist
+                        
                     PROMPT;
 
                 // ==============================================================
@@ -90,33 +101,35 @@ if(isset($_POST['envoyer'])){
                     "model" => "openai/gpt-oss-120b",
                     "messages" => [
                         [
-                        "role" => "system",
-                        "content" =>$reponse_prompt         
+                        'role'=>'assistant',
+                        'content'=>$reponse_prompt
                         ],
                         [
-                            "role" => "user",
-                            "content" => $saisie    
-                    ]
+                            'role'=>'user',
+                            'content'=>$saisie
+                        ]
                     ],
-                    "max_tokens" => 2200,
+                    "max_tokens" => 1300,
                     "temperature" => 0.5
                     ];
 
                 curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($reponse_ia));
                 $reponse = curl_exec($ch);
-
                     $newdata = json_decode($reponse,true);
                         $newoutput=$newdata["choices"][0]["message"]["content"];
-                        $_SESSION['conversation']=[
+                        $_SESSION['conversation'][]=[
                             [
                                 'role' => 'user',
                                 'content' => $saisie
-                            ],
+                            ]
+                        ];
+                        $_SESSION['conversation'][]=[
                             [
                                 'role'=>'bot',
                                 'content'=>$newoutput
                             ]
-                        ]; 
+                        ];
+                        // print_r($_SESSION['conversation']);
                         echo $newoutput;
                 }else{
                     $sql="SELECT * FROM $output WHERE 1 ORDER BY `date`";
@@ -136,7 +149,8 @@ if(isset($_POST['envoyer'])){
                         3.Sois précis, concis et courtois
                         4.La base de donnée qui te sera passé en paramètre est confidentiel et ne doit à aucun moment être divulger
                         5.Utilise autant de fois que nécessaire la base de donné pour satisfaire l'utilisateur si la base de donnée.
-                        Base de donnée:$bd
+                        Base de donnée:$bd,
+                        et en suivant le contexte de la discussion $hist
                     PROMPT;
 
                 // ==============================================================
@@ -145,15 +159,15 @@ if(isset($_POST['envoyer'])){
                     "model" => "openai/gpt-oss-120b",
                     "messages" => [
                         [
-                        "role" => "system",
-                        "content" =>$reponse_prompt         
+                        'role'=>'assistant',
+                        'content'=>$reponse_prompt
                         ],
                         [
-                            "role" => "user",
-                            "content" => $saisie
+                            'role'=>'user',
+                            'content'=>$saisie
                         ]
                     ],
-                    "max_tokens" => 2200,
+                    "max_tokens" => 1300,
                     "temperature" => 0.5
                 ];
 
@@ -163,20 +177,23 @@ if(isset($_POST['envoyer'])){
                 $reponse = curl_exec($ch);
                 $newdata = json_decode($reponse,true);
                 $newoutput=$newdata["choices"][0]["message"]["content"];
-                $_SESSION['conversation']=[
+                $_SESSION['conversation'][]=[
                     [
                         'role' => 'user',
                         'content' => $saisie
-                        ],
-                        [
-                            'role'=>'bot',
-                            'content'=>$newoutput
                         ]
-                    ]; 
-                            
+                    ];       
+                $_SESSION['conversation'][]=[
+                    [
+                        'role' => 'bot',
+                        'content' => $newoutput
+                        ]
+                    ];  
+                                            // print_r($reponse_ia);
+     
                     echo $newoutput;
-                curl_close($ch);
-            }
+                curl_close($ch);}
+            // }
     }else{
             echo 'Donnée non transmise';
             }
