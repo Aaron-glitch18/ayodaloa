@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ayodaloa_app",
-    "slug": "ayodaloa_app",
+    "name": "ayodaloa",
+    "slug": "ayodaloa",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "ayodaloaapp",
+    "icon": "./assets/images/asset_ayodaloa/logo.png",
+    "scheme": "ayodaloa",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
@@ -32,7 +32,9 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-web-browser",
+      "expo-image"
     ],
     "experiments": {
       "typedRoutes": true,
