@@ -1,11 +1,13 @@
-import { ScrollView } from '@expo/ui';
+// import { ScrollView } from '@expo/ui';
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { Link } from "expo-router";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const header=require('@/assets/images/asset_ayodaloa/index2.jpg');
+const touris=require('@/assets/images/asset_ayodaloa/an2.jpg');
+const agri=require('@/assets/images/asset_ayodaloa/an3.jpg');
 
 export default function Index() {
   return (
@@ -15,7 +17,7 @@ export default function Index() {
         
         <Text style={{fontSize:30,fontWeight:"bold"}}>Acceuil</Text>
           <View style={{flexDirection:"row" ,gap:10}}>
-            <FontAwesomeFreeSolid name="add" size={25} color="white" style={styles.fontbtn} />
+            <FontAwesomeFreeSolid name="add" size={25} color="white" style={styles.fontbtn} />{/* ajout du lien vers la page d'ajout */}
             {/* <FontAwesomeFreeSolid name="user-circle" size={25} color="#954A00" style={styles.fontbtn} /> */}
           
           </View>
@@ -41,13 +43,13 @@ export default function Index() {
       <View style={styles.row_block}>
 
         <View style={styles.littlerow}>
-          <FontAwesomeFreeSolid name="clipboard-list" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>
+          <FontAwesomeFreeSolid name="clipboard-list" size={20} color={"#954A00"} style={styles.icon}/>
           <Text style={{fontWeight:'bold',textAlign:"center"}}>Etat Civil</Text>
           <Text style={{textAlign:"center",color:"#999"}}>Actes, Naissances</Text>
         </View>
 
         <View style={styles.littlerow}>
-          <FontAwesomeFreeSolid name="wallet" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>
+          <FontAwesomeFreeSolid name="wallet" size={20} color={"#954A00"} style={styles.icon}/>
           <Text style={{fontWeight:'bold',textAlign:"center"}}>Etat Civil</Text>
           <Text style={{textAlign:"center",color:"#999"}}>Lorem ipsum dolor</Text>
         </View>
@@ -60,22 +62,124 @@ export default function Index() {
         
       </View>
       {/* ==================================== */}
-      <Text style={styles.rowTitle}>À l'affiche</Text>
-      <View style={styles.actuBloc} >
+      <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-around",gap:wp("42%")}}>
 
-        <View style={styles.littleactu}>
-          <FontAwesomeFreeSolid name="wallet" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>
-          <Text style={{fontWeight:'bold',textAlign:"center"}}>Etat Civil</Text>
-          <Text style={{textAlign:"center",color:"#999"}}>Lorem ipsum dolor</Text>
-        </View>
-
-        <View style={styles.littleactu}>
-          <FontAwesomeFreeSolid name="building" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>
-          <Text style={{fontWeight:'bold',textAlign:"center"}}>Urbanisme</Text>
-          <Text style={{textAlign:"center",color:"#999"}}>Service d'état, ministériel</Text>
+        <Text style={styles.rowTitle}>À l'affiche</Text>
+        <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",gap:10}}>
+          {/* <Link  href={'/actualite'}> */}
+          <Text style={{paddingTop:hp("2%"),fontWeight:200}}>
+            voir plus
+          </Text>
+          <FontAwesomeFreeSolid name="arrow-right" size={15} color={"#555"} style={{paddingTop:hp("2%")}}/>
         </View>
 
       </View>
+      <View style={styles.actuBloc} >
+
+        <View style={styles.littleactu}>
+
+          <Image source={header} style={{borderRadius:15, width:wp("40%"),height:hp("24%")}}/>
+          {/* <FontAwesomeFreeSolid name="wallet" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>*/}
+          <View style={{paddingRight:wp("40%"),paddingLeft:wp("5%")}}>
+
+            <Text style={{fontWeight:'bold',fontSize:20, marginTop:5,marginBottom:10}}>Etat Civil Lorem, ipsum dolor sit</Text>
+            <Text style={{color:"#999"}}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, quos. Nobis aperiam ullam officia unde? Eveniet itaque nulla
+            </Text>
+
+          </View>
+
+        </View>
+        <View style={styles.littleactu}>
+
+          <Image source={agri} style={{borderRadius:15, width:wp("40%"),height:hp("24%")}}/>
+          {/* <FontAwesomeFreeSolid name="wallet" size={20} color={"#954A00"} style={styles.icon}></FontAwesomeFreeSolid>*/}
+          <View style={{paddingRight:wp("40%"),paddingLeft:wp("5%")}}>
+
+            <Text style={{fontWeight:'bold',fontSize:20, marginTop:5,marginBottom:10}}>Etat Civil Lorem, ipsum dolor sit</Text>
+            <Text style={{color:"#999"}}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, quos. Nobis aperiam ullam officia unde? Eveniet itaque nulla
+            </Text>
+
+          </View>
+
+        </View>
+
+      </View>
+
+      <View style={styles.bartr}>
+        <Text style={{fontSize:20, fontWeight:'bold'}}>Tourisme & Culture</Text>
+        <Text style={{fontWeight:100}}>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</Text>
+      </View>
+
+      <View style={styles.tourism}>
+
+        <Image source={touris} style={{width:wp("90%"),height:hp("25%"),marginVertical:0,borderRadius:20,position:"relative"}}/>
+        <View style={styles.hover}></View>
+        <Text 
+        style={{
+          paddingLeft:wp("6%"),
+          paddingTop:hp("5%"), 
+          fontWeight:200,
+          fontSize:25,
+          position:"absolute",
+          color:'white',
+        }}
+        >Réserve des Antilopes de Daloa</Text>
+        <Text 
+        style={{
+          paddingLeft:25,
+          paddingRight:25,
+          paddingTop:100, 
+          fontWeight:'100',
+          fontSize:20,
+          position:"absolute",
+          color:'white',
+        }}>
+          Une immersion totale dans la nature préservée du Haut-Sassandra, à la
+          rencontre de la faune locale emblématique.
+        </Text>
+        
+        {/* <Pressable>
+          <Link href={'/business_et_service'} style={styles.btn}>Explorer les services</Link> 
+        </Pressable> */}
+
+      </View>
+
+      <View style={styles.tourism}>
+
+        <Image source={touris} style={{width:wp("90%"),height:hp("25%"),marginVertical:0,borderRadius:20,position:"relative"}}/>
+        <View style={styles.hover}></View>
+        <Text 
+        style={{
+          paddingLeft:wp("6%"),
+          paddingTop:hp("5%"), 
+          fontWeight:200,
+          fontSize:25,
+          position:"absolute",
+          color:'white',
+        }}
+        >Cacao: le segment de la transformation suscite un intérêt de croissance</Text>
+        <Text 
+        style={{
+          paddingLeft:25,
+          paddingRight:25,
+          paddingTop:hp("16%"), 
+          fontWeight:'100',
+          fontSize:15,
+          position:"absolute",
+          color:'white',
+        }}>
+          le groupe présent en Côte d'ivoire dépuis plus de 60 ans à travers sa filiale SACO.
+        </Text>
+        
+        {/* <Pressable>
+          <Link href={'/business_et_service'} style={styles.btn}>Explorer les services</Link> 
+        </Pressable> */}
+
+      </View>
+
+
       </ScrollView>
 
       
@@ -92,9 +196,17 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     gap:wp('55%'),
     marginTop:20,
+    marginBottom:10,
     backgroundColor:'transparent',
   },
   header:{
+    margin:'auto',
+    borderRadius:20,
+    position:"relative",
+    // opacity:0.7,
+    marginVertical:20,
+  },
+  tourism:{
     margin:'auto',
     borderRadius:20,
     position:"relative",
@@ -177,21 +289,38 @@ const styles = StyleSheet.create({
     // margin:"auto",
     alignItems:"center",
     justifyContent:"center",
-    flexDirection:"row",
+    // flexDirection:"row",
     // backgroundColor:'yellow',
     gap:10,
     marginTop:hp("4%"),
     // width:wp("90%"),
     // height:hp('30%'),
+    // borderWidth:1,
+    // position:"relative",
   },
   littleactu:{
     width:wp("90%"),
-    height:hp("20%"),
+    // height:hp("25%"),
     // margin:"auto",
     borderStyle:'solid',
     borderWidth:1,
-    padding:15,
+    padding:5,//supprime l'espace entre l'image
     borderRadius:15,
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-around",
+    // gap:"40",
+    },
+    bartr:{
+      marginTop:hp("5%"),
+      marginBottom:hp("2%"),
+      // borderWidth:1,
+      marginHorizontal:hp("2%"),
+      padding:20,
+      gap:15,
+      borderRadius:20,
+      backgroundColor:"#f3f0ed",
+
     },
   container: {
     flex: 1,
