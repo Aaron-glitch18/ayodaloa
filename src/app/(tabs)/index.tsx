@@ -17,7 +17,7 @@ export default function Index() {
         
         <Text style={{fontSize:30,fontWeight:"bold"}}>Acceuil</Text>
           <View style={{flexDirection:"row" ,gap:10}}>
-            <FontAwesomeFreeSolid name="add" size={25} color="white" style={styles.fontbtn} />{/* ajout du lien vers la page d'ajout */}
+            <Link href={'/add'} style={styles.fontbtn}><FontAwesomeFreeSolid name="add" size={25} color="white" /></Link>{/* ajout du lien vers la page d'ajout */}
             {/* <FontAwesomeFreeSolid name="user-circle" size={25} color="#954A00" style={styles.fontbtn} /> */}
           
           </View>
@@ -65,13 +65,15 @@ export default function Index() {
       <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-around",gap:wp("42%")}}>
 
         <Text style={styles.rowTitle}>À l'affiche</Text>
-        <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",gap:10}}>
-          {/* <Link  href={'/actualite'}> */}
-          <Text style={{paddingTop:hp("2%"),fontWeight:200}}>
-            voir plus
-          </Text>
-          <FontAwesomeFreeSolid name="arrow-right" size={15} color={"#555"} style={{paddingTop:hp("2%")}}/>
-        </View>
+        <Link href={'/actualite'} style={{marginTop:hp("1")}}>
+          <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",gap:10}}>
+            {/* <Link  href={'/actualite'}> */}
+            <Text style={{paddingTop:hp("2%"),fontWeight:200}}>
+              voir plus
+            </Text>
+            <FontAwesomeFreeSolid name="arrow-right" size={15} color={"#555"} style={{paddingTop:hp("2%")}}/>
+          </View>
+        </Link>
 
       </View>
       <View style={styles.actuBloc} >
@@ -109,7 +111,7 @@ export default function Index() {
 
       <View style={styles.bartr}>
         <Text style={{fontSize:20, fontWeight:'bold'}}>Tourisme & Culture</Text>
-        <Text style={{fontWeight:100}}>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</Text>
+        <Text style={{fontWeight:300}}>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</Text>
       </View>
 
       <View style={styles.tourism}>
@@ -118,22 +120,28 @@ export default function Index() {
         <View style={styles.hover}></View>
         <Text 
         style={{
-          paddingLeft:wp("6%"),
-          paddingTop:hp("5%"), 
-          fontWeight:200,
+          fontWeight:"light",
           fontSize:25,
           position:"absolute",
           color:'white',
-        }}
+          top:wp("5"),
+          bottom:0,
+          right:0,
+          left:wp("5"),
+          }}
         >Réserve des Antilopes de Daloa</Text>
         <Text 
         style={{
-          paddingLeft:25,
-          paddingRight:25,
-          paddingTop:100, 
-          fontWeight:'100',
+          // paddingLeft:25,
+          // paddingRight:25,
+          // paddingTop:100, 
+          fontWeight:"300",
           fontSize:20,
           position:"absolute",
+          top:hp(11),
+          bottom:0,
+          left:wp(6),
+          right:0,
           color:'white',
         }}>
           Une immersion totale dans la nature préservée du Haut-Sassandra, à la
@@ -152,22 +160,25 @@ export default function Index() {
         <View style={styles.hover}></View>
         <Text 
         style={{
-          paddingLeft:wp("6%"),
-          paddingTop:hp("5%"), 
-          fontWeight:200,
+          fontWeight:"light",
           fontSize:25,
           position:"absolute",
           color:'white',
-        }}
+          top:wp("5"),
+          bottom:0,
+          right:0,
+          left:wp("5"),
+          }}
         >Cacao: le segment de la transformation suscite un intérêt de croissance</Text>
         <Text 
         style={{
-          paddingLeft:25,
-          paddingRight:25,
-          paddingTop:hp("16%"), 
-          fontWeight:'100',
-          fontSize:15,
+          fontWeight:"300",
+          fontSize:20,
           position:"absolute",
+          top:hp(14),
+          bottom:0,
+          left:wp(6),
+          right:0,
           color:'white',
         }}>
           le groupe présent en Côte d'ivoire dépuis plus de 60 ans à travers sa filiale SACO.
@@ -257,7 +268,7 @@ const styles = StyleSheet.create({
     paddingTop:hp("2%"),
     fontSize:20,
     fontWeight:"bold", 
-    paddingLeft:15,
+    paddingLeft:10,
     // marginBottom:hp("1%"),
     // borderWidth:1,
   },
@@ -277,10 +288,11 @@ const styles = StyleSheet.create({
     width:wp("29%"),
     height:hp("13%"),
     // margin:"auto",
-    borderStyle:'solid',
+    // borderStyle:'dashed',
     borderWidth:1,
     padding:15,
     borderRadius:15,
+    backgroundColor:"white",
   },
   icon:{
     textAlign:"center",
@@ -291,8 +303,9 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     // flexDirection:"row",
     // backgroundColor:'yellow',
-    gap:10,
+    gap:15,
     marginTop:hp("4%"),
+    backgroundColor:"white",
     // width:wp("90%"),
     // height:hp('30%'),
     // borderWidth:1,
