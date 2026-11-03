@@ -3,14 +3,19 @@ import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-// import {KeyboardAvoi}
+import ImageViewer from '../../components/image-viewer';
+
+const ImageDefault=require('../../assets/images/asset_ayodaloa/edu4.jpg');
+// type Props ={
+//     imgSource:ImageSource;
+// }
 
 export default function Home(){
     const [selectedImage, setSelectedImage] = useState<string | undefined> (undefined);
     
     const pickImageAsync= async ()=>{
         const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes:"images",
+            mediaTypes:['images'],
             allowsEditing:true,
             quality:1,
         });
@@ -114,14 +119,14 @@ export default function Home(){
 
                     <View>
 
-                        <Pressable onPress={pickImageAsync} style={styles.insert}>
+                        <View >
+                            <ImageViewer imgSource={ selectedImage || ImageDefault}/> 
+                        </View>
+                        <Pressable onPress={pickImageAsync}  style={styles.insert}>
                             <FontAwesomeFreeSolid name="image" size={20} color={"white"}/>
                             <Text style={{fontSize:15}}>sélectionez une photo</Text>
                         </Pressable>
 
-                    </View>
-                    <View style={{width:wp(50),height:hp(40)}}>
-                        <Image source={selectedImage}></Image>
                     </View>
 
                     <Pressable style={styles.log}>
@@ -155,17 +160,18 @@ const styles=StyleSheet.create({
         // justifyContent:"center",
         paddingTop:hp(3),
         marginTop:hp(3),
-        gap:25,
+        gap:15,
     },
     input:{
         backgroundColor:"#eee",
         paddingHorizontal:15,
-        paddingVertical:20,
+        paddingVertical:15,
+        marginBottom:5,
         width:wp(75),
         // textAlign:"center",
         fontSize:16,
         color:"black",
-        borderRadius:15,
+        borderRadius:10,
     },
     log:{
         backgroundColor:'#954a00',
@@ -189,8 +195,8 @@ const styles=StyleSheet.create({
     
   },
   label:{
-    fontSize:17,
-    marginVertical:10,
+    fontSize:15,
+    // marginVertical:5,
     marginRight:5
   }
 
