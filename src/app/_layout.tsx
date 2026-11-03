@@ -13,8 +13,22 @@ export default function RootLayout() {
       <Stack.Screen 
       name='add'
       options={{
-        headerTitle:'',
-
+        // headerTitle:'',
+        headerBackButtonDisplayMode:'minimal'
+      }}
+      />
+      <Stack.Screen 
+      name='connect'
+      options={{
+        // headerTitle:'',
+        headerBackButtonDisplayMode:'minimal'
+      }}
+      />
+      <Stack.Screen 
+      name='inscription'
+      options={{
+        // headerTitle:'',
+        headerBackButtonDisplayMode:'minimal'
       }}
       />
 

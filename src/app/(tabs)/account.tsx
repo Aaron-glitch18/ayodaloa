@@ -1,4 +1,5 @@
 import Login from '@/assets/animations/Login.json';
+import { Link } from 'expo-router';
 import LottieView from "lottie-react-native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -33,10 +34,10 @@ export default function Index() {
 
         <View style={{gap:20}}>
           <Pressable style={styles.btnCon}>
-            <Text style={{color:"black",fontSize:17}}>Je souhaite me connecter</Text>
+            <Link href={'/connect'}><Text style={{color:"white",fontSize:17}}>Je souhaite me connecter</Text></Link>
           </Pressable>
           <Pressable style={styles.btnReg}>
-            <Text style={{color:"white",fontSize:17}}>Je souhaite créer un compte</Text>
+            <Link href={'/inscription'}><Text style={{color:"black",fontSize:17}}>Je souhaite créer un compte</Text></Link>
           </Pressable>
 
         </View>
@@ -72,15 +73,18 @@ const styles = StyleSheet.create({
 textAlign:"center",
   },
   btnCon:{
-    backgroundColor:'#dec1af',
+    backgroundColor:'#954a00',
     borderRadius:50,
     paddingVertical:20,
     paddingHorizontal:30,
   },
   btnReg:{
-    backgroundColor:'#954a00',
+    borderWidth:1,
+    borderColor:"#dec1af",
+    // backgroundColor:'#954a00',
     borderRadius:50,
     paddingVertical:20,
     paddingHorizontal:30,
+    // color:"black",
   },
 });
