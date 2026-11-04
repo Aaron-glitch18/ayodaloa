@@ -4,7 +4,7 @@
     "slug": "ayodaloa",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/asset_ayodaloa/logo.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "ayodaloa",
     "userInterfaceStyle": "automatic",
     "ios": {
