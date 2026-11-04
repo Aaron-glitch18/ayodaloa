@@ -1,17 +1,38 @@
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import {KeyboardAvoi}
 
 export default function Home(){
+    const [email,setEmail]=useState('');
+    const[mdp,setMdp]=useState('');
+    const[cmdp,setCmdp]=useState('');
+    
+    // async function name(email,mdp,cmdp:string,) {
 
-const insets = useSafeAreaInsets();
+    // try{
+
+    // }
+        
+    // }
+    const data_send = async ()=>{
+        if(!email.trim() || !mdp.trim() || !cmdp.trim()){
+            alert("veuillez remplir tout les champs");
+        }else{
+            console.log(email+'\n'+
+                        mdp+'\n'+
+                        cmdp+`\n`
+            )
+        }
+    }
+// const insets = useSafeAreaInsets();
 
     return(
-            <KeyboardAvoidingView
-                behavior='padding'
-                style={styles.contain}
-            >
+        <KeyboardAvoidingView
+        behavior='padding'
+        style={styles.contain}
+        >
         {/* <View style={styles.contain}> */}
 
             <View style={{paddingTop:hp(10)}}>
@@ -21,6 +42,7 @@ const insets = useSafeAreaInsets();
 
             </View>
                 <View style={styles.formBloc}>
+            {/* <ScrollView> */}
 
                     <View style={{gap:10}}>
 
@@ -29,6 +51,9 @@ const insets = useSafeAreaInsets();
                         placeholder='username@gmail.com' 
                         placeholderTextColor={"grey"}
                         style={styles.input}
+                        value={email}
+                        onChangeText={setEmail}
+                        keyboardType='email-address'
                     />
     
                     </View>
@@ -43,6 +68,9 @@ const insets = useSafeAreaInsets();
                         autoCorrect={false}
                         style={styles.input}
                         accessibilityLabel='Password'
+                        value={mdp}
+                        onChangeText={setMdp}
+                        maxLength={15}
                     />
                     <Text style={{fontSize:17}}>Confirmer votre mot de passe</Text>
                     <TextInput  
@@ -53,16 +81,20 @@ const insets = useSafeAreaInsets();
                         autoCorrect={false}
                         style={styles.input}
                         accessibilityLabel='Password'
+                        value={cmdp}
+                        onChangeText={setCmdp}
+                        maxLength={15}
                     />
 
                     </View>
-                    <Pressable style={styles.log}>
+                    <Pressable style={styles.log} onPress={data_send}>
                         <Text style={{textAlign:"center",color:"white",fontSize:20}}>Je m'inscris </Text>
                     </Pressable>
                     {/* <Text>Informations générales</Text>
 
 
                     <Text>Informations complémentaires</Text> */}
+            {/* </ScrollView> */}
                 </View>
             
         {/* </View> */}
@@ -93,6 +125,7 @@ const styles=StyleSheet.create({
         backgroundColor:"#eee",
         paddingHorizontal:15,
         paddingVertical:20,
+        marginBottom:5,
         width:wp(75),
         // textAlign:"center",
         fontSize:16,

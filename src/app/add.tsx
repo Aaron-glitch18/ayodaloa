@@ -110,10 +110,14 @@ export default function Home(){
                         <Text style={{color:"red", marginVertical:"auto"}}>*</Text>
                     </View>
                     <TextInput  
-                        placeholder="O'Chaud !" 
+                        placeholder="Nous exerçons dans la restauration..." 
                         placeholderTextColor={"grey"}
                         style={styles.input}
-                    />
+                        multiline={true}
+                        numberOfLines={5}
+                        // value={question}
+                        // onChangeText={setQuestion}
+                        />
 
                     </View>
 

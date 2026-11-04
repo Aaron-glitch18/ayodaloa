@@ -36,6 +36,7 @@ export default function Home(){
                     autoCorrect={false}
                     style={styles.input}
                     accessibilityLabel='Password'
+                    maxLength={15}
                 />
 
                 </View>

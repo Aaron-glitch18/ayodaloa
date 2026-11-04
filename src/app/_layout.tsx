@@ -32,6 +32,14 @@ export default function RootLayout() {
       }}
       />
 
+      <Stack.Screen 
+      name='chat'
+      options={{
+        // headerTitle:'',
+        headerBackButtonDisplayMode:'minimal'
+      }}
+      />
+
     </Stack>
   );
 }

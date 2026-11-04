@@ -17,9 +17,12 @@ export default function Index() {
         
         <Text style={{fontSize:30,fontWeight:"bold"}}>Actualité</Text>
           <View style={{flexDirection:"row" ,gap:10}}>
-            <Link href={'/add'} style={styles.fontbtn}><FontAwesomeFreeSolid name="add" size={25} color="white" /></Link>{/* ajout du lien vers la page d'ajout */}
-            {/* <FontAwesomeFreeSolid name="user-circle" size={25} color="#954A00" style={styles.fontbtn} /> */}
-          
+            <Link href={'/add'} style={styles.fontbtn}>
+              <FontAwesomeFreeSolid name="add" size={20} color="white" />
+            </Link>{/* ajout du lien vers la page d'ajout */}
+            <Link href={'/chat'} style={styles.fontbtn}>
+              <FontAwesomeFreeSolid name="message" size={20} color="white" />
+            </Link>
           </View>
        
       </View>
@@ -203,7 +206,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center",
     justifyContent:"center",
-    gap:wp('50%'),
+    gap:wp('40%'),
     marginTop:20,
     marginBottom:10,
     backgroundColor:'transparent',

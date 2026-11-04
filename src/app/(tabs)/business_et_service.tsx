@@ -17,8 +17,9 @@ export default function Index() {
         
         <Text style={{fontSize:30,fontWeight:"bold"}}>Business & Service</Text>
           <View style={{flexDirection:"row" ,gap:10}}>
-            <Link href={'/add'} style={styles.fontbtn}><FontAwesomeFreeSolid name="add" size={25} color="white" /></Link>{/* ajout du lien vers la page d'ajout */}
-            {/* <FontAwesomeFreeSolid name="user-circle" size={25} color="#954A00" style={styles.fontbtn} /> */}
+            <Link href={'/add'} style={styles.fontbtn}>
+            <FontAwesomeFreeSolid name="add" size={20} color="white" /></Link>{/* ajout du lien vers la page d'ajout */}
+            <FontAwesomeFreeSolid name="message" size={20} color="white" style={styles.fontbtn} />
           
           </View>
        
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center",
     justifyContent:"center",
-    gap:wp('11%'),
+    gap:wp('5%'),
     marginTop:20,
     marginBottom:10,
     backgroundColor:'transparent',
