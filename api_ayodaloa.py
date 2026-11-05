@@ -1,49 +1,48 @@
-# import mysql.connector
-# #Connectons nous au serveur
-# connect=mysql.connector.connect(
-#     user='root',
-#     password='',
-#     host='127.0.0.1',
-#     database='ayodaloa_db',
-#     port=3306
-# )
-# #Etablissont la connection
-# cursor=connect.cursor()
-# requete="SELECT `titreActu` FROM actualitedata WHERE 1"
-# reponse=cursor.execute("SELECT `titreActu` FROM actualitedata WHERE 1")
-# rows=cursor.fetchall()
 
-# if connect.is_connected:
-#     print("base de donnée connecté")
-#     for titre in rows:
-#         print(titre)
 from fastapi import FastAPI
 from pydantic import BaseModel
-import mysql.connector
+from connect_db import Inscris, Item, client
+from email_validator import validate_email, EmailNotValidError
 
-class Item(BaseModel):
-    saisie:str
+if client.is_connected:
+    print("connection réussite")
+else:
+    print("une erreur c'est produite")
 
-# modèle de structure des données du formulaire d'inscription
-class Inscris(BaseModel):
-    email:str
-    mdp:str
-    cmdp:str
 
 app=FastAPI()
 
 @app.get('/')
 def test():
     return "api fonctionnel"
-
-@app.post('/test')
-def create_mdp(body:Item):
-    return "entrer reçu"
-
+   
 
 @app.post('/inscris')
-def inscris(saisie:Inscris):
-    return {"mail":saisie.email, "mot de passe":saisie.mdp, "val mot de passe":saisie.cmdp}
+def valid(saisie:Inscris):
+    email=saisie.email
+    mot_de_passe=saisie.mdp
+    val_mot_de_passe=saisie.cmdp
+
+    try:
+        emailinfo=validate_email(email,check_deliverability=False)
+
+        if mot_de_passe == val_mot_de_passe:
+            print("great")
+            return{"mail":emailinfo.normalized, "mdp":mot_de_passe}
+        else:
+            return"Les mots de passe semble différent"
+    
+    except EmailNotValidError as e:
+        return{str(e)}
+        
+
+
+    if mot_de_passe == val_mot_de_passe:
+        return{"mot de passe identique"}
+    else:
+        return {"saisie différente"}
+ 
+
 
 
 
