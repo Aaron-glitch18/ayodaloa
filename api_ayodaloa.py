@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from connect_db import Inscris, Item, client
@@ -8,7 +7,6 @@ if client.is_connected:
     print("connection réussite")
 else:
     print("une erreur c'est produite")
-
 
 app=FastAPI()
 
@@ -26,22 +24,14 @@ def valid(saisie:Inscris):
     try:
         emailinfo=validate_email(email,check_deliverability=False)
 
-        if mot_de_passe == val_mot_de_passe:
+        if mot_de_passe != val_mot_de_passe:
+            return"Les mots de passe semble différent"
+        else:
             print("great")
             return{"mail":emailinfo.normalized, "mdp":mot_de_passe}
-        else:
-            return"Les mots de passe semble différent"
     
     except EmailNotValidError as e:
         return{str(e)}
-        
-
-
-    if mot_de_passe == val_mot_de_passe:
-        return{"mot de passe identique"}
-    else:
-        return {"saisie différente"}
- 
 
 
 
