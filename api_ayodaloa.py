@@ -32,6 +32,10 @@ class Inscris(BaseModel):
 
 app=FastAPI()
 
+@app.get('/')
+def test():
+    return "api fonctionnel"
+
 @app.post('/test')
 def create_mdp(body:Item):
     return "entrer reçu"
