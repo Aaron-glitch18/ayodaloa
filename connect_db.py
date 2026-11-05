@@ -2,10 +2,10 @@ import mysql.connector
 from pydantic import BaseModel
 
 client=mysql.connector.connect(
-    user="root",
-    password="",
-    host="127.0.0.1",
-    database="ayodaloa_db",
+    user="u869166798_dev",
+    password="Aquil",
+    host="srv2122.hstgr.io",
+    database="u869166798_ayotest",
     port=3306
 )
 cursor=client.cursor()
