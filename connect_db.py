@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 client=mysql.connector.connect(
     user="u869166798_dev",
-    password="Aquil",
+    password="Aquil@s2024",
     host="srv2122.hstgr.io",
     database="u869166798_ayotest",
     port=3306
