@@ -41,7 +41,7 @@ def valid_user(user:Inscris):
                 rep=cursor.fetchone()
 
                 if rep is not None:
-                    return f"Il semblerait que vous ayez un compte sous ce mail"
+                    return f"Il semblerait que vous ayez un compte sous ce mail {rep}"
                 else:
                 # for row in rep:
                     print("great")
@@ -50,7 +50,7 @@ def valid_user(user:Inscris):
                     client.commit()
                     # rep=cursor.fetchall()
                     rep=cursor.lastrowid
-                    return{"connection réussite"}
+                    return{"mail":mail_val, "mdp":mot_de_passe, "state":cur,}
             except mysql.connector.Error as err:
                 return {str(err)}
             
@@ -60,14 +60,11 @@ def valid_user(user:Inscris):
         
 @app.post('/inscris')
 async def save_user(user:Inscris):
-    output= await valid_user(user)
+    output=valid_user(user)
     return output
 
-@app.post('/connect')
-async def connect(user:Inscris):
-    email=user.email
-    mot_de_passe=user.mdp
-
+# @app.post('/connect')
+# async
 
 
 
