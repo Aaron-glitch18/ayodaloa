@@ -13,7 +13,7 @@ app=FastAPI()
 @app.get('/')
 def test():
     return "api fonctionnel"
-   
+
 
 @app.post('/inscris')
 def valid(saisie:Inscris):
