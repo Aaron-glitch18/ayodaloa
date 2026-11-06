@@ -1,9 +1,37 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from connect_db import Inscris, Item,client,cursor
+# from connect_db import Inscris, Item,client,cursor
 from email_validator import validate_email, EmailNotValidError
 from pwdlib import PasswordHash
+# connection et modèle de donnée api
 import mysql.connector
+from pydantic import BaseModel
+
+try:
+    client=mysql.connector.connect(
+        user="root",
+        password="",
+        host="127.0.0.1",
+        database="ayodaloa_db",
+        port=3306
+    )
+    cursor=client.cursor()
+    print(client)
+except mysql.connector.Error as err:
+    print(str(err))
+
+
+class Inscris(BaseModel):
+    email:str
+    mdp:str
+    cmdp:str
+
+
+class Item(BaseModel):
+    saisie:str
+
+# 
+
 
 if client.is_connected:
     print("connection réussite")
@@ -14,7 +42,8 @@ app=FastAPI()
 # test de mise en hors veille
 @app.get('/')
 def test():
-    return {"api fonctionnel"}
+    if client:
+        return {client}
 
 
 def valid_user(user:Inscris):
@@ -62,11 +91,3 @@ def valid_user(user:Inscris):
 async def save_user(user:Inscris):
     output=valid_user(user)
     return output
-
-# @app.post('/connect')
-# async
-
-
-
-
-
