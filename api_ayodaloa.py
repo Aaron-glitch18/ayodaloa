@@ -30,8 +30,6 @@ class Inscris(BaseModel):
 class Item(BaseModel):
     saisie:str
 
-# 
-
 
 if client.is_connected:
     print("connection réussite")
