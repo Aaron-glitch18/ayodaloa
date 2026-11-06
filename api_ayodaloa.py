@@ -1,11 +1,9 @@
 from fastapi import FastAPI
+import mysql.connector
 from pydantic import BaseModel
-# from connect_db import Inscris, Item,client,cursor
 from email_validator import validate_email, EmailNotValidError
 from pwdlib import PasswordHash
 # connection et modèle de donnée api
-import mysql.connector
-from pydantic import BaseModel
 
 try:
     client=mysql.connector.connect(
