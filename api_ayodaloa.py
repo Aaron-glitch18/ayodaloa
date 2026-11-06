@@ -5,6 +5,9 @@ from email_validator import validate_email, EmailNotValidError
 from pwdlib import PasswordHash
 # connection et modèle de donnée api
 
+
+app=FastAPI()
+
 try:
     client=mysql.connector.connect(
         user="root",
@@ -33,8 +36,6 @@ if client.is_connected:
     print("connection réussite")
 else:
     print("une erreur c'est produite")
-
-app=FastAPI()
 # test de mise en hors veille
 @app.get('/')
 def test():
