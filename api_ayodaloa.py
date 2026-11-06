@@ -7,19 +7,17 @@ from pwdlib import PasswordHash
 
 
 app=FastAPI()
-
-try:
-    client=mysql.connector.connect(
-    user="u869166798_dev",
-    password="Aquil@s2024",
-    host="srv2122.hstgr.io",
-    database="u869166798_ayotest",
-    port=3306
-    )
-    cursor=client.cursor()
-    print(client)
-except mysql.connector.Error as err:
-    print(str(err))
+# try:
+client=mysql.connector.connect(
+user="u869166798_dev",
+password="Aquil@s2024",
+host="srv2122.hstgr.io",
+database="u869166798_ayotest",
+port=3306
+)
+cursor=client.cursor()
+# except mysql.connector.Error as err:
+#     print(str(err))
 
 
 class Inscris(BaseModel):
@@ -31,12 +29,8 @@ class Inscris(BaseModel):
 class Item(BaseModel):
     saisie:str
 
-
-if client.is_connected:
-    print("connection réussite")
-else:
-    print("une erreur c'est produite")
 # test de mise en hors veille
+
 @app.get('/')
 def test():
     if client:
