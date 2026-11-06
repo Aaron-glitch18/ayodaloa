@@ -15,11 +15,10 @@ def test():
     return "api fonctionnel"
 
 
-@app.post('/inscris')
-def valid(saisie:Inscris):
-    email=saisie.email
-    mot_de_passe=saisie.mdp
-    val_mot_de_passe=saisie.cmdp
+def valid_user(user:Inscris):
+    email=user.email
+    mot_de_passe=user.mdp
+    val_mot_de_passe=user.cmdp
 
     try:
         emailinfo=validate_email(email,check_deliverability=False)
@@ -32,6 +31,31 @@ def valid(saisie:Inscris):
     
     except EmailNotValidError as e:
         return{str(e)}
+
+        
+@app.post('/inscris')
+async def save_user(user:Inscris):
+    output=valid_user(user)
+    return output
+
+# def valid(user:Inscris):
+#     email=user.email
+#     mot_de_passe=user.mdp
+#     val_mot_de_passe=user.cmdp
+
+#     try:
+#         emailinfo=validate_email(email,check_deliverability=False)
+
+#         if mot_de_passe != val_mot_de_passe:
+#             return"Les mots de passe semble différent"
+#         else:
+#             print("great")
+#             return{"mail":emailinfo.normalized, "mdp":mot_de_passe}
+    
+#     except EmailNotValidError as e:
+#         return{str(e)}
+
+
 
 
 
