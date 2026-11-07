@@ -7,18 +7,14 @@ from pwdlib import PasswordHash
 
 
 app=FastAPI()
-# try:
-client=mysql.connector.connect(
+def connect_sql():
+    return mysql.connector.connect(
 user="u869166798_dev",
 password="Aquil@s2024",
 host="srv2122.hstgr.io",
 database="u869166798_ayotest",
 port=3306
-)
-cursor=client.cursor()
-# except mysql.connector.Error as err:
-#     print(str(err))
-
+    )
 
 class Inscris(BaseModel):
     email:str
@@ -31,10 +27,10 @@ class Item(BaseModel):
 
 # test de mise en hors veille
 
-@app.get('/')
-def test():
-    if client:
-        return {client}
+# @app.get('/')
+# def test():
+#     if client:
+#         return {client}
 
 
 def valid_user(user:Inscris):
@@ -56,7 +52,13 @@ def valid_user(user:Inscris):
             mdp_hash = password_hash.hash(mot_de_passe)
             # vérificatio de l'existence de l'utilisateur
             sql="SELECT `id` FROM user_data WHERE mail=%s"
+
+            db=None
+            cursor=None
+
             try:
+                db=connect_sql()
+                cursor=db.cursor()
                 cursor.execute(sql,(mail_val,))
                 rep=cursor.fetchone()
 
@@ -65,14 +67,22 @@ def valid_user(user:Inscris):
                 else:
                 # for row in rep:
                     print("great")
+                    db
                     sql="INSERT INTO user_data (`mail`,`password`) VALUES (%s,%s)"
                     cur=cursor.execute(sql,(mail_val,mdp_hash))
-                    client.commit()
+                    db.commit()
                     # rep=cursor.fetchall()
                     rep=cursor.lastrowid
-                    return{"mail":mail_val, "mdp":mot_de_passe, "state":cur,}
+                    return{"mail":mail_val, "mdp":mot_de_passe, "state":rep,}
             except mysql.connector.Error as err:
+                db.rollback()
                 return {str(err)}
+            finally:
+                if cursor is None:
+                    cursor.close()
+                
+                if db is None:
+                    db.close()
             
     except EmailNotValidError as e:
         return{str(e)}

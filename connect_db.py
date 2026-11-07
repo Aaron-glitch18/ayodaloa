@@ -1,14 +1,19 @@
 import mysql.connector
 from pydantic import BaseModel
 
-client=mysql.connector.connect(
-    user="u869166798_dev",
-    password="Aquil@s2024",
-    host="srv2122.hstgr.io",
-    database="u869166798_ayotest",
-    port=3306
-)
-cursor=client.cursor()
+try:
+    client=mysql.connector.connect(
+        user="root",
+        password="",
+        host="127.0.0.1",
+        database="ayodaloa_db",
+        port=3306
+    )
+    cursor=client.cursor()
+    print(client)
+except mysql.connector.Error as err:
+    print(str(err))
+
 
 class Inscris(BaseModel):
     email:str
