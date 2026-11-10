@@ -9,12 +9,22 @@ from pwdlib import PasswordHash
 app=FastAPI()
 def connect_sql():
     return mysql.connector.connect(
-user="u869166798_dev",
-password="Aquil@s2024",
-host="srv2122.hstgr.io",
-database="u869166798_ayotest",
-port=3306
+        user="u869166798_dev",
+        password="Aquil@s2024",
+        host="srv2122.hstgr.io",
+        database="u869166798_ayotest",
+        port=3306
     )
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],          # en dev uniquement !
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Inscris(BaseModel):
     email:str
@@ -92,3 +102,4 @@ def valid_user(user:Inscris):
 async def save_user(user:Inscris):
     output=valid_user(user)
     return output
+
