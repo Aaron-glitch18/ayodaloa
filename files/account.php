@@ -197,9 +197,8 @@ if(isset($_POST['envoyer'])){
             const mdp=document.getElementById('mdp').value;
             if(!email.trim() || !mdp.trim()){
 
-                const rep= await send_data(email,mdp);
-                const instru=document.getElementById('suc');
-                instru.innerHTML=rep;
+            const instru=document.getElementById('suc');
+                instru.innerHTML="Veuillez rempir tout les champs";
                 instru.style.display="block";
                 // console.log("les champs semble vide");
 
@@ -209,9 +208,9 @@ if(isset($_POST['envoyer'])){
                 const rep= await send_data(email,mdp);
                 console.log(rep);
                 const instru=document.getElementById('suc');
-                instru.innerHTML=rep;
+                // instru.innerHTML=rep;
                 instru.style.display="block";
-                // window.location.href=rep;
+                window.location.href=rep;
                  
             }
             
