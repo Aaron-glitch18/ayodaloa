@@ -10,10 +10,10 @@ from fastapi.responses import RedirectResponse
 app=FastAPI()
 def connect_sql():
     return mysql.connector.connect(
-        user="u869166798_dev",   
-        password="Aquil@s2024",    
-        host="srv2122.hstgr.io",         
-        database="u869166798_ayotest", 
+        user="root",
+        password="",
+        host="localhost",
+        database="ayodaloa_db",
         port=3306
     )
 
@@ -53,6 +53,10 @@ def creat_user(user:Inscris):
     mot_de_passe=user.mdp
     val_mot_de_passe=user.cmdp
 
+    db=None
+    cursor=None
+
+
     try:
 
         emailinfo=validate_email(email,check_deliverability=False)
@@ -67,9 +71,6 @@ def creat_user(user:Inscris):
             mdp_hash = password_hash.hash(mot_de_passe)
             # vérificatio de l'existence de l'utilisateur
             sql="SELECT `id` FROM user_data WHERE mail=%s"
-
-            db=None
-            cursor=None
 
             try:
                 db=connect_sql()
@@ -129,19 +130,20 @@ def valid_user(user:Conect):
                 "mail":reponse[1],
                 "password":reponse[2]
             }
+            print(rep)
             if reponse is None:
 
-                return "Veuillez saisir des valeurs dans les champs"
+                return "aucun mail correpondant"
             else:
                 passord_hash=PasswordHash.recommended()
                 val=passord_hash.verify(mot_de_passe,rep['password'])
                 if val:
-                    return "succefull"
+                    return "http://localhost/AyoDaloa/files/index.php"
                 else:
                     return f"le mot de passe saisi est incorrect"
                 
         except mysql.connector.errors as err:
-            return err
+            return str(err)
 
     except EmailNotValidError as e:
         return str(e)
