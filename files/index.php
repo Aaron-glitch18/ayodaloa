@@ -1,5 +1,7 @@
 <?php
 session_start();
+// echo session_id();
+
 require_once(__DIR__.'/connect.php');
 // =============ANNONCE======================
 $sql="SELECT * FROM `annonce` WHERE 1 ORDER BY `date` DESC";
@@ -691,7 +693,7 @@ $agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class=\"news-content\">
               <div>
                 <h3>".$actu['titreActu']."</h3>
-                <p>Le maire a procédé hier à l'ouverture officielle du centre, visant à démocratiser l'accès au numérique...</p>
+                <p>".substr($actu['descripActu'],0,150)."...</p>
               </div>
               <div class=\"news-footer\">
                   <span>".$actu['date']."</span>
@@ -724,7 +726,7 @@ $agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- TOURISME & CULTURE -->
       <section style="margin-top: 40px;">
-        <div class="tourism-header-box">
+          <div class="tourism-header-box">
             <h2>Tourisme & Culture</h2>
             <p>Explorez les richesses naturelles et le patrimoine culturel unique de Daloa.</p>
           </div>
@@ -733,9 +735,8 @@ $agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo"<div class=\"tourism-grid\">
               <div class=\"tourism-card\" style=\"background-image: url('".$touris['image']."');\">
-                 <div class=\"tourism-card-content\">
+                <div class=\"tourism-card-content\">
                   <h3>".$touris['titreActu']."</h3>
-
                   <p>".substr($touris['descripActu'],0,100)."...</p>
                 </div>
               </div>";
@@ -743,17 +744,33 @@ $agris=$stmt->fetchAll(PDO::FETCH_ASSOC);
               ?>
               <?php
               foreach($agris as $agri){
-              echo "<div class=\"tourism-card\" style=\"background-image: url('".$agri['image']."');>
+        echo "<div class=\"tourism-card\" style=\"background-image: url('".$agri['image']."');>
                 <div class=\"tourism-card-content\">
                   <h3>".$agri['titreActu']."...</h3>
-                  <p>".substr($agri['descripActu'],0,10)."...</p>
+                  <p>".substr($agri['descripActu'],0,90)."...</p>
                 </div>
               </div>
 
         </div>";
         }
         ?>
+
       </section>
+      
+        <!-- <div class="tourism-grid">
+          <div class="tourism-card" style="background-image: url('image/antilopes.jpg');">
+            <div class="tourism-card-content">
+              <h3>Réserve des Antilopes de Daloa</h3>
+              <p>Une immersion totale dans la nature préservée du Haut-Sassandra...</p>
+            </div>
+          </div>
+          <div class="tourism-card" style="background-image: url('image/cacao.jpg');">
+            <div class="tourism-card-content">
+              <h3>Le Circuit du Cacao</h3>
+              <p>De la cabosse à la fève, découvrez le savoir-faire de notre région.</p>
+            </div>
+          </div>
+        </div> -->
 
     </main>
 

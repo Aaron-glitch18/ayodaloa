@@ -1,4 +1,5 @@
-<?php
+
+<!-- <?php
 session_start();
 require_once(__DIR__."/connect.php");
 $erreur="";
@@ -60,8 +61,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 //  strlen($password)<=8
 
-?>
-
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,6 +102,7 @@ ul{
     color:green;
     position: absolute;
     top:67%;
+    display:none;
 }
 @media (max-width:800px){
 .account{
@@ -194,13 +195,14 @@ ul{
                     <button class="other">B</button>
                     <button class="other">C</button>
                 </div> -->
-                <div>
-                    <form action="#" method="POST" style="z-index: index;">
-                        <input type="text" name="nom" id="nom" placeholder="Kouassi">
-                        <input type="text" name="prenom" id="prenom" placeholder="Jean">
+                <div id="bloc">
+                    <form method="POST"style="z-index: index;">
+                    <!-- <form action="#" method="POST" style="z-index: index;"> -->
+                        <!-- <input type="text" name="nom" id="nom" placeholder="Kouassi">
+                        <input type="text" name="prenom" id="prenom" placeholder="Jean"> -->
                         <input type="email" name="mail" id="mail" placeholder="kouassijean@gmail.com" >
                         <input type="password" name="password" id="mdp" placeholder="Saisissez 8 et 15 caractères" >
-                        <input type="password" name="conf_password" id="mdp" placeholder="Saisissez le mot de passe définis ci-dessus">
+                        <input type="password" name="conf_password" id="cmdp" placeholder="Saisissez le mot de passe définis ci-dessus">
                         <!-- <select id="select">
                             <option value="">Choisissez une question</option>
                             <option value="Quel est votre pays de rêve">Quel est votre pays de rêve</option>
@@ -210,16 +212,17 @@ ul{
                         <!-- <input type="text" name="reponse" id="reponse" placeholder="Réponder à la question sélectionner ci-haut"> -->
                         <!-- <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, et.</small> -->
                         
-                        <?php if($_SESSION['erreur']):?>
+                        <!-- <?php if($_SESSION['erreur']):?>
                             <p id="err"><?php echo $_SESSION['erreur'];?></p>
                         <?php else:;?>
                             <p id="suc">
                                 <?php echo $_SESSION['succes'];
                                     // header('location:account.php');
                                 ?></p>
-                        <?php endif;?>
+                        <?php endif;?> -->
+                        <p id="suc"></p>
 
-                        <button type="submit" name="inscris" id="env1" style="margin-top:35px;">s'inscrire</button>
+                        <button  type="button" name="inscris" id="env1" style="margin-top:35px;">s'inscrire</button>
                         <p style="position:absolute;top:80%;">Je souhaite me connecter à <a href="account.php" style="text-decoration:underline;"><em>mon compte</em></a></p>
 
                     </form>
@@ -233,5 +236,57 @@ ul{
     </section>
 
 </body>
+<script>
+
+        const inscris=document.getElementById("env1");
+        inscris.addEventListener('click',async()=>{
+
+            const email=document.getElementById('mail').value;
+            const mdp=document.getElementById('mdp').value;
+            const cmdp=document.getElementById('cmdp').value;
+
+            if(!cmdp.trim() || !email.trim() || !mdp.trim()){
+  
+                const instru=document.getElementById('suc');
+                instru.innerHTML="Veuillez remplir les champs proposé";
+                instru.style.display="block";
+
+                console.log("les champs semble vide");
+            }else{
+                console.log("champs remplis");
+                // console.log(email,mdp,cmdp);
+                rep= await send_data(email,mdp,cmdp);
+                console.log(rep);
+                const instru=document.getElementById('suc');
+                instru.innerHTML=rep;
+                instru.style.display="block";
+                return rep;
+                 
+            }
+            
+        })
+
+        async function send_data(email,mdp,cmdp) {
+
+        const url="http://127.0.0.1:8000/inscris";
+
+        try{
+            const req= await fetch(url,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({email:email,mdp:mdp,cmdp:cmdp})
+            });
+            const data=await req.json();
+            return data;
+        }catch(error){
+            return("Une erreur est survenu"+error);
+
+        }
+
+    }
+
+</script>
 
 </html>

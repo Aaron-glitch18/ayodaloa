@@ -172,8 +172,8 @@ echo"une erreur s'est produite";
         <div class="container">
           <?php 
             foreach ($actus as $actu){
-            echo   "<h1>".$actu['titreActu']."</h1>
-              <div id='img__art' style=\"background:url('".$actu['image']."');background-repeat:no-repeat;background-size:cover;background-position:center;\">
+            echo  "<h1>".$actu['titreActu']."</h1>
+                    <div id='img__art' style=\"background:url('".$actu['image']."');background-repeat:no-repeat;background-size:cover;background-position:center;\">
                   <!-- <img src='../image/detail1.png'/> -->
                   <div class='hover'></div>";
 

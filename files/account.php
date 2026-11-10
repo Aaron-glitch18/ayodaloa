@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require_once(__DIR__."/connect.php");
 
@@ -61,7 +61,7 @@ if(isset($_POST['envoyer'])){
         // echo($succes);
 }
 
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -155,16 +155,17 @@ if(isset($_POST['envoyer'])){
                 </div>
                 <p>ou entrez vos identifiant de connexion</p>
                 <div>
-                    <form action="#" method="POST">
+                    <form method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
                         <input type="password" name="password" id="mdp" placeholder="password">
-                        <?php if($err):?>
+                        <!-- <?php if($err):?>
                             <p id="err"><?php echo $err ?></p>
                         <?php endif?>
                         <?php if(($nofound)):?>
                         <p id="err" ><?php echo $nofound ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
-                        <?php endif;?>
-                        <button type="submit" name="envoyer" id="env1" style="margin-top:40px;">se connecter</button>
+                        <?php endif;?> -->
+                        <p id='suc' style="display:none"></p>
+                        <button type="button" name="envoyer" id="env1" style="margin-top:40px;">se connecter</button>
                         <p style="margin-bottom:-25px;margin-top:5px;">je souhaite créer <a href="inscription.php" style="text-decoration:underline;"><em>un compte</em></a></p></p>
                     </form>
 
@@ -188,4 +189,55 @@ if(isset($_POST['envoyer'])){
     </section>
 
 </body>
+<script>
+
+        const inscris=document.getElementById("env1");
+        inscris.addEventListener('click',async()=>{
+            const email=document.getElementById('mail').value;
+            const mdp=document.getElementById('mdp').value;
+            if(!email.trim() || !mdp.trim()){
+
+                const rep= await send_data(email,mdp);
+                const instru=document.getElementById('suc');
+                instru.innerHTML=rep;
+                instru.style.display="block";
+                // console.log("les champs semble vide");
+
+            }else{
+                console.log("champs remplis");
+                // console.log(email,mdp,cmdp);
+                const rep= await send_data(email,mdp);
+                console.log(rep);
+                const instru=document.getElementById('suc');
+                instru.innerHTML=rep;
+                instru.style.display="block";
+                // window.location.href=rep;
+                 
+            }
+            
+        })
+
+        async function send_data(email,mdp) {
+
+        const url="http://127.0.0.1:8000/connect";
+
+        try{
+            const req= await fetch(url,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({email:email,mdp:mdp})
+            });
+            const data=await req.json();
+            return data;
+
+        }catch(error){
+            return"Une erreur est survenu"+error;
+        }
+
+    }
+
+</script>
+
 </html>

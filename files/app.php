@@ -32,7 +32,7 @@ if(isset($_POST['envoyer'])){
             Contient les actualités, les évènements éventuels, se déroulant sur l'étendue du territoire
             elle contient les colonnes suivante: id,date,image,titreActu,descripActu,secteur,localite;
 
-            2.educationdata
+             2.educationdata
             Contient les informations sur les services public, établissements,éducation , sous-traitant,Agriculture se déroulant sur l'étendue du territoire
             elle contient les colonnes suivante: id,date,image,titreActu,titreActu1,descripActu,secteur,localite;
 

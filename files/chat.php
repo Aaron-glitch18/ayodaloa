@@ -109,8 +109,9 @@ session_start();
     <div class="container">
 
         <div id="chatAnswer">
-          <p class="user"><?php echo $_SESSION['conversation'][0]['content']?>
-          <p class="bot"><?php echo $_SESSION['conversation'][1]['content']?>
+          <p class="user"><?php print_r($_SESSION['conversation'][0]['content'])?></p>
+          <p class="bot"><?php print_r($_SESSION['conversation'][1]['content'])?></p>
+
           </div>
         <!--<form action="" method="POST">-->
              <div class="researchAI">
