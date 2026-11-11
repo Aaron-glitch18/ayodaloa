@@ -3,19 +3,22 @@ import mysql.connector
 from pydantic import BaseModel
 from email_validator import validate_email, EmailNotValidError
 from pwdlib import PasswordHash
-from fastapi.responses import RedirectResponse
+# from fastapi.responses import RedirectResponse
+import os
+from groq import Groq
+
 # connection et modèle de donnée api
 
 
 app=FastAPI()
 def connect_sql():
     return mysql.connector.connect(
-    user="u869166798_dev",
-    password="Aquil@s2024",
-    host="srv2122.hstgr.io",
-    database="u869166798_ayotest",
+    user="root",
+    password="",
+    host="localhost",
+    database="ayodaloa_db",
     port=3306
-    )
+)
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -26,7 +29,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+# modèle de donnée
 class Inscris(BaseModel):
     email:str
     mdp:str
@@ -37,7 +40,8 @@ class Conect(BaseModel):
     mdp:str
 
 
-class Item(BaseModel):
+class demande(BaseModel):
+    user_id:int
     saisie:str
 
 # test de mise en hors veille
@@ -48,10 +52,10 @@ class Item(BaseModel):
 #         return {client}
 
 
-def creat_user(user:Inscris):
-    email=user.email
-    mot_de_passe=user.mdp
-    val_mot_de_passe=user.cmdp
+def creat_user(users:Inscris):
+    email=users.email
+    mot_de_passe=users.mdp
+    val_mot_de_passe=users.cmdp
 
     db=None
     cursor=None
@@ -107,14 +111,14 @@ def creat_user(user:Inscris):
 
         
 @app.post('/inscris')
-async def save_user(user:Inscris):
-    output=creat_user(user)
+async def save_user(users:Inscris):
+    output=creat_user(users)
     return output
 
 
-def valid_user(user:Conect):
-    email=user.email
-    mot_de_passe=user.mdp
+def valid_user(users:Conect):
+    email=users.email
+    mot_de_passe=users.mdp
     try:
         emailinfo=validate_email(email,check_deliverability=False)
         mail_val=emailinfo.normalized
@@ -125,33 +129,62 @@ def valid_user(user:Conect):
             cursor=db.cursor()
             cursor.execute(req,(mail_val,))
             reponse=cursor.fetchone()
+            print(reponse)
+            if reponse is None:
+                return "aucun mail correpondant"
             rep={
                 "id":reponse[0],
                 "mail":reponse[1],
                 "password":reponse[2]
             }
-            print(rep)
-            if reponse is None:
-
-                return "aucun mail correpondant"
+            passord_hash=PasswordHash.recommended()
+            val=passord_hash.verify(mot_de_passe,rep['password'])
+            if val is True:
+                    return "mot de passe connect"
             else:
-                passord_hash=PasswordHash.recommended()
-                val=passord_hash.verify(mot_de_passe,rep['password'])
-                if val:
-                    return "http://localhost/AyoDaloa/files/index.php"
-                else:
-                    return f"le mot de passe saisi est incorrect"
-                
+                return f"mot de passe incorrect"
         except mysql.connector.errors as err:
             return str(err)
-
+        
     except EmailNotValidError as e:
         return str(e)
 
 
 @app.post('/connect')
-async def acces(user:Conect):
-    output=valid_user(user)
+async def acces(users:Conect):
+    output=valid_user(users)
     return output
 
+# Analyse de la question utilisateur
+# requete=input("veuillez poser votre question:")
+def analyse_besoin(ask:demande):
+    requete=ask.saisie
+    client = Groq(
+        api_key=os.environ.get("GROQ_API_KEY"),
+    )
+
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role":"assistant",
+                "content":"""aide l'utilisateur à trouver des réponses à ces questions"""
+            },
+            {
+                "role": "user",
+                "content": requete,
+            }
+        ], 
+        model="openai/gpt-oss-120b",
+    )
+    output=chat_completion.choices[0].message.content
+    return output
+# test=analyse_besoin(requete)
+# print(test)
+# création d'un objet pour la gestion des historiques
+# retourner les saisie à l'agents pour construire la mémoire persistante
+# ajout d'un partie répondant avec les donné de la base suivant le contexte
+@app.post('/chat')
+def mind(ask:demande):
+    reponse=analyse_besoin(ask)
+    return reponse
 
