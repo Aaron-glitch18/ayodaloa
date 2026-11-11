@@ -190,14 +190,14 @@ if(isset($_POST['envoyer'])){
 
 </body>
 <script>
-
+        const tentative=0;
         const inscris=document.getElementById("env1");
         inscris.addEventListener('click',async()=>{
+            const instru=document.getElementById('suc');
             const email=document.getElementById('mail').value;
             const mdp=document.getElementById('mdp').value;
             if(!email.trim() || !mdp.trim()){
 
-            const instru=document.getElementById('suc');
                 instru.innerHTML="Veuillez rempir tout les champs";
                 instru.style.display="block";
                 // console.log("les champs semble vide");
@@ -206,17 +206,17 @@ if(isset($_POST['envoyer'])){
                 console.log("champs remplis");
                 // console.log(email,mdp,cmdp);
                 const rep= await send_data(email,mdp);
-                console.log(rep);
+                // console.log(rep);
                 const instru=document.getElementById('suc');
-                // instru.innerHTML=rep;
+                instru.innerHTML=rep;
                 instru.style.display="block";
-                window.location.href=rep;
                  
             }
             
+            
         })
 
-        async function send_data(email,mdp) {
+        async function send_data(email,mdp){
 
         const url="http://127.0.0.1:8000/connect";
 
