@@ -209,7 +209,7 @@ function bulle_discu(){
             const data = await response.json();
             console.log(data);
             let p = document.createElement('p');
-            p.innerHTML=data || "je n'est pas bien compris";
+            p.innerHTML=data['reponse'] || "je n'est pas bien compris";
             p.className='bot';
             chatzone.appendChild(p);
       }catch (error) {
