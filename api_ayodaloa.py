@@ -225,7 +225,6 @@ def analyse_besoin(saisie: str):
 # ajout d'un partie répondant avec les donné de la base suivant le contexte
 @app.post('/chat')
 def mind(ask:demande):
-
     reponse=generer_reponse(ask)
     return reponse
 
@@ -360,4 +359,102 @@ def generer_reponse(ask:demande):
         "reponse": reponse,
         "source": source
     }
+
+####approvisionnement en élément de la page établissement et business
+def etabl(secteur,table):
+    champs={
+        "educationdata":["Public","Education","Agriculture","Gastronomie"]
+        # "business":["local","international","Daloa"]
+        }
+
+    if table not in champs:
+        return f"Nous n'avons aucune donnée"
+
+    if secteur not in champs[table]:
+        return f"Nous n'avons aucune donnée sur ce secteur"
+    
+    sql = f"""
+        SELECT *
+        FROM `{table}`
+        WHERE secteur = %s
+        ORDER BY date DESC
+        LIMIT 20
+    """
+
+    db = None
+    cursor = None
+
+    try:
+        db = connect_sql()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute(sql, (secteur,))
+        donnees = cursor.fetchall()
+
+        return donnees
+
+    except mysql.connector.Error as err:
+        print(err)
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+        if db is not None and db.is_connected():
+            db.close()
+
+
+@app.get('/etab/public')
+def show_etab():
+    donne_actu=etabl("Public","educationdata")
+    return donne_actu
+
+@app.get('/etab/education')
+def show_etab():
+    donne_actu=etabl("Education","educationdata")
+    return donne_actu
+
+@app.get('/etab/agriculture')
+def show_etab():
+    donne_actu=etabl("Agriculture","educationdata")
+    return donne_actu
+
+@app.get('/etab/soustraitant')
+def show_etab():
+    donne_actu=etabl("Sous-Traitant","educationdata")
+    return donne_actu
+
+def actu(localite):
+    Localite=["Daloa","International"]
+    if localite not in Localite:
+        return localite
+
+    sql=f"""
+        SELECT * 
+        FROM `actualitedata` WHERE `localite`= %s
+        ORDER BY date DESC LIMIT 5;
+        """
+    
+    db=None
+    cursor=None
+    
+    try:
+        db=connect_sql()
+        cursor=db.cursor(dictionary=True)
+        cursor.execute(sql,(localite,))
+        rep = cursor.fetchall()
+        return rep
+    except mysql.connector.errors as e:
+        return str(e)
+
+    
+@app.get('/actu/daloa')
+def show_actu():
+    donne_actu=actu("Daloa")
+    return donne_actu
+
+@app.get('/actu/inter')
+def show_actu():
+    donne_actu=actu("International")
+    return donne_actu
 
