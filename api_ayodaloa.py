@@ -13,11 +13,11 @@ from groq import Groq
 app=FastAPI()
 def connect_sql():
     return mysql.connector.connect(
-    user="root",
-    password="",
-    host="localhost",
-    database="ayodaloa_db",
-    port=3306
+        user="u869166798_dev",
+        password="Aquil@s2024",
+        host="srv2122.hstgr.io",
+        database="u869166798_ayotest",
+        port=3306
 )
 
 from fastapi.middleware.cors import CORSMiddleware
