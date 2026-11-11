@@ -109,15 +109,13 @@ session_start();
     <div class="container">
 
         <div id="chatAnswer">
-          <p class="user"><?php print_r($_SESSION['conversation'][0]['content'])?></p>
-          <p class="bot"><?php print_r($_SESSION['conversation'][1]['content'])?></p>
 
           </div>
         <!--<form action="" method="POST">-->
              <div class="researchAI">
                 <textarea name="saisie" id="search" placeholder="Posez vos question et laisser Ayo AI vous répondre..." rows="3" cols="5"></textarea>
                 <div id="btnImg">
-                    <button type='submit' name='envoyer' id="btn"><img src="../image/send1.png"/></button>
+                    <button id="btn" onclick="bulle_discu()"><img src="../image/send1.png"/></button>
                 </div>
               </div>
         <!--</form>-->
@@ -142,79 +140,95 @@ session_start();
 <!--------------------------------------------------------------------------------------------------------------------------------------------->
   </body>
 <script>
-  const chatZone=document.getElementById('chatAnswer');
-  const btn=document.getElementById('btn');
-  btn.addEventListener('click',()=>{
-      
-    let saisie=document.getElementById('search').value;
-    if(saisie.trim()!=""){
-    let p=document.createElement('p');
-    p.innerHTML=saisie;
-    p.className='user';
-    chatZone.appendChild(p);
-    p.style.display='block';
-    // console.log(saisie);
-    const formData = new FormData();
-    formData.append('saisie', saisie);
-    formData.append('envoyer', 'true');
-    fetchData(formData);
-    document.getElementById('search').value="";
-      saisie="";
-    }else{
-      console.log('la zone de saisie est vide');
-    }
-    
-  });
-  //fonctionnalité à revoir(envoyé le texte après avoir toucher entrer)
-  chatZone.addEventListener('keyup',function(event){
-
-    if(event.code === "Enter"){
-      let saisie=document.getElementById('search').value;
-      let p=document.createElement('p');
-      p.innerHTML=saisie;
-      p.className='user';
-      chatZone.appendChild(p);
-      p.style.display='block';
-      // console.log(saisie);
-      const formData = new FormData();
-      formData.append('saisie', saisie);
-      formData.append('envoyer', 'true');
-      fetchData(formData);
-      document.getElementById('search').value="";
-   }
-  })
-
+    const saisi=document.getElementById('search');
+    const send=document.getElementById('btn');
+    // const chat_zone=document.getElementById('')
+    const show_zone=document.getElementById('container');
+    const chatzone=document.getElementById('chatAnswer');
+    // const hidden=document.getElementsByClassName("hidden");
+    saisi.addEventListener('keyup',function(event){
+        if(event.code =="Enter"){
+            bulle_discu();
+        }
+    })
+function bulle_discu(){
+    send.addEventListener('click',()=>{
+        let question=saisi.value;
+        if (question==''){
+            return;
+        }else{
+            question = saisi.value;
+            //show_zone.innerHTML="";
+            // show_zone.textContent = question;
+            let p = document.createElement('p');
+            p.innerHTML=question;
+            p.className='user';
+            chatzone.appendChild(p);
+            callAPI(question);
+            saisi.value="";
+            console.log(question);
+            // return;
+        }
+     })
+    saisi.addEventListener('keyup', function(event) {
+    if (event.code === 'Enter')
+      {
+        let question=saisi.value;
+            if (question==false){
+                return;
+            }else{
+            question = saisi.value;
+            //show_zone.innerHTML="";
+            // show_zone.textContent = question;
+            let p = document.createElement('p');
+            p.innerHTML=question;
+            p.className='user';
+            chatzone.appendChild(p);
+            callAPI(question);
+            saisi.value="";
+            }
+        }
+    });
+}           
 //création des différents fonction
-  async function fetchData(formData) {
+  async function callAPI(question) {
+    const user_id=2;
+    const url="http://127.0.0.1:8000/chat";
     try {
-        const response = await fetch('app.php', {
-            method: 'POST',
-            body: formData,
-            });
-        const data = await response.text();
-        console.log(data);
-        let bot=document.createElement('p');
-        bot.className='bot';
-        bot.textContent=data;
-        chatZone.appendChild(bot);
-        // bot.style.display='block';
+        const response = await fetch(url, {
+            method: "POST",
+            headers:{
+              'Content-type':'application/json'
+            },
+            body: JSON.stringify(
+              {
+                user_id:user_id,
+                saisie:question
+              })
+          });
+            const data = await response.json();
+            console.log(data);
+            let p = document.createElement('p');
+            p.innerHTML=data || "je n'est pas bien compris";
+            p.className='bot';
+            chatzone.appendChild(p);
       }catch (error) {
-        console.error('Error:', error);
+        console.error('Error est survenu:', error);
       }
   }
-  function createBubble(saisie){
-    let p=document.createElement('p');
-    p.innerHTML=saisie;
-    p.className='user';
-    chatZone.appendChild(p);
-    p.style.display='block';
-    // console.log(saisie);
-    const formData = new FormData();
-    formData.append('saisie', saisie);
-    formData.append('envoyer', 'true');
-    fetchData(formData);
-    document.getElementById('search').value="";
-  }
+  // function createBubble(saisie){
+  //   let p=document.createElement('p');
+  //   p.innerHTML=saisie;
+  //   p.className='user';
+  //   chatZone.appendChild(p);
+  //   p.style.display='block';
+  //   // console.log(saisie);
+  //   // const formData = new FormData();
+  //   // formData.append('saisie', saisie);
+  //   // formData.append('envoyer', 'true');
+  //   // fetchData(formData);
+  //   document.getElementById('search').value="";
+  // }
   
 </script>
 

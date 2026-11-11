@@ -77,7 +77,7 @@ if(isset($_POST['envoyer'])){
     color:red;
     position: absolute;
     top:58%;
-    left:15%;
+    left:50%;
     text-align:center;
 }
 @media (max-width:800px){
@@ -147,13 +147,13 @@ if(isset($_POST['envoyer'])){
     <section class="account">
         <!-- <div class="sign"> -->
             <div class="sign__left">
-                <h1>Connecter-vous maintenant</h1>
-                <div class="btns">
+                <h1 style="margin-bottom:60px;">Connecter-vous maintenant</h1>
+                <!-- <div class="btns">
                     <button class="other">A</button>
                     <button class="other">B</button>
                     <button class="other">C</button>
-                </div>
-                <p>ou entrez vos identifiant de connexion</p>
+                </div> -->
+                <!-- <p>ou entrez vos identifiant de connexion</p> -->
                 <div>
                     <form method="POST">
                         <input type="email" name="mail" id="mail" placeholder="johndoe@gmail.com">
@@ -165,6 +165,7 @@ if(isset($_POST['envoyer'])){
                         <p id="err" ><?php echo $nofound ?><a href="inscription.php" style="text-decoration:underline;">un compte</a></p>
                         <?php endif;?> -->
                         <p id='suc' style="display:none"></p>
+                        <p id='er'style="margin:-10px -10px;font-style:italic;">mot de passe oublié</p><!--à travailler-->
                         <button type="button" name="envoyer" id="env1" style="margin-top:40px;">se connecter</button>
                         <p style="margin-bottom:-25px;margin-top:5px;">je souhaite créer <a href="inscription.php" style="text-decoration:underline;"><em>un compte</em></a></p></p>
                     </form>
@@ -229,6 +230,7 @@ if(isset($_POST['envoyer'])){
                 body:JSON.stringify({email:email,mdp:mdp})
             });
             const data=await req.json();
+            console.log(req);
             return data;
 
         }catch(error){
