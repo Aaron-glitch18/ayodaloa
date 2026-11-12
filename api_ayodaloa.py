@@ -30,7 +30,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# modèle de donnée
+###########modèle de donnée
 class Inscris(BaseModel):
     email:str
     mdp:str
@@ -44,6 +44,15 @@ class Conect(BaseModel):
 class demande(BaseModel):
     user_id:int
     saisie:str
+
+class ajout(BaseModel):
+    image: str | None = None       # image optionnelle
+    telephone: int
+    titreActu: str
+    description: str
+    secteur: str
+    addresse: str  
+
 
 # test de mise en hors veille
 
@@ -98,7 +107,6 @@ def creat_user(users:Inscris):
                     # url="http://localhost/AyoDaloa/files/account.php"
                     return "inscription réussis"
             except mysql.connector.Error as err:
-                db.rollback()
                 return {str(err)}
             finally:
                 if cursor is not None:
@@ -481,9 +489,60 @@ def business():
         return str(e)
 
 
-    
-
 @app.get('/business')
 def show_business():
     donne_actu=business()
     return donne_actu
+
+
+def ajout_data(data: ajout):
+    db = None
+    cursor = None
+
+    # sql = """
+    #     INSERT INTO buservicedata
+    #         (`image`, `telephone`, `titreActu`, `descripActu`, `secteur`, `addresse`)
+    #     VALUES (%s, %s, %s, %s, %s, %s)
+    # """
+    sql="SELECT * FROM buservicedata WHERE 1"
+
+    try:
+        db = connect_sql()
+        cursor = db.cursor()
+
+        # cursor.execute(sql, (
+        #     data.image,
+        #     data.telephone,
+        #     data.titreActu,
+        #     data.description,
+        #     data.secteur,
+        #     data.addresse,
+        # ))
+        cursor.execute(sql)
+        row=cursor.fetchall()
+        # db.commit()
+        # new_id = cursor.lastrowid
+        return {"success": True, "message": "Données transmises", "id": row}
+
+    except mysql.connector.Error as err:
+        if db is not None and db.is_connected():
+            db.rollback()
+
+        print("Erreur MySQL :", err)
+
+        return {
+            "success": False,
+            "message": str(err)
+        }
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+        if db is not None and db.is_connected():
+            db.close()
+
+
+@app.post('/ajout')
+async def ajout_service(data:ajout):
+    confirm=ajout_data(data)
+    return confirm
