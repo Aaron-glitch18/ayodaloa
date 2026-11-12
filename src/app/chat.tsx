@@ -113,34 +113,33 @@ const Home = () => {
         }
     };
 
-    async function CallAPI(question: string){
-        const url_post = 'https://october-gumminess-maybe.ngrok-free.dev/webhook/saisie/ask';
-        const url_test='https://october-gumminess-maybe.ngrok-free.dev/webhook-test/saisie/ask';
-        const url='https://october-gumminess-maybe.ngrok-free.dev /webhook-test/6a373278-323d-4b33-b85f-b787dca70a78';
-        // ====================================================
-        const api='http://127.0.0.1:8000/mdp';
-        try {
-            const response = await fetch(api, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // body: JSON.stringify({
-                //     ask: question,
-                //     sessionId: 7633136791
-                body: JSON.stringify({
-                    ask: question,
-                    sessionId: 7633136791
-                })
-            });
+  async function CallAPI(question:string) {
+    const user_id=2;
+    const url="http://127.0.0.1:8000/chat";
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers:{
+              'Content-type':'application/json'
+            },
+            body: JSON.stringify(
+              {
+                user_id:user_id,
+                saisie:question
+              })
+          });
             const data = await response.json();
-            const reponse = data[0]['output'];
-            return reponse || 'Désolé, je n\'ai pas compris votre question, pouvez-vous la reformuler ?';
-        }
-        catch (error){
-            return 'Erreur de communication avec le serveur' + error;
-        }
-    }
+            console.log(data);
+            const reponse=data['reponse'];
+            return reponse
+            // let p = document.createElement('p');
+            // p.innerHTML=data['reponse'] || "je n'est pas bien compris";
+            // p.className='bot';
+            // chatzone.appendChild(p);
+      }catch (error) {
+        console.error('Error est survenu:', error);
+      }
+  }
 //     const [waitValue, setWaitValue] = useState("");
 //     const wait = async () => {
 //     setWaitValue("Recherche profonde...");
@@ -234,9 +233,7 @@ const Home = () => {
                         opacity: pressed ? 0.5 : 1
                     }
                 }} onPress={envoyer}>
-                    {/* <Image source={require('../../assets/images/tabIcons/icon.png')}
-                        style={{ marginRight: 10 }}
-                    /> */}
+
                     <FontAwesomeFreeSolid name="paper-plane" size={20} color={"black"}/>
                 </Pressable> 
             </View>

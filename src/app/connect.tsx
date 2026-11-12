@@ -1,6 +1,76 @@
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useState } from 'react';
+import { Link } from 'expo-router';
+
+
 export default function Home(){
+        const [email,setEmail]=useState('');
+        const[mdp,setMdp]=useState('');
+        const[output,setOutput] = useState('');
+
+
+    async function data_send() {
+        
+          if(!email.trim() || !mdp.trim()){
+
+              setOutput("Veuillez remplir tout les champs");
+            
+                return;
+            }
+                // console.log("champs remplis");
+                // console.log(email,mdp,cmdp);
+            try{
+
+                const rep= await send_data(email,mdp);
+                console.log(rep);
+
+                if(rep?.status === "success"){
+                    setOutput("connexion réussie");
+
+                }else{
+                    setOutput(rep?.message || "Identifiants incorrects")
+                }
+            }catch(error){
+                setOutput("une erreur est survenu"+error)
+                // console.error(error);
+            }
+
+                // return rep;
+
+    }
+    // const output= data_send();
+
+
+    async function send_data(email:string,mdp:string) {
+
+        const url="https://ayodaloa.onrender.com/connect"
+
+        // try{
+            const req= await fetch(url,{
+
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(
+                    {
+                        email:email,
+                        mdp:mdp,
+                    }
+                )
+            });
+
+            if(!req.ok){
+                throw new  Error("une erreur http"+req.status);
+            }
+            const data=await req.json();
+            return data;
+
+        // }
+
+    }
+
     return(
         <KeyboardAvoidingView
         behavior='padding'
@@ -22,6 +92,10 @@ export default function Home(){
                     placeholder='username@gmail.com' 
                     placeholderTextColor={"grey"}
                     style={styles.input}
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType='email-address'
+
                 />
 
                 </View>
@@ -37,16 +111,17 @@ export default function Home(){
                     style={styles.input}
                     accessibilityLabel='Password'
                     maxLength={15}
+                    value={mdp}
+                    onChangeText={setMdp}
+
                 />
+                <Text style={{textAlign:'center'}}>{output}</Text>
 
                 </View>
-                <Pressable style={styles.log}>
+                <Pressable style={styles.log} onPress={data_send}>
                     <Text style={{textAlign:"center",color:"white",fontSize:20}}>Login</Text>
                 </Pressable>
-                 {/* <Text>Informations générales</Text>
-
-
-                <Text>Informations complémentaires</Text> */}
+            <Text >j'ai oublié <Link href={'/connect'} style={{fontStyle:"italic"}}>mon mot de passe</Link></Text>  
             </View>
             
         </KeyboardAvoidingView>

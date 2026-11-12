@@ -2,29 +2,75 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 // import {KeyboardAvoi}
 
 export default function Home(){
     const [email,setEmail]=useState('');
     const[mdp,setMdp]=useState('');
     const[cmdp,setCmdp]=useState('');
+    const[output,setOutput]=useState('');
     
-    // async function name(email,mdp,cmdp:string,) {
 
-    // try{
-
-    // }
+    async function data_send() {
         
-    // }
-    const data_send = async ()=>{
-        if(!email.trim() || !mdp.trim() || !cmdp.trim()){
-            alert("veuillez remplir tout les champs");
-        }else{
-            console.log(email+'\n'+
-                        mdp+'\n'+
-                        cmdp+`\n`
-            )
+        if(!cmdp.trim() || !email.trim() || !mdp.trim()){
+
+                setOutput("Veuillez remplir tout les champs");
+                return
+  
         }
+
+        try{
+
+            const rep= await send_data(email,mdp,cmdp);
+            console.log(rep);
+
+            if(rep?.status == 200){
+                setOutput("connexion réussi")
+            }else{
+                setOutput("Indentifiant incorrect");
+            }
+
+        }catch(error){
+            console.log(error);
+                // console.log("champs remplis");
+                return;
+
+    }
+    }
+    // const output = data_send();
+    // console.log(rep);
+
+    // envoie des donner à l'endpoint de traitement
+    async function send_data(email:string,mdp:string,cmdp:string) {
+
+        const url="https://ayodaloa.onrender.com/inscris"
+
+        try{
+            const req= await fetch(url,{
+
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(
+                    {
+                        email:email,
+                        mdp:mdp,
+                        cmdp:cmdp
+                    }
+                )
+            });
+            const data=await req.json();
+            // console.log(req);
+            return data;
+
+        }catch(error){
+            console.error("Une erreur est survenu"+error);
+
+        }
+
     }
 // const insets = useSafeAreaInsets();
 
@@ -85,15 +131,15 @@ export default function Home(){
                         onChangeText={setCmdp}
                         maxLength={15}
                     />
+                    <Text style={{textAlign:'center'}}>{output}</Text>
+                    
 
                     </View>
                     <Pressable style={styles.log} onPress={data_send}>
                         <Text style={{textAlign:"center",color:"white",fontSize:20}}>Je m'inscris </Text>
                     </Pressable>
-                    {/* <Text>Informations générales</Text>
+                    <Text >je souhaite me connecté à <Link href={'/connect'} style={{fontStyle:"italic"}}>mon compte</Link></Text>
 
-
-                    <Text>Informations complémentaires</Text> */}
             {/* </ScrollView> */}
                 </View>
             
@@ -138,7 +184,7 @@ const styles=StyleSheet.create({
     paddingVertical:14,
     paddingHorizontal:30,
     width:wp(75),
-    marginTop:20,
+    marginTop:10,
   },
 //   textWithDivider: {
 //     color: "white",

@@ -18,8 +18,9 @@ export default function Index() {
         <Text style={{fontSize:30,fontWeight:"bold"}}>Etablissement</Text>
           <View style={{flexDirection:"row" ,gap:10}}>
             <Link href={'/add'} style={styles.fontbtn}><FontAwesomeFreeSolid name="add" size={20} color="white" /></Link>{/* ajout du lien vers la page d'ajout */}
-            <FontAwesomeFreeSolid name="message" size={20} color="white" style={styles.fontbtn} />
-          
+            <Link href={'/chat'} style={styles.fontbtn}>
+              <FontAwesomeFreeSolid name="message" size={20} color="white" />
+            </Link>
           </View>
        
       </View>
