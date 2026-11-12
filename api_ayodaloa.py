@@ -95,8 +95,8 @@ def creat_user(users:Inscris):
                     db.commit()
                     # rep=cursor.fetchall()
                     rep=cursor.lastrowid
-                    url="http://localhost/AyoDaloa/files/account.php"
-                    return url
+                    # url="http://localhost/AyoDaloa/files/account.php"
+                    return "inscription réussis"
             except mysql.connector.Error as err:
                 db.rollback()
                 return {str(err)}
