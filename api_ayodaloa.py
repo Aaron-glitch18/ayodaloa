@@ -14,10 +14,10 @@ import json
 app=FastAPI()
 def connect_sql():
     return mysql.connector.connect(
-        user="u869166798_dev",
-        password="Aquil@s2024",
-        host="srv2122.hstgr.io",
-        database="u869166798_ayotest",
+        user="root",
+        password="",
+        host="127.0.0.1",
+        database="ayodaloa_db",
         port=3306
 )
 
@@ -458,3 +458,32 @@ def show_actu():
     donne_actu=actu("International")
     return donne_actu
 
+
+
+def business():
+    # if localite not in Localite:
+    sql=f"""
+        SELECT * 
+        FROM `buservicedata` WHERE 1
+        ORDER BY date DESC LIMIT 8;
+        """
+    
+    db=None
+    cursor=None
+    
+    try:
+        db=connect_sql()
+        cursor=db.cursor(dictionary=True)
+        cursor.execute(sql)
+        rep = cursor.fetchall()
+        return rep
+    except mysql.connector.errors as e:
+        return str(e)
+
+
+    
+
+@app.get('/business')
+def show_business():
+    donne_actu=business()
+    return donne_actu
