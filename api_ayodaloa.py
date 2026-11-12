@@ -141,7 +141,7 @@ def valid_user(users:Conect):
             passord_hash=PasswordHash.recommended()
             val=passord_hash.verify(mot_de_passe,rep['password'])
             if val is True:
-                    return "mot de passe connect"
+                    return "mot de passe correct"
             else:
                 return f"mot de passe incorrect"
         except mysql.connector.errors as err:
